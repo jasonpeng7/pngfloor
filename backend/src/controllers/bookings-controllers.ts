@@ -1,0 +1,73 @@
+import { createFactory } from "hono/factory";
+import db from "../db/db";
+import { bookings } from "../db/schema/bookings";
+import { ulid } from "ulid";
+import { eq } from "drizzle-orm";
+
+const factory = createFactory();
+
+export const getBookings = factory.createHandlers(async (c) => {
+  console.log("getting all bookings...");
+  const read = await db.select().from(bookings);
+  if (read.length === 0) return c.json({ error: "No bookings found" }, 404);
+  return c.json(read);
+});
+
+export const getBookingById = factory.createHandlers(async (c) => {
+  const bookingID = c.req.param("id");
+  if (!bookingID) return c.json({ error: "Booking ID is required" }, 400);
+  const result = await db
+    .select()
+    .from(bookings)
+    .where(eq(bookings.id, bookingID));
+  if (result.length === 0) return c.json({ error: "Booking not found" }, 404);
+  return c.json(result[0]);
+});
+
+export const createBooking = factory.createHandlers(async (c) => {
+  const new_bookingId = ulid();
+  const body = await c.req.json();
+  try {
+    const [newBooking] = await db
+      .insert(bookings)
+      .values({
+        id: new_bookingId,
+        customer_id: body.customer_id,
+        date: body.booking_date,
+        status: "pending",
+      })
+      .returning();
+    return c.json(newBooking);
+  } catch (error) {
+    console.error("Error creating booking:", error);
+    return c.json({ error: "Failed to create booking" }, 500);
+  }
+});
+
+export const updateBooking = factory.createHandlers(async (c) => {
+  const bookingId = c.req.param("id");
+  if (!bookingId) return c.json({ error: "Booking ID is required" }, 400);
+  const body = await c.req.json();
+  try {
+    const [updatedBooking] = await db
+      .update(bookings)
+      .set({ date: body.booking_date })
+      .where(eq(bookings.id, bookingId))
+      .returning();
+  } catch (error) {
+    console.error("Error updating booking:", error);
+    return c.json({ error: "Failed to update booking" }, 500);
+  }
+});
+
+export const deleteBooking = factory.createHandlers(async (c) => {
+  const bookingId = c.req.param("id");
+  if (!bookingId) return c.json({ error: "Booking ID is required" }, 400);
+  const deletedBooking = await db
+    .delete(bookings)
+    .where(eq(bookings.id, bookingId))
+    .returning();
+  if (deletedBooking.length === 0)
+    return c.json({ error: "Booking not found" }, 404);
+  return c.json(deletedBooking[0]);
+});
