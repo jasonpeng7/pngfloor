@@ -15,3 +15,5 @@ bookingsRouter.get("/:id", ...getBookingById);
 bookingsRouter.post("/", ...createBooking);
 bookingsRouter.put("/:id", ...updateBooking);
 bookingsRouter.delete("/:id", ...deleteBooking);
+
+export default bookingsRouter;
