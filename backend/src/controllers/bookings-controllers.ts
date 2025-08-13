@@ -33,14 +33,21 @@ export const createBooking = factory.createHandlers(async (c) => {
       .values({
         id: new_bookingId,
         customer_id: body.customer_id,
-        date: body.booking_date,
-        status: "pending",
+        date: new Date(body.date),
+        status: body.status || "pending",
       })
       .returning();
+    console.log("Booking created successfully:", newBooking);
     return c.json(newBooking);
   } catch (error) {
     console.error("Error creating booking:", error);
-    return c.json({ error: "Failed to create booking" }, 500);
+    return c.json(
+      {
+        error: "Failed to create booking",
+        details: error instanceof Error ? error.message : "Unknown error",
+      },
+      500
+    );
   }
 });
 
@@ -51,9 +58,11 @@ export const updateBooking = factory.createHandlers(async (c) => {
   try {
     const [updatedBooking] = await db
       .update(bookings)
-      .set({ date: body.booking_date })
+      .set({ date: new Date(body.date) })
       .where(eq(bookings.id, bookingId))
       .returning();
+
+    return c.json(updatedBooking);
   } catch (error) {
     console.error("Error updating booking:", error);
     return c.json({ error: "Failed to update booking" }, 500);
