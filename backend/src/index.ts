@@ -1,5 +1,7 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
+import customersRouter from "./routes/customers";
+import bookingsRouter from "./routes/bookings";
 
 const app = new Hono();
 
@@ -15,6 +17,10 @@ app.use(
 app.get("/", (c) => {
   return c.text("Hello Hono!");
 });
+
+// Mount API routes
+app.route("/api/customers", customersRouter);
+app.route("/api/bookings", bookingsRouter);
 
 export default {
   port: 8080,
