@@ -5,7 +5,6 @@ import { sessions } from "../db/schema/admin";
 import { customers } from "../db/schema/customers";
 import { admin } from "../db/schema/admin";
 import { eq } from "drizzle-orm";
-import { appEnv } from "../types/env";
 
 export const SESSION_COOKIE = "png_session";
 
