@@ -9,6 +9,7 @@ import {
   CustomIcon,
 } from "../components/icons";
 import CallDropdown from "../components/CallDropdown";
+import AnimatedCounter from "../components/AnimatedCounter";
 
 export default function Home() {
   return (
@@ -146,16 +147,16 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Hardwood Installation */}
+            {/* Flooring Installation */}
             <div className="text-center group">
               <div className="bg-gray-100 rounded-xl p-6 mb-4 group-hover:bg-blue-50 transition-colors">
                 <HardwoodIcon className="w-12 h-12 text-blue-600 mx-auto mb-4" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 inter-tight-semibold mb-2">
-                Hardwood Installation
+                Luxury Vinyl Installation
               </h3>
               <p className="text-gray-600 inter-tight-regular">
-                Premium hardwood floors installed with precision and care.
+                Premium vinyl floors installed with precision and care.
               </p>
             </div>
 
@@ -201,8 +202,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Animated Counter Section */}
+      <AnimatedCounter endValue={862} />
+
       {/* Local Service Areas Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-b from-[#222222] to-[#222222] relative overflow-hidden">
         {/* Background decorative elements */}
         <div className="absolute top-10 left-10 w-32 h-32 bg-blue-200 rounded-full opacity-20 blur-xl"></div>
         <div className="absolute bottom-20 right-20 w-24 h-24 bg-gray-300 rounded-full opacity-30 blur-lg"></div>
@@ -210,10 +214,10 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 inter-tight-bold mb-4">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white inter-tight-medium mb-4">
               Serving OC/LAC & San Gabriel Valley Areas
             </h2>
-            <p className="text-xl text-gray-600 inter-tight-medium max-w-3xl mx-auto">
+            <p className="text-xl text-white inter-tight-light max-w-3xl mx-auto">
               Our family-owned flooring company proudly serves the following
               cities and surrounding areas with professional flooring
               installation services.
@@ -222,11 +226,11 @@ export default function Home() {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start max-w-[500px] lg:max-w-none mx-auto lg:mx-0">
             {/* Orange County - First on mobile, small accent card on desktop */}
-            <div className="order-1 lg:order-3 lg:col-span-3 lg:col-start-11 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg p-5 shadow-lg transform lg:-rotate-2 hover:rotate-0 transition-transform duration-300">
-              <h3 className="text-lg font-bold text-white inter-tight-bold mb-3">
+            <div className="order-1 lg:order-3 lg:col-span-3 lg:col-start-11 bg-black rounded-lg p-5 shadow-lg transform lg:-rotate-2 hover:rotate-0 transition-transform duration-300">
+              <h3 className="text-lg font-bold text-white inter-tight-medium mb-3">
                 Orange County
               </h3>
-              <ul className="space-y-2 text-blue-100 inter-tight-medium text-sm">
+              <ul className="space-y-2 text-white inter-tight-light text-sm">
                 <li className="flex items-center">
                   <span className="w-1 h-1 bg-white rounded-full mr-2"></span>
                   Anaheim
@@ -259,11 +263,11 @@ export default function Home() {
             </div>
 
             {/* San Gabriel Valley - Second on mobile, medium card on desktop */}
-            <div className="order-2 lg:order-2 lg:col-span-4 lg:col-start-7 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 shadow-xl transform lg:rotate-1 hover:rotate-0 transition-transform duration-300">
-              <h3 className="text-xl font-bold text-white inter-tight-bold mb-4">
+            <div className="order-2 lg:order-2 lg:col-span-4 lg:col-start-7 bg-black rounded-xl p-6 shadow-xl transform lg:rotate-1 hover:rotate-0 transition-transform duration-300">
+              <h3 className="text-xl font-bold text-white inter-tight-medium mb-4">
                 San Gabriel Valley
               </h3>
-              <ul className="space-y-2 text-gray-300 inter-tight-medium">
+              <ul className="space-y-2 text-gray-300 inter-tight-light">
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
                   Alhambra
@@ -301,10 +305,10 @@ export default function Home() {
 
             {/* Why Choose Us - Last on mobile, large prominent card on desktop */}
             <div className="order-3 lg:order-1 lg:col-span-5 lg:col-start-1 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-8 shadow-2xl transform lg:-rotate-1 hover:rotate-0 transition-transform duration-300">
-              <h3 className="text-2xl font-bold text-white inter-tight-bold mb-6">
+              <h3 className="text-2xl font-bold text-white inter-tight-medium mb-6">
                 Why Choose Us?
               </h3>
-              <ul className="space-y-3 text-green-100 inter-tight-medium">
+              <ul className="space-y-3 text-green-100 inter-tight-light">
                 <li className="flex items-start">
                   <span className="w-2 h-2 bg-white rounded-full mr-3 mt-2 flex-shrink-0"></span>
                   <span>15+ years of professional experience</span>
