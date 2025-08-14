@@ -10,6 +10,13 @@ export const zEnv = z.object({
     .enum(["false", "require", "allow", "prefer", "verify-full"])
     .default("false"),
   ENVIRONMENT: z.enum(["LOCAL", "STAGE", "PROD"]).default("LOCAL"),
+
+  // OAuth
+  GOOGLE_CLIENT_ID: z.string().nonempty(),
+  GOOGLE_CLIENT_SECRET: z.string().nonempty(),
+  GOOGLE_REDIRECT_URI: z.string().url(),
+  FRONTEND_URL: z.string().url(),
+  ADMIN_EMAIL: z.string().email(),
 });
 
 export const appEnv = zEnv.parse(Bun.env);
