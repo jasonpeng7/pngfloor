@@ -3,7 +3,6 @@ import Image from "next/image";
 import {
   StarIcon,
   ClockIcon,
-  PhoneIcon,
   HardwoodIcon,
   VinylIcon,
   RefinishIcon,
