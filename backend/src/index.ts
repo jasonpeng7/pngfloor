@@ -14,12 +14,11 @@ app.use(
   })
 );
 
-// Root route
 app.get("/", (c) => {
   return c.text("Hello Hono!");
 });
 
-// Mount API routes
+// api routes
 app.route("/api/customers", customersRouter);
 app.route("/api/bookings", bookingsRouter);
 app.route("/api/auth", authRoutes);
