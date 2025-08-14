@@ -37,7 +37,7 @@ export default function SignOutButton({
     <button
       onClick={handleSignOut}
       disabled={isLoading}
-      className={`inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors ${className}`}
+      className={`inline-flex inter-tight-regular items-center px-4 py-2 text-sm font-medium text-red-600 hover:text-red-700 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-colors ${className}`}
     >
       {isLoading ? (
         <div className="flex items-center">
