@@ -8,7 +8,7 @@ import SignOutButton from "./SignOutButton";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
