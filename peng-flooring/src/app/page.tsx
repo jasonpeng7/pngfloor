@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   StarIcon,
-  CheckIcon,
   ClockIcon,
   PhoneIcon,
   HardwoodIcon,
@@ -14,17 +13,17 @@ import CallDropdown from "../components/CallDropdown";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="max-w-[2000px] min-h-screen">
       {/* hero section */}
-      <section className="relative bg-gradient-to-br from-gray-50 to-gray-100 py-20 lg:py-32 ">
+      <section className="relative bg-gradient-to-br from-gray-50 to-gray-100 py-5 lg:py-32 ">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-          <div className="grid lg:grid-cols-2 gap-12 items-center justify-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-center justify-center ">
             {/* Image - Mobile First */}
             <div className="relative order-1 lg:order-2">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src="/wood-flooring.png"
-                  alt="Beautiful hardwood flooring installation"
+                  alt="Professional hardwood flooring installation in Orange County and LA County by Peng Flooring"
                   width={2000}
                   height={2000}
                   className="w-full h-[400px]"
@@ -38,7 +37,7 @@ export default function Home() {
                 <div className="flex items-center space-x-3 mb-2">
                   <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
                     <span className="text-blue-600 font-bold inter-tight-bold">
-                      S
+                      D
                     </span>
                   </div>
                   <div>
@@ -57,8 +56,10 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="text-sm text-gray-600 inter-tight-regular">
-                  &ldquo;Amazing work! They transformed our old floors into
-                  something beautiful. Professional and honest pricing.&rdquo;
+                  &ldquo;Best work in the 626 area! He transformed our old
+                  floors into a very modern and sleek finish that completely
+                  elevated our home. Professional, timely, and honest
+                  pricing.&rdquo;
                 </p>
               </div>
             </div>
@@ -71,8 +72,9 @@ export default function Home() {
                   <span className="text-blue-600"> For Free</span>
                 </h1>
                 <p className="text-xl lg:text-2xl text-gray-600 inter-tight-medium">
-                  Family-owned business serving the OC/LA Country Area since
-                  2009. Quality flooring with honest estimates.
+                  Family-owned flooring company serving Orange County and LA
+                  County since 2009. Quality flooring installation, refinishing,
+                  and flooring services with honest estimates.
                 </p>
               </div>
 
@@ -117,12 +119,12 @@ export default function Home() {
               </div>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start">
                 <Link
                   href="/bookings"
                   className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-lg inter-tight-semibold transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                 >
-                  Schedule Your Free Consultation
+                  Schedule Your Free Estimate
                 </Link>
                 <CallDropdown />
               </div>
@@ -199,6 +201,143 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Local Service Areas Section */}
+      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute top-10 left-10 w-32 h-32 bg-blue-200 rounded-full opacity-20 blur-xl"></div>
+        <div className="absolute bottom-20 right-20 w-24 h-24 bg-gray-300 rounded-full opacity-30 blur-lg"></div>
+        <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-blue-100 rounded-full opacity-40 blur-md"></div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 inter-tight-bold mb-4">
+              Serving OC/LAC & San Gabriel Valley Areas
+            </h2>
+            <p className="text-xl text-gray-600 inter-tight-medium max-w-3xl mx-auto">
+              Our family-owned flooring company proudly serves the following
+              cities and surrounding areas with professional flooring
+              installation services.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start max-w-[500px] lg:max-w-none mx-auto lg:mx-0">
+            {/* Orange County - First on mobile, small accent card on desktop */}
+            <div className="order-1 lg:order-3 lg:col-span-3 lg:col-start-11 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg p-5 shadow-lg transform lg:-rotate-2 hover:rotate-0 transition-transform duration-300">
+              <h3 className="text-lg font-bold text-white inter-tight-bold mb-3">
+                Orange County
+              </h3>
+              <ul className="space-y-2 text-blue-100 inter-tight-medium text-sm">
+                <li className="flex items-center">
+                  <span className="w-1 h-1 bg-white rounded-full mr-2"></span>
+                  Anaheim
+                </li>
+                <li className="flex items-center">
+                  <span className="w-1 h-1 bg-white rounded-full mr-2"></span>
+                  Fullerton
+                </li>
+                <li className="flex items-center">
+                  <span className="w-1 h-1 bg-white rounded-full mr-2"></span>
+                  Costa Mesa
+                </li>
+                <li className="flex items-center">
+                  <span className="w-1 h-1 bg-white rounded-full mr-2"></span>
+                  Huntington Beach
+                </li>
+                <li className="flex items-center">
+                  <span className="w-1 h-1 bg-white rounded-full mr-2"></span>
+                  Irvine
+                </li>
+                <li className="flex items-center">
+                  <span className="w-1 h-1 bg-white rounded-full mr-2"></span>
+                  Newport Beach
+                </li>
+                <li className="flex items-center text-yellow-200 font-semibold">
+                  <span className="w-1 h-1 bg-yellow-200 rounded-full mr-2"></span>
+                  And many more!
+                </li>
+              </ul>
+            </div>
+
+            {/* San Gabriel Valley - Second on mobile, medium card on desktop */}
+            <div className="order-2 lg:order-2 lg:col-span-4 lg:col-start-7 bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 shadow-xl transform lg:rotate-1 hover:rotate-0 transition-transform duration-300">
+              <h3 className="text-xl font-bold text-white inter-tight-bold mb-4">
+                San Gabriel Valley
+              </h3>
+              <ul className="space-y-2 text-gray-300 inter-tight-medium">
+                <li className="flex items-center">
+                  <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
+                  Alhambra
+                </li>
+                <li className="flex items-center">
+                  <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
+                  Arcadia
+                </li>
+                <li className="flex items-center">
+                  <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
+                  El Monte
+                </li>
+                <li className="flex items-center">
+                  <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
+                  Chino/Chino Hills
+                </li>
+                <li className="flex items-center">
+                  <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
+                  Monterey Park
+                </li>
+                <li className="flex items-center">
+                  <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
+                  Diamond Bar
+                </li>
+                <li className="flex items-center">
+                  <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
+                  Walnut!
+                </li>
+                <li className="flex items-center text-yellow-300 font-semibold">
+                  <span className="w-1.5 h-1.5 bg-yellow-300 rounded-full mr-2"></span>
+                  And many more!
+                </li>
+              </ul>
+            </div>
+
+            {/* Why Choose Us - Last on mobile, large prominent card on desktop */}
+            <div className="order-3 lg:order-1 lg:col-span-5 lg:col-start-1 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-8 shadow-2xl transform lg:-rotate-1 hover:rotate-0 transition-transform duration-300">
+              <h3 className="text-2xl font-bold text-white inter-tight-bold mb-6">
+                Why Choose Us?
+              </h3>
+              <ul className="space-y-3 text-green-100 inter-tight-medium">
+                <li className="flex items-start">
+                  <span className="w-2 h-2 bg-white rounded-full mr-3 mt-2 flex-shrink-0"></span>
+                  <span>15+ years of professional experience</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="w-2 h-2 bg-white rounded-full mr-3 mt-2 flex-shrink-0"></span>
+                  <span>Only premium materials used in all projects</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="w-2 h-2 bg-white rounded-full mr-3 mt-2 flex-shrink-0"></span>
+                  <span>All work is done efficiently, clean, and on time</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="w-2 h-2 bg-white rounded-full mr-3 mt-2 flex-shrink-0"></span>
+                  <span>Free estimates with honest, transparent pricing</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="w-2 h-2 bg-white rounded-full mr-3 mt-2 flex-shrink-0"></span>
+                  <span>Quality workmanship guaranteed on every job</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="w-2 h-2 bg-white rounded-full mr-3 mt-2 flex-shrink-0"></span>
+                  <span>Family-owned business you can trust</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* steps section */}
+      <section className="py-20 bg-white"></section>
 
       {/* CTA Section */}
       <section className="py-20 bg-blue-600">
