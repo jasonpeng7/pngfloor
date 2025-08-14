@@ -247,7 +247,7 @@ googleAuthRoutes.get("/callback", async (c) => {
   // Redirect based on user role
   const redirectUrl = isAdmin
     ? appEnv.FRONTEND_URL + "/admin"
-    : appEnv.FRONTEND_URL + "/dashboard";
+    : appEnv.FRONTEND_URL + "/bookings";
 
   return c.redirect(redirectUrl);
 });
@@ -263,6 +263,76 @@ googleAuthRoutes.onError((err, c) => {
 
 const authRoutes = new Hono();
 authRoutes.route("/google", googleAuthRoutes);
+
+// Get current user info
+authRoutes.get("/me", async (c) => {
+  const sessionId = getCookie(c, SESSION_COOKIE);
+
+  if (!sessionId) {
+    return c.json({ error: "Not authenticated" }, 401);
+  }
+
+  try {
+    // Find the session
+    const session = await db
+      .select()
+      .from(sessions)
+      .where(eq(sessions.session_id, sessionId));
+
+    if (session.length === 0) {
+      return c.json({ error: "Invalid session" }, 401);
+    }
+
+    const currentSession = session[0];
+
+    // Check if session is expired
+    if (new Date() > currentSession.expires_at) {
+      // Delete expired session
+      await db.delete(sessions).where(eq(sessions.session_id, sessionId));
+      return c.json({ error: "Session expired" }, 401);
+    }
+
+    // Get user info based on user type
+    if (currentSession.user_type === "admin") {
+      const adminUser = await db
+        .select()
+        .from(admin)
+        .where(eq(admin.id, currentSession.user_id));
+
+      if (adminUser.length === 0) {
+        return c.json({ error: "User not found" }, 404);
+      }
+
+      return c.json({
+        id: adminUser[0].id,
+        email: adminUser[0].email,
+        name: adminUser[0].name,
+        picture: adminUser[0].profile_picture_url,
+        type: "admin",
+      });
+    } else {
+      const customerUser = await db
+        .select()
+        .from(customers)
+        .where(eq(customers.id, currentSession.user_id));
+
+      if (customerUser.length === 0) {
+        return c.json({ error: "User not found" }, 404);
+      }
+
+      return c.json({
+        id: customerUser[0].id,
+        email: customerUser[0].email,
+        name: customerUser[0].name,
+        phone: customerUser[0].phone,
+        type: "customer",
+      });
+    }
+  } catch (error) {
+    console.error("Error getting user info:", error);
+    return c.json({ error: "Internal server error" }, 500);
+  }
+});
 
 authRoutes.delete("/logout", async (c) => {
   const sessionId = getCookie(c, SESSION_COOKIE);
