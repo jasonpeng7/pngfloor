@@ -1,70 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import Link from "next/link";
 import { CheckIcon, ClockIcon, StarIcon } from "../../components/icons";
 import GoogleSignIn from "../../components/GoogleSignIn";
+import BookingForm from "../../components/BookingForm";
 import { useAuth } from "../../contexts/AuthContext";
 
 export default function BookingsPage() {
   const { isAuthenticated, user, checkAuth, isLoading } = useAuth();
-  const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState<{
-    type: "success" | "error";
-    text: string;
-  } | null>(null);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitMessage(null);
-
-    const formData = new FormData(e.currentTarget);
-    const bookingData = {
-      customer_id: user?.id,
-      date: new Date().toISOString(),
-      email: formData.get("email") as string,
-      address: formData.get("address") as string,
-      phone_number: formData.get("phone") as string,
-      status: "pending",
-    };
-
-    try {
-      const response = await fetch("http://localhost:8080/api/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(bookingData),
-      });
-
-      if (response.ok) {
-        setSubmitMessage({
-          type: "success",
-          text: "Your estimate request has been submitted successfully! We'll contact you within 24 hours.",
-        });
-        e.currentTarget.reset();
-      } else {
-        const errorData = await response.json();
-        setSubmitMessage({
-          type: "error",
-          text:
-            errorData.error ||
-            "Failed to submit estimate request. Please try again.",
-        });
-      }
-    } catch (error) {
-      setSubmitMessage({
-        type: "error",
-        text: "Network error. Please check your connection and try again.",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   useEffect(() => {
     // Check if we're returning from OAuth
@@ -149,8 +93,20 @@ export default function BookingsPage() {
 
                 <div className="text-center">
                   <p className="text-sm text-gray-500 inter-tight-regular">
-                    By signing in, you agree to our terms of service and privacy
-                    policy
+                    By signing in, you agree to our{" "}
+                    <Link
+                      href="/terms"
+                      className="text-blue-600 hover:text-blue-800 underline"
+                    >
+                      terms of service
+                    </Link>{" "}
+                    and{" "}
+                    <Link
+                      href="/privacy"
+                      className="text-blue-600 hover:text-blue-800 underline"
+                    >
+                      privacy policy
+                    </Link>
                   </p>
                 </div>
               </div>
@@ -260,7 +216,7 @@ export default function BookingsPage() {
             Get Your Free Flooring Estimate
           </h1>
           <p className="text-xl text-blue-100 mb-8 inter-tight-medium">
-            Welcome back, {user?.name}! Ready to schedule your free flooring
+            Welcome back, {user?.name}! Let&apos; schedule your free flooring
             estimate.
           </p>
 
@@ -302,11 +258,11 @@ export default function BookingsPage() {
           {/* Service Areas - 3 colored blocks in a row, responsive */}
           <div className="flex flex-col justify-center items-center gap-x-[10px] md:flex-row md:justify-between md:gap-8 mb-8 md:mb-12">
             {/* Orange County Block */}
-            <div className="bg-[#03356c] p-6 mb-6 md:mb-0 w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[200px] md:h-[280px] lg:w-[300px] lg:h-[300px] md:aspect-auto lg:aspect-square">
-              <h3 className="text-lg md:text-base lg:text-xl font-bold text-white mb-4 inter-tight-bold">
+            <div className=" bg-[#03356c] p-6 mb-6 md:mb-0 w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[200px] md:h-[280px] lg:w-[300px] lg:h-[300px] md:aspect-auto lg:aspect-square">
+              <h3 className="text-center text-xl md:text-base lg:text-xl font-bold text-white mb-4 inter-tight-bold">
                 Orange County
               </h3>
-              <ul className="space-y-1 md:space-y-0.5 lg:space-y-2 text-blue-100 inter-tight-regular text-sm md:text-xs lg:text-sm">
+              <ul className="space-y-1 md:space-y-0.5 lg:space-y-2 text-white inter-tight-regular text-lg md:text-xs lg:text-sm">
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
                   Anaheim
@@ -336,10 +292,10 @@ export default function BookingsPage() {
 
             {/* San Gabriel Valley Block */}
             <div className="bg-[#d15911] p-6 mb-6 md:mb-0 w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[200px] md:h-[280px] lg:w-[300px] lg:h-[300px] md:aspect-auto lg:aspect-square">
-              <h3 className="text-lg md:text-base lg:text-xl font-bold text-white mb-4 inter-tight-bold">
+              <h3 className="text-center text-xl md:text-base lg:text-xl font-bold text-white mb-4 inter-tight-bold">
                 San Gabriel Valley
               </h3>
-              <ul className="space-y-1 md:space-y-0.5 lg:space-y-2 text-white inter-tight-regular text-sm md:text-xs lg:text-sm">
+              <ul className="space-y-1 md:space-y-0.5 lg:space-y-2 text-white inter-tight-regular text-lg md:text-xs lg:text-sm">
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
                   Alhambra
@@ -373,10 +329,10 @@ export default function BookingsPage() {
 
             {/* LA County Block */}
             <div className="bg-[#dbdbdb] p-6 mb-6 md:mb-0 w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[200px] md:h-[280px] lg:w-[300px] lg:h-[300px] md:aspect-auto lg:aspect-square">
-              <h3 className="text-lg md:text-base lg:text-xl font-bold text-white mb-4 inter-tight-bold">
+              <h3 className="text-center text-xl md:text-base lg:text-xl font-bold text-white mb-4 inter-tight-bold">
                 LA County
               </h3>
-              <ul className="space-y-1 md:space-y-0.5 lg:space-y-2 text-white inter-tight-regular text-sm md:text-xs lg:text-sm">
+              <ul className="space-y-1 md:space-y-0.5 lg:space-y-2 text-white inter-tight-regular text-lg md:text-xs lg:text-sm">
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
                   Los Angeles
@@ -406,16 +362,16 @@ export default function BookingsPage() {
           </div>
 
           {/* Our Services Block with invisible offset */}
-          <div className="flex flex-col md:flex-row">
+          <div className="flex flex-col md:flex-row items-center justify-center">
             {/* Invisible section on left - only visible on medium screens and up */}
             <div className="hidden md:block md:w-1/4"></div>
 
             {/* Our Services Block */}
-            <div className="bg-[#ffeeea] p-8 w-full md:w-3/4 h-[300px] md:h-[250px]">
-              <h3 className="text-2xl font-bold text-black mb-6 inter-tight-bold">
-                Our Services
+            <div className="bg-[#ffeeea] p-8 w-[300px] sm:w-[350px] md:w-3/4 h-[400px] md:h-[250px]">
+              <h3 className="text-center text-2xl font-bold text-black mb-6 inter-tight-bold">
+                Top Services We Offer
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-black inter-tight-medium">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-black inter-tight-light">
                 <div className="flex items-center">
                   <span className="w-2 h-2 bg-black rounded-full mr-3 flex-shrink-0"></span>
                   Luxury vinyl flooring installation
@@ -434,7 +390,7 @@ export default function BookingsPage() {
                 </div>
                 <div className="flex items-center">
                   <span className="w-2 h-2 bg-black rounded-full mr-3 flex-shrink-0"></span>
-                  Flooring repairs & maintenance
+                  ...And many more!
                 </div>
               </div>
             </div>
@@ -443,230 +399,7 @@ export default function BookingsPage() {
       </section>
 
       {/* Booking Form Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-lg shadow-xl p-8">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4 inter-tight-bold">
-                Schedule Your Free Estimate
-              </h2>
-              <p className="text-lg text-gray-600 inter-tight-medium">
-                Welcome {user?.name}! Fill out the form below and we&apos;ll
-                contact you within 24 hours to schedule your free flooring
-                estimate.
-              </p>
-            </div>
-
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label
-                    htmlFor="firstName"
-                    className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
-                  >
-                    First Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    required
-                    defaultValue={user?.name?.split(" ")[0] || ""}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Your first name"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="lastName"
-                    className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
-                  >
-                    Last Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    required
-                    defaultValue={
-                      user?.name?.split(" ").slice(1).join(" ") || ""
-                    }
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Your last name"
-                  />
-                </div>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
-                  >
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    defaultValue={user?.email || ""}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50"
-                    placeholder="your.email@example.com"
-                    readOnly
-                  />
-                  <p className="text-xs text-gray-500 mt-1 inter-tight-regular">
-                    Email from your Google account
-                  </p>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="phone"
-                    className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
-                  >
-                    Phone Number *
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    required
-                    defaultValue={user?.phone || ""}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="(555) 123-4567"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="address"
-                  className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
-                >
-                  Property Address *
-                </label>
-                <input
-                  type="text"
-                  id="address"
-                  name="address"
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="123 Main St, Anaheim, CA 92801"
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="service"
-                  className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
-                >
-                  Service Needed *
-                </label>
-                <select
-                  id="service"
-                  name="service"
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="">Select a service</option>
-                  <option value="hardwood-installation">
-                    Hardwood Floor Installation
-                  </option>
-                  <option value="hardwood-refinishing">
-                    Hardwood Floor Refinishing
-                  </option>
-                  <option value="vinyl-laminate">
-                    Vinyl & Laminate Flooring
-                  </option>
-                  <option value="custom-flooring">
-                    Custom Flooring Solutions
-                  </option>
-                  <option value="flooring-repairs">
-                    Flooring Repairs & Maintenance
-                  </option>
-                  <option value="consultation">General Consultation</option>
-                </select>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
-                >
-                  Project Details
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={4}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Tell us about your project, room sizes, timeline, or any specific requirements..."
-                ></textarea>
-              </div>
-
-              <div className="flex items-start space-x-3">
-                <input
-                  type="checkbox"
-                  id="agreement"
-                  name="agreement"
-                  required
-                  className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                />
-                <label
-                  htmlFor="agreement"
-                  className="text-sm text-gray-600 inter-tight-regular"
-                >
-                  I agree to receive communications from Peng Flooring regarding
-                  my free estimate request. I understand this is a family-owned
-                  flooring company serving Orange County and LA County.
-                </label>
-              </div>
-
-              {submitMessage && (
-                <div
-                  className={`p-4 rounded-lg ${
-                    submitMessage.type === "success"
-                      ? "bg-green-100 text-green-800 border border-green-200"
-                      : "bg-red-100 text-red-800 border border-red-200"
-                  }`}
-                >
-                  {submitMessage.text}
-                </div>
-              )}
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? (
-                  <div className="flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                    Submitting...
-                  </div>
-                ) : (
-                  "Request Free Estimate"
-                )}
-              </button>
-            </form>
-
-            <div className="mt-8 text-center">
-              <p className="text-sm text-gray-600 inter-tight-regular">
-                Or call us directly:{" "}
-                <span className="font-semibold text-blue-600 inter-tight-semibold">
-                  (555) 123-4567
-                </span>
-              </p>
-              <p className="text-sm text-gray-500 mt-2 inter-tight-regular">
-                We&apos;ll respond within 24 hours to schedule your free
-                flooring estimate
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <BookingForm />
 
       {/* Why Choose Us Section */}
       <section className="py-16 bg-white">
