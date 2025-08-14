@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import GoogleSignIn from "../../components/GoogleSignIn";
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -33,7 +34,7 @@ export default function LoginPage() {
   }, [isAuthenticated, router]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="inter-tight-regular min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -49,8 +50,20 @@ export default function LoginPage() {
 
           <div className="text-center">
             <p className="text-xs text-gray-500">
-              By signing in, you agree to our terms of service and privacy
-              policy
+              By signing in, you agree to our{" "}
+              <Link
+                href="/terms"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                terms of service
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/privacy"
+                className="text-blue-600 hover:text-blue-800 underline"
+              >
+                privacy policy
+              </Link>
             </p>
           </div>
         </div>
