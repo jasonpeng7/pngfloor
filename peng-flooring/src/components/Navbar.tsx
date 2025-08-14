@@ -3,12 +3,20 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useAuth } from "../contexts/AuthContext";
+import SignOutButton from "./SignOutButton";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useAuth();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    setIsMenuOpen(false);
   };
 
   return (
@@ -29,23 +37,48 @@ export default function Navbar() {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
               <Link
+                href="/about"
+                className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium inter-tight-regular transition-colors"
+              >
+                About
+              </Link>
+              <Link
                 href="/"
-                className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium inter-tight-medium transition-colors"
+                className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium inter-tight-regular transition-colors"
               >
                 Home
               </Link>
               <Link
                 href="/bookings"
-                className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium inter-tight-medium transition-colors"
+                className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium inter-tight-regular transition-colors"
               >
                 Free Estimate
               </Link>
-              <Link
-                href="/login"
-                className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium inter-tight-medium transition-colors"
-              >
-                Sign In
-              </Link>
+              {isAuthenticated ? (
+                <div className="flex items-center space-x-4">
+                  <span className="text-gray-700 text-sm">
+                    Welcome, {user?.name}
+                  </span>
+                  <Link
+                    href="/dashboard"
+                    className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium inter-tight-regular transition-colors"
+                  >
+                    Dashboard
+                  </Link>
+                  <SignOutButton className="text-sm px-3 py-2">
+                    Sign Out
+                  </SignOutButton>
+                </div>
+              ) : (
+                <div className="flex items-center space-x-2">
+                  <Link
+                    href="/login"
+                    className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium inter-tight-regular transition-colors"
+                  >
+                    Sign In
+                  </Link>{" "}
+                </div>
+              )}
             </div>
           </div>
 
@@ -111,13 +144,34 @@ export default function Navbar() {
           >
             Book Service
           </Link>
-          <Link
-            href="/login"
-            className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium inter-tight-medium transition-colors"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Sign In
-          </Link>
+          {isAuthenticated ? (
+            <>
+              <div className="px-3 py-2 text-sm text-gray-500 border-b border-gray-200">
+                Welcome, {user?.name}
+              </div>
+              <Link
+                href="/dashboard"
+                className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium inter-tight-medium transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Dashboard
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="text-gray-700 hover:text-gray-900 block w-full text-left px-3 py-2 rounded-md text-base font-medium inter-tight-medium transition-colors"
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <Link
+              href="/login"
+              className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium inter-tight-medium transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Sign In
+            </Link>
+          )}
         </div>
       </div>
     </nav>

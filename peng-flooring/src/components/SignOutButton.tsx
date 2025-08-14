@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../contexts/AuthContext";
 
 interface SignOutButtonProps {
   className?: string;
@@ -14,24 +15,19 @@ export default function SignOutButton({
 }: SignOutButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { logout } = useAuth();
 
   const handleSignOut = async () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/logout", {
-        method: "DELETE",
-        credentials: "include", // Include cookies
-      });
-
-      if (response.ok) {
-        // Redirect to home page after successful logout
-        router.push("/");
-      } else {
-        console.error("Logout failed");
-      }
+      console.log("🚪 SignOutButton: Starting logout...");
+      await logout();
+      console.log("✅ SignOutButton: Logout completed");
+      // Redirect to home page after successful logout
+      router.push("/");
     } catch (error) {
-      console.error("Logout error:", error);
+      console.error("❌ SignOutButton: Logout error:", error);
     } finally {
       setIsLoading(false);
     }
