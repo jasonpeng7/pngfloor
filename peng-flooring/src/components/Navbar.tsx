@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,10 +16,11 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo/Brand */}
-          <div className="flex-shrink-0">
-            <Link href="/" className="flex items-center">
-              <span className="text-2xl font-bold text-gray-900 inter-tight-bold">
-                Peng Flooring
+          <div className="flex flex-shrink-0 flex-row items-end gap-x-[3px]">
+            <Image src="/penglogo.svg" alt="logo" width={45} height={45} />
+            <Link href="/" className="flex items-end">
+              <span className="text-2xl font-bold text-gray-900 inter-tight-regular">
+                flooring
               </span>
             </Link>
           </div>
@@ -36,7 +38,7 @@ export default function Navbar() {
                 href="/bookings"
                 className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium inter-tight-medium transition-colors"
               >
-                Book Service
+                Free Estimate
               </Link>
               <Link
                 href="/login"
