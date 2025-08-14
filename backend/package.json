@@ -1,13 +1,21 @@
 {
   "name": "backend",
   "scripts": {
-    "dev": "bun run --hot src/index.ts"
+    "dev": "bun run --hot src/index.ts",
+    "db:generate": "bun --bun drizzle-kit generate",
+    "db:migrate": "bun --bun drizzle-kit migrate",
+    "db:seed": "bun run src/db/seed.ts"
   },
   "dependencies": {
+    "dayjs": "^1.11.13",
     "dotenv": "^17.2.1",
     "drizzle-orm": "^0.44.4",
-    "hono": "^4.9.0",
-    "pg": "^8.16.3"
+    "hono": "^4.9.1",
+    "nanoid": "^5.1.5",
+    "openid-client": "^6.6.4",
+    "pg": "^8.16.3",
+    "ulid": "^3.0.1",
+    "zod": "^4.0.17"
   },
   "devDependencies": {
     "@types/bun": "latest",
