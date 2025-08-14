@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import SignOutButton from "../../components/SignOutButton";
-import Link from "next/link";
 
 interface Booking {
   id: string;
