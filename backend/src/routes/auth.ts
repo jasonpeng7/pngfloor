@@ -1,0 +1,287 @@
+import { appEnv, isLocal } from "../types/env";
+import * as client from "openid-client";
+import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration.js";
+import { Hono } from "hono";
+import { setCookie, getCookie, deleteCookie } from "hono/cookie";
+import { googleOAuthToken, googleIdToken } from "../types/google_auth_types";
+import db from "../db/db";
+import { ulid } from "ulid";
+import { eq } from "drizzle-orm";
+import { nanoid } from "nanoid";
+import { admin, sessions } from "../db/schema/admin";
+import { customers } from "../db/schema/customers";
+
+const STATE_COOKIE = "png_state";
+export const SESSION_COOKIE = "png_session";
+dayjs.extend(duration);
+const SESSION_LENGTH = dayjs.duration({ days: 30 });
+
+export const COOKIE_DOMAIN = !isLocal
+  ? new URL(appEnv.FRONTEND_URL).hostname
+  : undefined;
+
+let googleClient: any;
+
+async function initializeGoogleClient() {
+  if (!googleClient) {
+    googleClient = await client.discovery(
+      new URL("https://accounts.google.com/.well-known/openid-configuration"),
+      appEnv.GOOGLE_CLIENT_ID,
+      appEnv.GOOGLE_CLIENT_SECRET
+    );
+  }
+  return googleClient;
+}
+
+const googleAuthRoutes = new Hono();
+googleAuthRoutes.get("/", async (c) => {
+  const googleClientInstance = await initializeGoogleClient();
+  const state = crypto.getRandomValues(new Uint8Array(32)).join("");
+  setCookie(c, STATE_COOKIE, state, {
+    httpOnly: true,
+    secure: !isLocal,
+    domain: COOKIE_DOMAIN,
+  });
+
+  const redirect = client.buildAuthorizationUrl(googleClientInstance, {
+    redirect_uri: appEnv.GOOGLE_REDIRECT_URI,
+    scope: "openid email profile",
+    state,
+    prompt: "select_account",
+  });
+
+  return c.redirect(redirect.toString());
+});
+
+class GoogleAuthError extends Error {
+  constructor(public code: string, message: string) {
+    super(message);
+  }
+}
+googleAuthRoutes.get("/callback", async (c) => {
+  const stateCookie = getCookie(c, STATE_COOKIE);
+  deleteCookie(c, STATE_COOKIE, {
+    httpOnly: true,
+    domain: COOKIE_DOMAIN,
+    secure: !isLocal,
+  });
+
+  let rawToken;
+  const url = new URL(c.req.url);
+  const urlOfRedirect = new URL(appEnv.GOOGLE_REDIRECT_URI);
+
+  if (
+    urlOfRedirect.protocol === "https:" ||
+    urlOfRedirect.protocol === "http:"
+  ) {
+    url.protocol = urlOfRedirect.protocol;
+  }
+
+  try {
+    const googleClientInstance = await initializeGoogleClient();
+    rawToken = await client.authorizationCodeGrant(googleClientInstance, url, {
+      expectedState: stateCookie,
+    });
+  } catch (e) {
+    // handle error
+    if (e instanceof client.ClientError) {
+      if (e.code && e.code === "OAUTH_INVALID_RESPONSE") {
+        if (
+          (e.cause as { message?: string } | undefined)?.message ===
+          `unexpected "state" response parameter encountered`
+        )
+          throw new GoogleAuthError("invalid_state", "Invalid state parameter");
+      }
+    } else if (e instanceof client.ResponseBodyError) {
+      console.log("Response Body Error", e.response, e.cause);
+      console.log(url.toString());
+    }
+
+    console.error(e);
+    throw new GoogleAuthError("oauth_error", "Unexpected oauth error");
+  }
+
+  const tokenParse = googleOAuthToken.safeParse(rawToken);
+
+  if (!tokenParse.success) {
+    console.error(tokenParse.error);
+    throw new GoogleAuthError("parse_token", "Unexpected error parsing token");
+  }
+  const token = tokenParse.data;
+
+  if (
+    !token.scope
+      .split(" ")
+      .includes("https://www.googleapis.com/auth/userinfo.profile")
+  ) {
+    throw new GoogleAuthError("invalid_scope", "Invalid scope");
+  }
+
+  const typedIdToken = googleIdToken.safeParse(
+    JSON.parse(atob(token.id_token.split(".")[1]))
+  );
+  if (!typedIdToken.success) {
+    console.error(typedIdToken.error);
+    throw new GoogleAuthError(
+      "parse_id_token",
+      "Unexpected error parsing id token"
+    );
+  }
+
+  if (!typedIdToken.data.email_verified)
+    throw new GoogleAuthError("email_not_verified", "Email not verified");
+
+  // Check if user is admin or customer
+  const isAdmin = typedIdToken.data.email === appEnv.ADMIN_EMAIL;
+  let user: any;
+
+  if (isAdmin) {
+    // Handle admin user
+    let findAdmin = await db
+      .select()
+      .from(admin)
+      .where(eq(admin.email, typedIdToken.data.email));
+    if (findAdmin.length === 0) {
+      findAdmin = await db
+        .insert(admin)
+        .values({
+          id: ulid(),
+          email: typedIdToken.data.email,
+          name: typedIdToken.data.name,
+          profile_picture_url: typedIdToken.data.picture || null,
+        } satisfies typeof admin.$inferInsert)
+        .returning();
+
+      if (findAdmin.length === 0)
+        throw new GoogleAuthError("database_error", "Database error");
+    }
+
+    // admin exists - update profile info if needed
+    if (
+      typedIdToken.data.picture &&
+      findAdmin[0].profile_picture_url != typedIdToken.data.picture
+    ) {
+      const update = await db
+        .update(admin)
+        .set({ profile_picture_url: typedIdToken.data.picture })
+        .where(eq(admin.id, findAdmin[0].id))
+        .returning({ profile_picture_url: admin.profile_picture_url });
+
+      if (update.length === 0)
+        throw new GoogleAuthError("database_error", "Database update error");
+      findAdmin[0].profile_picture_url = update[0].profile_picture_url;
+    }
+
+    if (findAdmin[0].name != typedIdToken.data.name) {
+      const update = await db
+        .update(admin)
+        .set({ name: typedIdToken.data.name })
+        .where(eq(admin.id, findAdmin[0].id))
+        .returning({ name: admin.name });
+
+      if (update.length === 0)
+        throw new GoogleAuthError("database_error", "Database update error");
+      findAdmin[0].name = update[0].name;
+    }
+
+    user = findAdmin[0];
+  } else {
+    // Handle customer user
+    let findCustomer = await db
+      .select()
+      .from(customers)
+      .where(eq(customers.email, typedIdToken.data.email));
+    if (findCustomer.length === 0) {
+      findCustomer = await db
+        .insert(customers)
+        .values({
+          id: ulid(),
+          name: typedIdToken.data.name,
+          email: typedIdToken.data.email,
+          phone: "", // Will be updated later
+        } satisfies typeof customers.$inferInsert)
+        .returning();
+
+      if (findCustomer.length === 0)
+        throw new GoogleAuthError("database_error", "Database error");
+    }
+
+    // Update customer profile if needed
+    if (findCustomer[0].name != typedIdToken.data.name) {
+      const update = await db
+        .update(customers)
+        .set({ name: typedIdToken.data.name })
+        .where(eq(customers.id, findCustomer[0].id))
+        .returning({ name: customers.name });
+
+      if (update.length === 0)
+        throw new GoogleAuthError("database_error", "Database update error");
+      findCustomer[0].name = update[0].name;
+    }
+
+    user = findCustomer[0];
+  }
+
+  const session = await db
+    .insert(sessions)
+    .values({
+      id: ulid(),
+      user_id: user.id,
+      user_type: isAdmin ? "admin" : "customer",
+      session_id: nanoid(32),
+      expires_at: dayjs().add(SESSION_LENGTH).toDate(),
+    } satisfies typeof sessions.$inferInsert)
+    .returning();
+
+  if (session.length === 0)
+    throw new GoogleAuthError("session_db_error", "Session database error");
+
+  setCookie(c, SESSION_COOKIE, session[0].session_id, {
+    httpOnly: true,
+    expires: session[0].expires_at,
+    domain: COOKIE_DOMAIN,
+    secure: !isLocal,
+  });
+
+  // Redirect based on user role
+  const redirectUrl = isAdmin
+    ? appEnv.FRONTEND_URL + "/admin"
+    : appEnv.FRONTEND_URL + "/dashboard";
+
+  return c.redirect(redirectUrl);
+});
+
+googleAuthRoutes.onError((err, c) => {
+  if (err instanceof GoogleAuthError)
+    return c.redirect(
+      appEnv.FRONTEND_URL + "/login?error=" + encodeURIComponent(err.code)
+    );
+
+  throw err;
+});
+
+const authRoutes = new Hono();
+authRoutes.route("/google", googleAuthRoutes);
+
+authRoutes.delete("/logout", async (c) => {
+  const sessionId = getCookie(c, SESSION_COOKIE);
+
+  if (!sessionId) {
+    return c.json({ success: true });
+  }
+
+  // Delete the session from the database
+  await db.delete(sessions).where(eq(sessions.session_id, sessionId));
+
+  // Delete the cookie from the browser
+  deleteCookie(c, SESSION_COOKIE, {
+    httpOnly: true,
+    domain: COOKIE_DOMAIN,
+    secure: !isLocal,
+  });
+
+  return c.json({ success: true });
+});
+
+export default authRoutes;
