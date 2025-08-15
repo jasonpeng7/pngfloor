@@ -9,5 +9,13 @@ export const bookings = schema.table("bookings", {
     .references(() => customers.id)
     .notNull(),
   date: t.timestamp("date").notNull(),
+  name: t.varchar("name", { length: 255 }).notNull(),
+  email: t.varchar("email", { length: 255 }).notNull(),
+  address: t.varchar("address", { length: 255 }).notNull(),
+  phone_number: t.varchar("phone_number", { length: 255 }).notNull(),
+  house_size: t.integer("house_size").notNull(),
+  rooms: t.varchar("rooms", { length: 255 }).notNull(),
+  service: t.varchar("service", { length: 255 }).notNull(),
+  message: t.text("message").notNull(),
   status: t.varchar("status", { length: 255 }).default("pending"),
 });
