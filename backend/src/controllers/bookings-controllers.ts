@@ -88,3 +88,32 @@ export const deleteBooking = factory.createHandlers(async (c) => {
     return c.json({ error: "Booking not found" }, 404);
   return c.json(deletedBooking[0]);
 });
+
+export const getBookingsByCustomerId = factory.createHandlers(async (c) => {
+  const customerId = c.req.param("customerId");
+  if (!customerId) return c.json({ error: "Customer ID is required" }, 400);
+
+  const result = await db
+    .select()
+    .from(bookings)
+    .where(eq(bookings.customer_id, customerId));
+
+  // Return empty array instead of 404 error when no bookings found
+  return c.json(result);
+});
+
+export const cancelBooking = factory.createHandlers(async (c) => {
+  const bookingId = c.req.param("id");
+  if (!bookingId) return c.json({ error: "Booking ID is required" }, 400);
+  const customerId = c.req.param("customerId");
+  if (!customerId) return c.json({ error: "Customer ID is required" }, 400);
+
+  const deletedBooking = await db
+    .delete(bookings)
+    .where(eq(bookings.id, bookingId))
+    .returning();
+
+  if (deletedBooking.length === 0)
+    return c.json({ error: "Booking not found" }, 404);
+  return c.json(deletedBooking[0]);
+});
