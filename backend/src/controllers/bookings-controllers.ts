@@ -98,7 +98,7 @@ export const getBookingsByCustomerId = factory.createHandlers(async (c) => {
     .from(bookings)
     .where(eq(bookings.customer_id, customerId));
 
-  // Return empty array instead of 404 error when no bookings found
+  // return empty array instead of 404 error when no bookings found
   return c.json(result);
 });
 
