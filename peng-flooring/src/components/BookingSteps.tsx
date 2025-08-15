@@ -119,7 +119,7 @@ export default function BookingSteps({ className = "" }: BookingStepsProps) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-          {steps.map((step, index) => (
+          {steps.map((step) => (
             <div
               key={step.number}
               className="bg-black p-6 text-center hover:shadow-md transition-shadow duration-300 relative"
