@@ -24,9 +24,14 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
     const bookingData = {
       customer_id: user?.id,
       date: new Date().toISOString(),
+      name: formData.get("firstName") as string,
       email: formData.get("email") as string,
       address: formData.get("address") as string,
       phone_number: formData.get("phone") as string,
+      service: formData.get("service") as string,
+      house_size: formData.get("houseSize") as string,
+      rooms: formData.get("rooms") as string,
+      message: formData.get("message") as string,
       status: "pending",
     };
 
@@ -43,7 +48,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
       if (response.ok) {
         setSubmitMessage({
           type: "success",
-          text: "Your estimate request has been submitted successfully! We'll contact you within 24 hours.",
+          text: "Your estimate request has been submitted successfully! We'll contact you within 48 hours.",
         });
         e.currentTarget.reset();
       } else {
@@ -55,18 +60,13 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
             "Failed to submit estimate request. Please try again.",
         });
       }
-    } catch (error) {
-      setSubmitMessage({
-        type: "error",
-        text: "Network error. Please check your connection and try again.",
-      });
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <section className={`py-16 bg-gray-50 ${className}`}>
+    <section className={`py-16 bg-white ${className}`}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-lg shadow-xl p-8">
           <div className="text-center mb-8">
@@ -166,7 +166,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                 htmlFor="address"
                 className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
               >
-                Property Address *
+                Property Address/City *
               </label>
               <input
                 type="text"
@@ -176,6 +176,11 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="123 Main St, Anaheim, CA 92801"
               />
+              <p className="text-xs text-gray-500 mt-1 inter-tight-regular">
+                Don&apos;t worry about providing your exact address right now.
+                We&apos;ll ask for the specific address later if you decide to
+                proceed with the estimate.
+              </p>
             </div>
 
             <div>
@@ -209,6 +214,55 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
               </select>
             </div>
 
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label
+                  htmlFor="houseSize"
+                  className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
+                >
+                  House Size (Rough Estimate) *
+                </label>
+                <input
+                  type="number"
+                  id="houseSize"
+                  name="houseSize"
+                  required
+                  min="100"
+                  max="10000"
+                  step="100"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="e.g., 1500"
+                />
+                <p className="text-xs text-gray-500 mt-1 inter-tight-regular">
+                  Enter approximate square footage
+                </p>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="rooms"
+                  className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
+                >
+                  Number of Rooms/Bathrooms *
+                </label>
+                <select
+                  id="rooms"
+                  name="rooms"
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                >
+                  <option value="">Select room count</option>
+                  <option value="1-2">1-2 bedrooms, 1 bathroom</option>
+                  <option value="2-3">2-3 bedrooms, 1-2 bathrooms</option>
+                  <option value="3-4">3-4 bedrooms, 2-3 bathrooms</option>
+                  <option value="4-5">4-5 bedrooms, 3+ bathrooms</option>
+                  <option value="5+">5+ bedrooms, 3+ bathrooms</option>
+                  <option value="studio">Studio/1 bedroom</option>
+                  <option value="not-sure">Not sure</option>
+                </select>
+              </div>
+            </div>
+
             <div>
               <label
                 htmlFor="message"
@@ -221,7 +275,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                 name="message"
                 rows={4}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Tell us about your project, room sizes, timeline, or any specific requirements..."
+                placeholder="Is there anything else you would like to add?"
               ></textarea>
             </div>
 
@@ -279,7 +333,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
               </span>
             </p>
             <p className="text-sm text-gray-500 mt-2 inter-tight-regular">
-              We&apos;ll respond within 24 hours to schedule your free flooring
+              We&apos;ll respond within 48 hours to schedule your free flooring
               estimate
             </p>
           </div>
