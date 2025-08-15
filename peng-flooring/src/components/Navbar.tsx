@@ -60,7 +60,7 @@ export default function Navbar() {
                     href="/dashboard"
                     className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium inter-tight-regular transition-colors"
                   >
-                    Dashboard
+                    My Bookings
                   </Link>
                   <SignOutButton className="text-sm px-3 py-2">
                     Sign Out
@@ -129,14 +129,14 @@ export default function Navbar() {
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
           <Link
             href="/"
-            className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium inter-tight-medium transition-colors"
+            className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium inter-tight-regular transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >
             Home
           </Link>
           <Link
             href="/bookings"
-            className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium inter-tight-medium transition-colors"
+            className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium inter-tight-regular transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >
             Book Service
@@ -145,14 +145,14 @@ export default function Navbar() {
             <>
               <Link
                 href="/dashboard"
-                className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium inter-tight-medium transition-colors"
+                className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium inter-tight-regular transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Dashboard
+                My Bookings
               </Link>
               <button
                 onClick={handleLogout}
-                className="text-red-600 hover:text-gray-900 block w-full text-left px-3 py-2 rounded-md text-base font-medium inter-tight-medium transition-colors"
+                className="text-red-600 hover:text-gray-900 block w-full text-left px-3 py-2 rounded-md text-base font-medium inter-tight-regular transition-colors"
               >
                 Sign Out
               </button>
