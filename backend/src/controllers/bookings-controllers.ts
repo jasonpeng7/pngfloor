@@ -34,6 +34,14 @@ export const createBooking = factory.createHandlers(async (c) => {
         id: new_bookingId,
         customer_id: body.customer_id,
         date: new Date(body.date),
+        name: body.name,
+        email: body.email,
+        address: body.address,
+        phone_number: body.phone_number,
+        house_size: body.house_size,
+        rooms: body.rooms,
+        service: body.service,
+        message: body.message,
         status: body.status || "pending",
       })
       .returning();
