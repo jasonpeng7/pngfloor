@@ -4,15 +4,15 @@ import Link from "next/link";
 
 export default function PrivacyPolicy() {
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-[2000px] min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white shadow-lg rounded-lg p-8">
           <div className="mb-8">
             <Link
-              href="/login"
+              href="/"
               className="text-blue-600 hover:text-blue-800 text-sm font-medium"
             >
-              ← Back to Login
+              ← Back
             </Link>
           </div>
 

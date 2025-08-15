@@ -2,9 +2,18 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { CheckIcon, ClockIcon, StarIcon } from "../../components/icons";
+import {
+  CheckIcon,
+  ClockIcon,
+  StarIcon,
+  VinylIcon,
+  StairsIcon,
+  BaseboardIcon,
+  CustomIcon,
+} from "../../components/icons";
 import GoogleSignIn from "../../components/GoogleSignIn";
 import BookingForm from "../../components/BookingForm";
+import BookingSteps from "../../components/BookingSteps";
 import { useAuth } from "../../contexts/AuthContext";
 
 export default function BookingsPage() {
@@ -38,7 +47,7 @@ export default function BookingsPage() {
   // If not authenticated, show login required message
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="max-w-[2000px] min-h-screen bg-gray-50">
         {/* Hero Section */}
         <section className="bg-gradient-to-br from-blue-600 to-blue-700 py-20">
           <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
@@ -208,7 +217,7 @@ export default function BookingsPage() {
 
   // If authenticated, show the booking form
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="max-w-[2000px] min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-600 to-blue-700 py-20">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
@@ -216,7 +225,7 @@ export default function BookingsPage() {
             Get Your Free Flooring Estimate
           </h1>
           <p className="text-xl text-blue-100 mb-8 inter-tight-medium">
-            Welcome back, {user?.name}! Let&apos; schedule your free flooring
+            Welcome back, {user?.name}! Let&apos;s schedule your free flooring
             estimate.
           </p>
 
@@ -229,7 +238,7 @@ export default function BookingsPage() {
                 ))}
               </div>
               <span className="text-white font-medium inter-tight-medium">
-                4.9/5 (500+ reviews)
+                4.9/5 (800+ reviews)
               </span>
             </div>
             <div className="flex items-center space-x-2">
@@ -243,163 +252,162 @@ export default function BookingsPage() {
       </section>
 
       {/* Service Areas */}
-      <section className="py-16 bg-white inter-tight-regular">
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4 inter-tight-bold">
-              Serving SGV, OC, and LA County Areas
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 inter-tight-bold">
+              Top Services We Offer
             </h2>
             <p className="text-lg text-gray-600 inter-tight-medium">
-              Our family-owned flooring company provides free estimates in these
-              areas:
+              Professional flooring solutions tailored to your needs
             </p>
           </div>
 
-          {/* Service Areas - 3 colored blocks in a row, responsive */}
-          <div className="flex flex-col justify-center items-center gap-x-[10px] md:flex-row md:justify-between md:gap-8 mb-8 md:mb-12">
-            {/* Orange County Block */}
-            <div className=" bg-[#03356c] p-6 mb-6 md:mb-0 w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[200px] md:h-[280px] lg:w-[300px] lg:h-[300px] md:aspect-auto lg:aspect-square">
-              <h3 className="text-center text-xl md:text-base lg:text-xl font-bold text-white mb-4 inter-tight-bold">
-                Orange County
-              </h3>
-              <ul className="space-y-1 md:space-y-0.5 lg:space-y-2 text-white inter-tight-regular text-lg md:text-xs lg:text-sm">
-                <li className="flex items-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
-                  Anaheim
-                </li>
-                <li className="flex items-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
-                  Fullerton
-                </li>
-                <li className="flex items-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
-                  Costa Mesa
-                </li>
-                <li className="flex items-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
-                  Huntington Beach
-                </li>
-                <li className="flex items-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
-                  Irvine
-                </li>
-                <li className="flex items-center text-yellow-200 font-semibold">
-                  <span className="w-1.5 h-1.5 bg-yellow-200 rounded-full mr-2 flex-shrink-0"></span>
-                  And many more!
-                </li>
-              </ul>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Luxury Vinyl - Popular Choice */}
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200 relative">
+              <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+                POPULAR
+              </div>
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
+                  <VinylIcon
+                    className="w-6 h-6 text-white"
+                    fill="currentColor"
+                  />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                  Luxury Vinyl
+                </h3>
+              </div>
+              <p className="text-gray-700 inter-tight-regular">
+                Professional installation of durable, waterproof luxury vinyl
+                flooring.
+              </p>
             </div>
 
-            {/* San Gabriel Valley Block */}
-            <div className="bg-[#d15911] p-6 mb-6 md:mb-0 w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[200px] md:h-[280px] lg:w-[300px] lg:h-[300px] md:aspect-auto lg:aspect-square">
-              <h3 className="text-center text-xl md:text-base lg:text-xl font-bold text-white mb-4 inter-tight-bold">
-                San Gabriel Valley
-              </h3>
-              <ul className="space-y-1 md:space-y-0.5 lg:space-y-2 text-white inter-tight-regular text-lg md:text-xs lg:text-sm">
-                <li className="flex items-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
-                  Alhambra
-                </li>
-                <li className="flex items-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
-                  Arcadia
-                </li>
-                <li className="flex items-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
-                  El Monte
-                </li>
-                <li className="flex items-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
-                  Chino/Chino Hills
-                </li>
-                <li className="flex items-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
-                  Monterey Park
-                </li>
-                <li className="flex items-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
-                  Diamond Bar
-                </li>
-                <li className="flex items-center text-yellow-300 font-semibold">
-                  <span className="w-1.5 h-1.5 bg-yellow-300 rounded-full mr-2 flex-shrink-0"></span>
-                  And many more!
-                </li>
-              </ul>
+            {/* Stairs */}
+            <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mr-4">
+                  <StairsIcon
+                    className="w-6 h-6 text-white"
+                    fill="currentColor"
+                  />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                  Stair Renovation
+                </h3>
+              </div>
+              <p className="text-gray-700 inter-tight-regular">
+                Complete stair renovation and installation services.
+              </p>
             </div>
 
-            {/* LA County Block */}
-            <div className="bg-[#dbdbdb] p-6 mb-6 md:mb-0 w-[300px] h-[300px] sm:w-[350px] sm:h-[350px] md:w-[200px] md:h-[280px] lg:w-[300px] lg:h-[300px] md:aspect-auto lg:aspect-square">
-              <h3 className="text-center text-xl md:text-base lg:text-xl font-bold text-white mb-4 inter-tight-bold">
-                LA County
-              </h3>
-              <ul className="space-y-1 md:space-y-0.5 lg:space-y-2 text-white inter-tight-regular text-lg md:text-xs lg:text-sm">
-                <li className="flex items-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
-                  Los Angeles
-                </li>
-                <li className="flex items-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
-                  Long Beach
-                </li>
-                <li className="flex items-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
-                  Glendale
-                </li>
-                <li className="flex items-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
-                  Pasadena
-                </li>
-                <li className="flex items-center">
-                  <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 flex-shrink-0"></span>
-                  Burbank
-                </li>
-                <li className="flex items-center text-yellow-200 font-semibold">
-                  <span className="w-1.5 h-1.5 bg-yellow-200 rounded-full mr-2 flex-shrink-0"></span>
-                  And many more!
-                </li>
-              </ul>
+            {/* Baseboard */}
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200 relative">
+              <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+                POPULAR
+              </div>
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
+                  <BaseboardIcon
+                    className="w-6 h-6 text-white"
+                    fill="currentColor"
+                  />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                  Baseboard Work
+                </h3>
+              </div>
+              <p className="text-gray-700 inter-tight-regular">
+                Professional baseboard repairs and installation.
+              </p>
+            </div>
+
+            {/* Custom Solutions */}
+            <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mr-4">
+                  <CustomIcon
+                    className="w-6 h-6 text-white"
+                    fill="currentColor"
+                  />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                  Custom Solutions
+                </h3>
+              </div>
+              <p className="text-gray-700 inter-tight-regular">
+                Tailored flooring solutions for unique spaces and requirements.
+              </p>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Our Services Block with invisible offset */}
-          <div className="flex flex-col md:flex-row items-center justify-center">
-            {/* Invisible section on left - only visible on medium screens and up */}
-            <div className="hidden md:block md:w-1/4"></div>
+      {/* Booking Steps Section */}
+      <BookingSteps />
 
-            {/* Our Services Block */}
-            <div className="bg-[#ffeeea] p-8 w-[300px] sm:w-[350px] md:w-3/4 h-[400px] md:h-[250px]">
-              <h3 className="text-center text-2xl font-bold text-black mb-6 inter-tight-bold">
-                Top Services We Offer
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-black inter-tight-light">
-                <div className="flex items-center">
-                  <span className="w-2 h-2 bg-black rounded-full mr-3 flex-shrink-0"></span>
-                  Luxury vinyl flooring installation
+      {/* Booking Form Section */}
+      <BookingForm />
+
+      {/* Why Choose Us Block */}
+      <section className="py-12 bg-[#222222]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white p-8 ">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center inter-tight-bold">
+              Why Choose Us?
+            </h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <ClockIcon
+                    className="w-6 h-6 text-blue-600"
+                    fill="currentColor"
+                  />
                 </div>
-                <div className="flex items-center">
-                  <span className="w-2 h-2 bg-black rounded-full mr-3 flex-shrink-0"></span>
-                  Stair renovation & installation
+                <div className="text-2xl font-bold text-blue-600 inter-tight-bold mb-1">
+                  15+
                 </div>
-                <div className="flex items-center">
-                  <span className="w-2 h-2 bg-black rounded-full mr-3 flex-shrink-0"></span>
-                  Baseboard repairs & installation
+                <div className="text-sm text-gray-600 inter-tight-medium">
+                  Years Experience
                 </div>
-                <div className="flex items-center">
-                  <span className="w-2 h-2 bg-black rounded-full mr-3 flex-shrink-0"></span>
-                  Custom flooring solutions
+              </div>
+
+              <div className="text-center">
+                <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <StarIcon
+                    className="w-6 h-6 text-yellow-500"
+                    fill="currentColor"
+                  />
                 </div>
-                <div className="flex items-center">
-                  <span className="w-2 h-2 bg-black rounded-full mr-3 flex-shrink-0"></span>
-                  ...And many more!
+                <div className="text-2xl font-bold text-yellow-600 inter-tight-bold mb-1">
+                  4.9/5
+                </div>
+                <div className="text-sm text-gray-600 inter-tight-medium">
+                  Customer Rating
+                </div>
+              </div>
+
+              <div className="text-center">
+                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <CheckIcon
+                    className="w-6 h-6 text-green-600"
+                    fill="currentColor"
+                  />
+                </div>
+                <div className="text-2xl font-bold text-green-600 inter-tight-bold mb-1">
+                  800+
+                </div>
+                <div className="text-sm text-gray-600 inter-tight-medium">
+                  Happy Customers
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Booking Form Section */}
-      <BookingForm />
 
       {/* Why Choose Us Section */}
       <section className="py-16 bg-white">
@@ -438,7 +446,7 @@ export default function BookingsPage() {
                 4.9/5 Rating
               </h3>
               <p className="text-gray-600 inter-tight-regular">
-                500+ satisfied customers in Orange County and LA County
+                800+ satisfied customers in Orange County and LA County
               </p>
             </div>
 
@@ -459,7 +467,7 @@ export default function BookingsPage() {
                 <CheckIcon className="w-8 h-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2 inter-tight-semibold">
-                Licensed & Insured
+                Specialized & Insured
               </h3>
               <p className="text-gray-600 inter-tight-regular">
                 Professional flooring contractor you can trust

@@ -69,7 +69,7 @@ export default function Home() {
               <div className=" space-y-4">
                 <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 inter-tight-bold leading-tight">
                   Transform Your Floors—
-                  <span className="text-blue-600"> For Free</span>
+                  <span className="text-blue-600"> Free Estimate</span>
                 </h1>
                 <p className="text-xl lg:text-2xl text-gray-600 inter-tight-medium">
                   Family-owned flooring company serving Orange County and LA
@@ -351,7 +351,7 @@ export default function Home() {
           <p className="text-xl text-blue-100 inter-tight-medium mb-8">
             Get your free estimate today. No obligation, just honest pricing.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
             <Link
               href="/bookings"
               className="bg-white text-blue-600 hover:bg-gray-100 font-bold py-4 px-8 rounded-lg text-lg inter-tight-semibold transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"

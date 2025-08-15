@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import SignOutButton from "../../components/SignOutButton";
 
 interface Booking {
   id: string;
@@ -84,19 +83,7 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <h1 className="text-3xl font-bold text-gray-900">
-              Admin Dashboard
-            </h1>
-            <SignOutButton />
-          </div>
-        </div>
-      </header>
-
+    <div className="max-w-[2000px] min-h-screen bg-gray-50">
       {/* Stats */}
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
