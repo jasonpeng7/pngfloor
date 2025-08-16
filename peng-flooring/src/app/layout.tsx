@@ -9,6 +9,9 @@ export const metadata: Metadata = {
     "Peng Flooring - Family-Owned Flooring Company in Orange County & LA County | Free Estimates",
   description:
     "Family-owned flooring company serving Orange County and LA County since 2009. Professional hardwood installation, refinishing, vinyl & laminate flooring. Free estimates, honest pricing, 4.9/5 stars from 500+ reviews.",
+  icons: {
+    icon: "/penglogo.svg",
+  },
   keywords: [
     "flooring installation Orange County",
     "hardwood refinishing near me",
