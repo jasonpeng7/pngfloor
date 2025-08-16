@@ -1,15 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import { useRouter } from "next/navigation";
 
 interface BookingFormProps {
   className?: string;
 }
 
 export default function BookingForm({ className = "" }: BookingFormProps) {
+  const router = useRouter();
   const { user } = useAuth();
+  const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [lastSubmissionTime, setLastSubmissionTime] = useState<number>(0);
   const [submitMessage, setSubmitMessage] = useState<{
     type: "success" | "error";
     text: string;
@@ -17,8 +21,25 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Prevent multiple submissions
+    if (isSubmitting) {
+      return;
+    }
+
+    // Rate limiting: prevent submissions within 5 seconds
+    const now = Date.now();
+    if (now - lastSubmissionTime < 5000) {
+      setSubmitMessage({
+        type: "error",
+        text: "Please wait a few seconds before submitting another request.",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitMessage(null);
+    setLastSubmissionTime(now);
 
     const formData = new FormData(e.currentTarget);
     const bookingData = {
@@ -50,7 +71,15 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
           type: "success",
           text: "Your estimate request has been submitted successfully! We'll contact you within 48 hours.",
         });
-        e.currentTarget.reset();
+
+        // Reset the form
+        if (formRef.current) {
+          formRef.current.reset();
+        }
+
+        setTimeout(() => {
+          router.push("/dashboard");
+        }, 500);
       } else {
         const errorData = await response.json();
         setSubmitMessage({
@@ -80,7 +109,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
             </p>
           </div>
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form ref={formRef} className="space-y-6" onSubmit={handleSubmit}>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label
@@ -223,13 +252,12 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   House Size (Rough Estimate) *
                 </label>
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   id="houseSize"
                   name="houseSize"
                   required
-                  min="100"
-                  max="10000"
-                  step="100"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="e.g., 1500"
                 />
@@ -252,13 +280,22 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="">Select room count</option>
-                  <option value="1-2">1-2 bedrooms, 1 bathroom</option>
-                  <option value="2-3">2-3 bedrooms, 1-2 bathrooms</option>
-                  <option value="3-4">3-4 bedrooms, 2-3 bathrooms</option>
-                  <option value="4-5">4-5 bedrooms, 3+ bathrooms</option>
-                  <option value="5+">5+ bedrooms, 3+ bathrooms</option>
-                  <option value="studio">Studio/1 bedroom</option>
-                  <option value="not-sure">Not sure</option>
+                  <option value="1-2 bedrooms, 1 bathroom">
+                    1-2 bedrooms, 1 bathroom
+                  </option>
+                  <option value="2-3 bedrooms, 1-2 bathrooms">
+                    2-3 bedrooms, 1-2 bathrooms
+                  </option>
+                  <option value="3-4 bedrooms, 2-3 bathrooms">
+                    3-4 bedrooms, 2-3 bathrooms
+                  </option>
+                  <option value="4-5 bedrooms, 3+ bathrooms">
+                    4-5 bedrooms, 3+ bathrooms
+                  </option>
+                  <option value="5+ bedrooms, 3+ bathrooms">
+                    5+ bedrooms, 3+ bathrooms
+                  </option>
+                  <option value="Studio/1 bedroom">Studio/1 bedroom</option>
                 </select>
               </div>
             </div>
@@ -323,6 +360,12 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                 "Request Free Estimate"
               )}
             </button>
+
+            {isSubmitting && (
+              <p className="text-sm text-gray-500 text-center inter-tight-regular">
+                Please wait while we process your request...
+              </p>
+            )}
           </form>
 
           <div className="mt-8 text-center">
