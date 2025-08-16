@@ -35,10 +35,10 @@ export default function Footer() {
               <div className="flex items-center">
                 <span className="text-blue-400 mr-3">✉️</span>
                 <a
-                  href="mailto:info@pengflooring.com"
+                  href="mailto:pengflooring@gmail.com"
                   className="text-gray-300 hover:text-white transition-colors inter-tight-medium"
                 >
-                  info@pengflooring.com
+                  pengflooring@gmail.com
                 </a>
               </div>
 
@@ -67,7 +67,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/#services"
+                  href="/about"
                   className="text-gray-300 hover:text-white transition-colors inter-tight-regular"
                 >
                   Services
@@ -75,7 +75,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/#about"
+                  href="/about"
                   className="text-gray-300 hover:text-white transition-colors inter-tight-regular"
                 >
                   About Us
@@ -91,7 +91,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/#contact"
+                  href="/dashboard"
                   className="text-gray-300 hover:text-white transition-colors inter-tight-regular"
                 >
                   Contact
@@ -109,16 +109,16 @@ export default function Footer() {
               <div className="flex items-center">
                 <span className="text-blue-400 mr-3">📸</span>
                 <a
-                  href="https://instagram.com/pengflooring"
+                  href="https://instagram.com/comingsoon"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-300 hover:text-white transition-colors inter-tight-regular"
                 >
-                  Instagram
+                  Coming Soon
                 </a>
               </div>
 
-              <div className="flex items-center">
+              {/* <div className="flex items-center">
                 <span className="text-blue-400 mr-3">📘</span>
                 <a
                   href="https://facebook.com/pengflooring"
@@ -128,8 +128,8 @@ export default function Footer() {
                 >
                   Facebook
                 </a>
-              </div>
-
+              </div> */}
+              {/* 
               <div className="flex items-center">
                 <span className="text-blue-400 mr-3">⭐</span>
                 <a
@@ -140,9 +140,9 @@ export default function Footer() {
                 >
                   Yelp Reviews
                 </a>
-              </div>
+              </div> */}
 
-              <div className="flex items-center">
+              {/* <div className="flex items-center">
                 <span className="text-blue-400 mr-3">🔍</span>
                 <a
                   href="https://google.com/maps/place/peng-flooring"
@@ -152,7 +152,7 @@ export default function Footer() {
                 >
                   Google Reviews
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
