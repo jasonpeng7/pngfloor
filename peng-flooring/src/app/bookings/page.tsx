@@ -355,8 +355,8 @@ export default function BookingsPage() {
       {/* Why Choose Us Block */}
       <section className="py-12 bg-[#222222]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white p-8 ">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center inter-tight-bold">
+          <div className="p-8 ">
+            <h3 className="text-2xl font-bold text-white mb-6 text-center inter-tight-bold">
               Why Choose Us?
             </h3>
             <div className="grid md:grid-cols-3 gap-6">
@@ -370,7 +370,7 @@ export default function BookingsPage() {
                 <div className="text-2xl font-bold text-blue-600 inter-tight-bold mb-1">
                   15+
                 </div>
-                <div className="text-sm text-gray-600 inter-tight-medium">
+                <div className="text-sm text-white inter-tight-medium">
                   Years Experience
                 </div>
               </div>
@@ -385,7 +385,7 @@ export default function BookingsPage() {
                 <div className="text-2xl font-bold text-yellow-600 inter-tight-bold mb-1">
                   4.9/5
                 </div>
-                <div className="text-sm text-gray-600 inter-tight-medium">
+                <div className="text-sm text-white inter-tight-medium">
                   Customer Rating
                 </div>
               </div>
@@ -400,7 +400,7 @@ export default function BookingsPage() {
                 <div className="text-2xl font-bold text-green-600 inter-tight-bold mb-1">
                   800+
                 </div>
-                <div className="text-sm text-gray-600 inter-tight-medium">
+                <div className="text-sm text-white inter-tight-medium">
                   Happy Customers
                 </div>
               </div>
@@ -417,8 +417,8 @@ export default function BookingsPage() {
               Why Choose Our Family-Owned Flooring Company?
             </h2>
             <p className="text-lg text-gray-600 inter-tight-medium">
-              Professional flooring services in Orange County and LA County with
-              honest pricing and quality workmanship.
+              Professional flooring services with honest pricing and quality
+              workmanship.
             </p>
           </div>
 
@@ -446,7 +446,7 @@ export default function BookingsPage() {
                 4.9/5 Rating
               </h3>
               <p className="text-gray-600 inter-tight-regular">
-                800+ satisfied customers in Orange County and LA County
+                800+ satisfied customers in OC, LAC, and the greater 626 area
               </p>
             </div>
 
@@ -470,7 +470,7 @@ export default function BookingsPage() {
                 Specialized & Insured
               </h3>
               <p className="text-gray-600 inter-tight-regular">
-                Professional flooring contractor you can trust
+                A professional you can trust
               </p>
             </div>
           </div>
@@ -484,9 +484,9 @@ export default function BookingsPage() {
             Ready to Transform Your Floors?
           </h2>
           <p className="text-xl text-blue-100 mb-8 inter-tight-medium">
-            Get your free estimate today from our family-owned flooring company.
-            Professional hardwood installation, refinishing, and flooring
-            services in Orange County and LA County.
+            Get your free estimate today from us. No Obligations. Professional
+            floor installation, stair renovation, and flooring services in OC,
+            LAC, and the greater 626 area.
           </p>
           <Link
             href="/"
