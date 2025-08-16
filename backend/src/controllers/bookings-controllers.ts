@@ -66,7 +66,11 @@ export const updateBooking = factory.createHandlers(async (c) => {
   try {
     const [updatedBooking] = await db
       .update(bookings)
-      .set({ date: new Date(body.date) })
+      .set({
+        house_size: body.house_size,
+        rooms: body.rooms,
+        message: body.message,
+      })
       .where(eq(bookings.id, bookingId))
       .returning();
 
