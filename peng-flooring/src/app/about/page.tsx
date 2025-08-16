@@ -8,6 +8,9 @@ import {
   CalendarIcon,
   HeartIcon,
   PhoneIcon,
+  HardwoodIcon,
+  RefinishIcon,
+  CustomIcon,
 } from "../../components/icons";
 import StepsShowcase from "../../components/StepsShowcase";
 import Testimonials from "../../components/Testimonials";
@@ -159,17 +162,18 @@ export default function AboutPage() {
 
               <div className="space-y-4 text-lg text-gray-600 inter-tight-regular leading-relaxed">
                 <p>
-                  Hi, I&apos;m Jason — the creator of this website and proud son
-                  of the owner of Peng Flooring. My dad has been working in home
+                  I&apos;m Jason — the creator of this website and proud son of
+                  the owner of Peng Flooring. My dad has been working in home
                   remodeling for over 15 years, specializing in flooring and
                   stairs.
                 </p>
                 <p>
                   I built this site to make it easier for customers to connect
-                  with my dad&apos;s work and book free estimates. I also help
-                  out with the business from time to time, whether it&apos;s
-                  lending a hand on a project, handling finances, or managing
-                  the online side of things.
+                  with my dad&apos;s work and book free estimates. I manage the
+                  online aspect of this business, whether it be marketing or
+                  handling sales calls to working with finances. I also help out
+                  with the business on-site from time to time, talking to
+                  clients or simply helping out with projects.
                 </p>
               </div>
 
@@ -272,50 +276,80 @@ export default function AboutPage() {
                 Our Core Services
               </h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="flex items-center space-x-3 p-4 bg-blue-50 rounded-lg">
-                  <CheckIcon
-                    className="w-5 h-5 text-blue-600"
-                    fill="currentColor"
-                  />
-                  <span className="font-medium text-gray-900 inter-tight-medium">
-                    Luxury Vinyl Installation
-                  </span>
+                {/* Vinyl Installation */}
+                <div className="text-center group">
+                  <div className="relative overflow-hidden rounded-lg mb-3 ">
+                    <Image
+                      src="/vinyl-about.png"
+                      alt="Luxury Vinyl Installation"
+                      width={300}
+                      height={300}
+                      className="w-full h-48 object-cover"
+                    />
+                  </div>
+                  <div className="flex items-center justify-center mb-2">
+                    <HardwoodIcon className="w-6 h-6 text-blue-600 mr-2" />
+                    <h4 className="font-medium text-gray-900 inter-tight-medium">
+                      Luxury Vinyl Installation
+                    </h4>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-3 p-4 bg-blue-50 rounded-lg">
-                  <CheckIcon
-                    className="w-5 h-5 text-blue-600"
-                    fill="currentColor"
-                  />
-                  <span className="font-medium text-gray-900 inter-tight-medium">
-                    Baseboard refinishing
-                  </span>
+
+                {/* Baseboard Refinishing */}
+                <div className="text-center group">
+                  <div className="relative overflow-hidden rounded-lg mb-3 ">
+                    <Image
+                      src="/baseboard-about.png"
+                      alt="Baseboard Refinishing"
+                      width={300}
+                      height={300}
+                      className="w-full h-48 object-cover"
+                    />
+                  </div>
+                  <div className="flex items-center justify-center mb-2">
+                    <RefinishIcon className="w-6 h-6 text-blue-600 mr-2" />
+                    <h4 className="font-medium text-gray-900 inter-tight-medium">
+                      Baseboard Refinishing
+                    </h4>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-3 p-4 bg-blue-50 rounded-lg">
-                  <CheckIcon
-                    className="w-5 h-5 text-blue-600"
-                    fill="currentColor"
-                  />
-                  <span className="font-medium text-gray-900 inter-tight-medium">
-                    Floor Refinishing
-                  </span>
+
+                {/* Floor Refinishing */}
+                <div className="text-center group">
+                  <div className="relative overflow-hidden rounded-lg mb-3 ">
+                    <Image
+                      src="/refinishing-about.png"
+                      alt="Floor Refinishing"
+                      width={300}
+                      height={300}
+                      className="w-full h-48 object-cover"
+                    />
+                  </div>
+                  <div className="flex items-center justify-center mb-2">
+                    <RefinishIcon className="w-6 h-6 text-blue-600 mr-2" />
+                    <h4 className="font-medium text-gray-900 inter-tight-medium">
+                      Floor Refinishing
+                    </h4>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-3 p-4 bg-blue-50 rounded-lg">
-                  <CheckIcon
-                    className="w-5 h-5 text-blue-600"
-                    fill="currentColor"
-                  />
-                  <span className="font-medium text-gray-900 inter-tight-medium">
-                    Vinyl & Laminate
-                  </span>
-                </div>
-                <div className="flex items-center space-x-3 p-4 bg-blue-50 rounded-lg">
-                  <CheckIcon
-                    className="w-5 h-5 text-blue-600"
-                    fill="currentColor"
-                  />
-                  <span className="font-medium text-gray-900 inter-tight-medium">
-                    Carpet Removal
-                  </span>
+
+                {/* Carpet Removal */}
+                <div className="text-center group">
+                  <div className="relative overflow-hidden rounded-lg mb-3 ">
+                    <Image
+                      src="/carpet-removal.png"
+                      alt="Carpet Removal"
+                      width={300}
+                      height={300}
+                      className="w-full h-48 object-cover"
+                    />
+                  </div>
+                  <div className="flex items-center justify-center mb-2">
+                    <CustomIcon className="w-6 h-6 text-blue-600 mr-2" />
+                    <h4 className="font-medium text-gray-900 inter-tight-medium">
+                      Carpet Removal
+                    </h4>
+                  </div>
                 </div>
               </div>
             </div>
@@ -335,82 +369,91 @@ export default function AboutPage() {
             </h2>
 
             <div className="grid md:grid-cols-2 gap-8">
-              {/* Project 1 */}
+              {/* stair service*/}
               <div className="bg-white rounded-xl overflow-hidden shadow-lg">
                 <div className="grid grid-cols-2">
                   <div className="relative">
                     <Image
-                      src="/wood-flooring.png"
+                      src="/showcase-stairs.JPG"
                       alt="Before: Worn hardwood floors"
                       width={300}
                       height={300}
                       className="w-full h-64 object-cover"
                     />
-                    <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                      BEFORE
+                    <div className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                      CURVED
                     </div>
                   </div>
                   <div className="relative">
                     <Image
-                      src="/wood-flooring.png"
+                      src="/showcase-stair2.JPG"
                       alt="After: Refinished hardwood floors"
                       width={300}
                       height={300}
                       className="w-full h-64 object-cover"
                     />
                     <div className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                      AFTER
+                      TWO BLOCK
                     </div>
                   </div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-bold text-gray-900 inter-tight-bold mb-2">
-                    Refinished Oak Floors in Pasadena, CA
+                    Stair Replacement Projects in Chino Hills, CA
                   </h3>
                   <p className="text-gray-600 inter-tight-regular">
-                    Complete refinishing project completed in 3 days.
-                    Transformed worn, scratched floors into a modern, sleek
-                    finish that elevated the entire home.
+                    Complete stair projects for beautiful 2,500 sq. ft. houses.
+                    Full remodel of stairs including new rails, baseboards, and
+                    baseshoes. Replaced previously aged and warped stairs into a
+                    grand staircase with modern designs and colors.{" "}
+                    <span className="inter-tight-medium">
+                      Total project timeline: 1 week
+                    </span>
                   </p>
                 </div>
               </div>
 
-              {/* Project 2 */}
+              {/* full service */}
               <div className="bg-white rounded-xl overflow-hidden shadow-lg">
                 <div className="grid grid-cols-2">
                   <div className="relative">
                     <Image
-                      src="/wood-flooring.png"
+                      src="/full-service2.JPG"
                       alt="Before: Old carpet flooring"
                       width={300}
                       height={300}
                       className="w-full h-64 object-cover"
                     />
-                    <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                      BEFORE
+                    <div className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                      LUX. VINYL
                     </div>
                   </div>
                   <div className="relative">
                     <Image
-                      src="/wood-flooring.png"
+                      src="/full-service1.JPG"
                       alt="After: New hardwood installation"
                       width={300}
                       height={300}
                       className="w-full h-64 object-cover"
                     />
                     <div className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                      AFTER
+                      LUX. VINYL
                     </div>
                   </div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-bold text-gray-900 inter-tight-bold mb-2">
-                    Hardwood Installation in Anaheim, CA
+                    Full Service Projects- Flooring + Stairs in Walnut, CA
                   </h3>
                   <p className="text-gray-600 inter-tight-regular">
-                    Replaced old carpet with premium hardwood throughout the
-                    main living areas. Professional installation with custom
-                    trim work and seamless transitions.
+                    Full service projects for beautiful 3,000 sq. ft. houses.
+                    Replaced old carpet with luxury vinyl wood for and remodeled
+                    stairs for both homes. Professional trim work and seamless
+                    transitions throughout both houses.{" "}
+                    <span className="inter-tight-medium">
+                      Total project timeline: 2½ weeks (Flooring: 1½ weeks,
+                      Stairs: 1 week)
+                    </span>
                   </p>
                 </div>
               </div>
