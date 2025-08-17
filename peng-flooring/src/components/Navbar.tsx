@@ -25,7 +25,12 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           {/* Logo/Brand */}
           <div className="flex flex-shrink-0 flex-row items-end gap-x-[3px]">
-            <Image src="/penglogo.svg" alt="logo" width={45} height={45} />
+            <Image
+              src="landing-page/penglogo.svg"
+              alt="logo"
+              width={45}
+              height={45}
+            />
             <Link href="/" className="flex items-end">
               <span className="text-2xl font-bold text-gray-900 inter-tight-regular">
                 flooring
@@ -37,16 +42,17 @@ export default function Navbar() {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
               <Link
-                href="/about"
-                className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium inter-tight-regular transition-colors"
-              >
-                About
-              </Link>
-              <Link
                 href="/"
                 className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium inter-tight-regular transition-colors"
               >
                 Home
+              </Link>
+
+              <Link
+                href="/about"
+                className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium inter-tight-regular transition-colors"
+              >
+                About
               </Link>
               <Link
                 href="/bookings"
@@ -128,19 +134,20 @@ export default function Navbar() {
       <div className={`${isMenuOpen ? "block" : "hidden"} md:hidden`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
           <Link
-            href="/about"
-            className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium inter-tight-regular transition-colors"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            About
-          </Link>
-          <Link
             href="/"
             className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium inter-tight-regular transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >
             Home
           </Link>
+          <Link
+            href="/about"
+            className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium inter-tight-regular transition-colors"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            About
+          </Link>
+
           <Link
             href="/bookings"
             className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium inter-tight-regular transition-colors"
