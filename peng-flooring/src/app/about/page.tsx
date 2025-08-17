@@ -14,6 +14,9 @@ import {
 } from "../../components/icons";
 import StepsShowcase from "../../components/StepsShowcase";
 import Testimonials from "../../components/Testimonials";
+import AnimatedSection, {
+  AnimatedDelay,
+} from "../../components/AnimatedSection";
 
 export default function AboutPage() {
   return (
@@ -21,7 +24,7 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-gray-50 to-gray-100 py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-6">
+          <AnimatedSection className="text-center space-y-6">
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 inter-tight-bold leading-tight">
               Meet Your <span className="text-blue-600">Flooring Experts</span>
             </h1>
@@ -29,18 +32,18 @@ export default function AboutPage() {
               Committed to transforming your home with quality flooring that
               lasts.
             </p>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* leo peng */}
       <section className="py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <AnimatedSection className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="relative">
               <div className="relative overflow-hidden shadow-2xl">
                 <Image
-                  src="/wood-flooring.png"
+                  src="/about-page/longde.png"
                   alt="Professional flooring contractor working on hardwood installation"
                   width={600}
                   height={600}
@@ -50,7 +53,7 @@ export default function AboutPage() {
               </div>
 
               {/* Floating credentials card */}
-              <div className="absolute -bottom-4 -right-4 bg-white rounded-lg shadow-xl p-4 max-w-xs">
+              <AnimatedDelay className="absolute -bottom-4 -right-4 bg-white rounded-lg shadow-xl p-4 max-w-xs">
                 <div className="flex items-center space-x-2 mb-2">
                   <CheckIcon
                     className="w-5 h-5 text-green-500"
@@ -69,7 +72,7 @@ export default function AboutPage() {
                     15+ Years Experience
                   </span>
                 </div>
-              </div>
+              </AnimatedDelay>
             </div>
 
             {/* Personal story */}
@@ -127,18 +130,18 @@ export default function AboutPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* jason peng section */}
       <section className="py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <AnimatedSection className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="relative">
               <div className="relative  overflow-hidden">
                 <Image
-                  src="/jason.jpg"
+                  src="/about-page/jason.jpg"
                   alt="Professional flooring contractor working on hardwood installation"
                   width={600}
                   height={600}
@@ -189,14 +192,14 @@ export default function AboutPage() {
                 </div>{" "}
               </div>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* Mission Statement Section */}
       <section className="py-16 lg:py-24 bg-[#222222]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-8">
+          <AnimatedSection className="text-center space-y-8">
             <div className="flex justify-center">
               <HeartIcon
                 className="w-16 h-16 text-red-500"
@@ -214,20 +217,20 @@ export default function AboutPage() {
                 customer deserves to be treated like family.
               </p>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* Experience & Expertise Section */}
       <section className="py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-12">
+          <AnimatedSection className="text-center space-y-12">
             <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 inter-tight-bold">
               Experience & Expertise
             </h2>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center space-y-4 p-6 bg-gray-50 rounded-xl">
+              <AnimatedDelay className="text-center space-y-4 p-6 bg-gray-50 rounded-xl">
                 <CalendarIcon
                   className="w-12 h-12 text-blue-600 mx-auto"
                   fill="currentColor"
@@ -239,9 +242,9 @@ export default function AboutPage() {
                   Serving Orange County, LA County, and 626 area since 2009 with
                   consistent quality and reliability.
                 </p>
-              </div>
+              </AnimatedDelay>
 
-              <div className="text-center space-y-4 p-6 bg-gray-50 rounded-xl">
+              <AnimatedDelay className="text-center space-y-4 p-6 bg-gray-50 rounded-xl">
                 <AwardIcon
                   className="w-12 h-12 text-blue-600 mx-auto"
                   fill="currentColor"
@@ -253,9 +256,9 @@ export default function AboutPage() {
                   Industry professional combining best practices and top quality
                   materials
                 </p>
-              </div>
+              </AnimatedDelay>
 
-              <div className="text-center space-y-4 p-6 bg-gray-50 rounded-xl">
+              <AnimatedDelay className="text-center space-y-4 p-6 bg-gray-50 rounded-xl">
                 <CheckIcon
                   className="w-12 h-12 text-blue-600 mx-auto"
                   fill="currentColor"
@@ -267,7 +270,7 @@ export default function AboutPage() {
                   We use top quality products, tools, and materials for long
                   lasting floors.
                 </p>
-              </div>
+              </AnimatedDelay>
             </div>
 
             {/* Specializations */}
@@ -277,10 +280,10 @@ export default function AboutPage() {
               </h3>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {/* Vinyl Installation */}
-                <div className="text-center group">
+                <AnimatedDelay className="text-center group">
                   <div className="relative overflow-hidden rounded-lg mb-3 ">
                     <Image
-                      src="/vinyl-about.png"
+                      src="/about-page/vinyl-about.png"
                       alt="Luxury Vinyl Installation"
                       width={300}
                       height={300}
@@ -293,13 +296,13 @@ export default function AboutPage() {
                       Luxury Vinyl Installation
                     </h4>
                   </div>
-                </div>
+                </AnimatedDelay>
 
                 {/* Baseboard Refinishing */}
-                <div className="text-center group">
+                <AnimatedDelay className="text-center group">
                   <div className="relative overflow-hidden rounded-lg mb-3 ">
                     <Image
-                      src="/baseboard-about.png"
+                      src="/about-page/baseboard-about.png"
                       alt="Baseboard Refinishing"
                       width={300}
                       height={300}
@@ -312,13 +315,13 @@ export default function AboutPage() {
                       Baseboard Refinishing
                     </h4>
                   </div>
-                </div>
+                </AnimatedDelay>
 
                 {/* Floor Refinishing */}
-                <div className="text-center group">
+                <AnimatedDelay className="text-center group">
                   <div className="relative overflow-hidden rounded-lg mb-3 ">
                     <Image
-                      src="/refinishing-about.png"
+                      src="/about-page/refinishing-about.png"
                       alt="Floor Refinishing"
                       width={300}
                       height={300}
@@ -331,13 +334,32 @@ export default function AboutPage() {
                       Floor Refinishing
                     </h4>
                   </div>
-                </div>
+                </AnimatedDelay>
 
-                {/* Carpet Removal */}
-                <div className="text-center group">
+                {/* Stair Installation */}
+                <AnimatedDelay className="text-center group">
                   <div className="relative overflow-hidden rounded-lg mb-3 ">
                     <Image
-                      src="/carpet-removal.png"
+                      src="/about-page/stair-remodel.png"
+                      alt="Baseboard Refinishing"
+                      width={300}
+                      height={300}
+                      className="w-full h-48 object-cover"
+                    />
+                  </div>
+                  <div className="flex items-center justify-center mb-2">
+                    <RefinishIcon className="w-6 h-6 text-blue-600 mr-2" />
+                    <h4 className="font-medium text-gray-900 inter-tight-medium">
+                      Stair Remodeling
+                    </h4>
+                  </div>
+                </AnimatedDelay>
+
+                {/* Carpet Removal */}
+                <AnimatedDelay className="text-center group lg:col-start-2">
+                  <div className="relative overflow-hidden rounded-lg mb-3 ">
+                    <Image
+                      src="/about-page/carpet-removal.png"
                       alt="Carpet Removal"
                       width={300}
                       height={300}
@@ -350,10 +372,10 @@ export default function AboutPage() {
                       Carpet Removal
                     </h4>
                   </div>
-                </div>
+                </AnimatedDelay>
               </div>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -363,18 +385,18 @@ export default function AboutPage() {
       {/* Before & After Showcase */}
       <section className="py-16 lg:py-24 bg-[#222222]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-12">
+          <AnimatedSection className="text-center space-y-12">
             <h2 className="text-3xl lg:text-5xl font-bold text-white inter-tight-bold">
               Our Work Speaks for Itself
             </h2>
 
             <div className="grid md:grid-cols-2 gap-8">
               {/* stair service*/}
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg">
+              <AnimatedDelay className="bg-white rounded-xl overflow-hidden shadow-lg">
                 <div className="grid grid-cols-2">
                   <div className="relative">
                     <Image
-                      src="/showcase-stairs.JPG"
+                      src="/about-page/showcase-stairs.JPG"
                       alt="Before: Worn hardwood floors"
                       width={300}
                       height={300}
@@ -386,7 +408,7 @@ export default function AboutPage() {
                   </div>
                   <div className="relative">
                     <Image
-                      src="/showcase-stair2.JPG"
+                      src="/about-page/showcase-stair2.JPG"
                       alt="After: Refinished hardwood floors"
                       width={300}
                       height={300}
@@ -411,14 +433,14 @@ export default function AboutPage() {
                     </span>
                   </p>
                 </div>
-              </div>
+              </AnimatedDelay>
 
               {/* full service */}
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg">
+              <AnimatedDelay className="bg-white rounded-xl overflow-hidden shadow-lg">
                 <div className="grid grid-cols-2">
                   <div className="relative">
                     <Image
-                      src="/full-service2.JPG"
+                      src="/about-page/full-service2.JPG"
                       alt="Before: Old carpet flooring"
                       width={300}
                       height={300}
@@ -430,7 +452,7 @@ export default function AboutPage() {
                   </div>
                   <div className="relative">
                     <Image
-                      src="/full-service1.JPG"
+                      src="/about-page/full-service1.JPG"
                       alt="After: New hardwood installation"
                       width={300}
                       height={300}
@@ -451,21 +473,21 @@ export default function AboutPage() {
                     stairs for both homes. Professional trim work and seamless
                     transitions throughout both houses.{" "}
                     <span className="inter-tight-medium">
-                      Total project timeline: 2½ weeks (Flooring: 1½ weeks,
-                      Stairs: 1 week)
+                      Total project timeline: 1½ weeks (Flooring: 6 days,
+                      Stairs: 5 days)
                     </span>
                   </p>
                 </div>
-              </div>
+              </AnimatedDelay>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* Local Commitment Section */}
       <section className="py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <AnimatedSection className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <div className="flex items-center space-x-3">
                 <MapPinIcon
@@ -570,7 +592,7 @@ export default function AboutPage() {
             <div className="relative">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/sangabriel.jpg"
+                  src="/about-page/sangabriel.jpg"
                   alt="Local community flooring project"
                   width={600}
                   height={600}
@@ -587,7 +609,7 @@ export default function AboutPage() {
                 </div>
               </div>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -597,7 +619,7 @@ export default function AboutPage() {
       {/* Call-to-Action Section */}
       <section className="py-16 lg:py-24 bg-gradient-to-br from-blue-600 to-blue-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="space-y-8">
+          <AnimatedSection className="space-y-8">
             <h2 className="text-3xl lg:text-5xl font-bold text-white inter-tight-bold">
               Ready to Transform Your Floors?
             </h2>
@@ -626,7 +648,7 @@ export default function AboutPage() {
             <p className="text-blue-100 inter-tight-regular">
               Serving Orange County and LA County • Insured • Free Estimates
             </p>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
     </div>
