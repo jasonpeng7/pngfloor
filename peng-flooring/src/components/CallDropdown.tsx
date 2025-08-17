@@ -44,7 +44,7 @@ export default function CallDropdown({
   return (
     <div className={`relative ${className}`} ref={dropdownRef}>
       <button onClick={toggleDropdown} className={buttonClasses}>
-        <PhoneIcon className="w-5 h-5 mr-2" />
+        <PhoneIcon className="w-5 h-5 mr-2 " />
         Call Now
       </button>
 
@@ -64,7 +64,7 @@ export default function CallDropdown({
                   </span>
                 </div>
               </div>
-              <div className="ml-3">
+              <div className="flex flex-col items-start ml-3">
                 <p className="text-sm font-medium text-gray-900 inter-tight-medium">
                   English
                 </p>
@@ -87,7 +87,7 @@ export default function CallDropdown({
                   </span>
                 </div>
               </div>
-              <div className="ml-3">
+              <div className="flex flex-col items-start ml-3">
                 <p className="text-sm font-medium text-gray-900 inter-tight-medium">
                   中文
                 </p>

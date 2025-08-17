@@ -79,7 +79,7 @@ export default function Navbar() {
                     className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium inter-tight-regular transition-colors"
                   >
                     Sign In
-                  </Link>{" "}
+                  </Link>
                 </div>
               )}
             </div>
@@ -153,7 +153,7 @@ export default function Navbar() {
             className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium inter-tight-regular transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >
-            Book Service
+            Free Estimate
           </Link>
           {isAuthenticated ? (
             <>
@@ -180,6 +180,15 @@ export default function Navbar() {
               Sign In
             </Link>
           )}
+
+          {/* Mobile Language Switcher */}
+          <div className="border-t border-gray-200 pt-4 mt-4">
+            <div className="flex items-center justify-between px-3 py-2">
+              <span className="text-sm font-medium text-gray-700">
+                Language
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
