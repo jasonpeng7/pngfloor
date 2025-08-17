@@ -10,19 +10,20 @@ import {
 } from "../components/icons";
 import CallDropdown from "../components/CallDropdown";
 import AnimatedCounter from "../components/AnimatedCounter";
+import AnimatedSection, { AnimatedDelay } from "../components/AnimatedSection";
 
 export default function Home() {
   return (
     <div className="max-w-[2000px] min-h-screen">
       {/* hero section */}
-      <section className="relative bg-gradient-to-br from-gray-50 to-gray-100 py-5 lg:py-32  ">
+      <section className="relative bg-gradient-to-br from-gray-50 to-gray-100 py-5 lg:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-          <div className="grid lg:grid-cols-2 gap-12 items-center justify-center ">
+          <AnimatedSection className="grid lg:grid-cols-2 gap-12 items-center justify-center">
             {/* Image - Mobile First */}
             <div className="relative order-1 lg:order-2">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/main-stair.png"
+                  src="/landing-page/main-stair.png"
                   alt="Professional hardwood flooring installation in Orange County and LA County by Peng Flooring"
                   width={2000}
                   height={2000}
@@ -33,12 +34,16 @@ export default function Home() {
               </div>
 
               {/* Floating testimonial card */}
-              <div className="absolute -bottom-20 -right-1 sm:-bottom-2 sm:-right-2 md:-bottom-4 md:-right-4 lg:-bottom-6 lg:-right-6 bg-white rounded-lg shadow-xl p-4 max-w-xs">
+              <AnimatedDelay className="absolute -bottom-20 -right-1 sm:-bottom-2 sm:-right-2 md:-bottom-4 md:-right-4 lg:-bottom-6 lg:-right-6 bg-white rounded-lg shadow-xl p-4 max-w-xs">
                 <div className="flex items-center space-x-3 mb-2">
-                  <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                    <span className="text-blue-600 font-bold inter-tight-bold">
-                      D
-                    </span>
+                  <div className="w-10 h-10 rounded-full overflow-hidden">
+                    <Image
+                      src="/landing-page/dewi.jpg"
+                      alt="Dewi H. - Satisfied Customer"
+                      width={40}
+                      height={40}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900 inter-tight-semibold">
@@ -61,7 +66,7 @@ export default function Home() {
                   elevated our home. Professional, timely, and honest
                   pricing.&rdquo;
                 </p>
-              </div>
+              </AnimatedDelay>
             </div>
 
             {/* Content - Mobile Second */}
@@ -91,154 +96,140 @@ export default function Home() {
                     ))}
                   </div>
                   <span className="text-sm text-gray-600 inter-tight-medium">
-                    4.9/5 (500+ reviews)
+                    4.9/5 from 500+ reviews
                   </span>
                 </div>
-                {/* <div className="flex items-center space-x-2">
-                  <svg
-                    className="w-5 h-5 text-green-500"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <span className="text-sm text-gray-600 inter-tight-medium">
-                    Licensed & Insured
-                  </span>
-                </div> */}
                 <div className="flex items-center space-x-2">
-                  <ClockIcon className="w-5 h-5 text-blue-500" />
+                  <ClockIcon
+                    className="w-5 h-5 text-blue-600"
+                    fill="currentColor"
+                  />
                   <span className="text-sm text-gray-600 inter-tight-medium">
-                    15+ Years Experience
+                    Free estimates
                   </span>
                 </div>
               </div>
 
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start">
+              {/* CTA buttons */}
+              <div className="flex flex-col items-center justify-center md:justify-start sm:flex-row gap-4">
                 <Link
                   href="/bookings"
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-lg inter-tight-semibold transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                  className="bg-blue-600 text-white px-8 py-4 rounded-lg font-bold text-lg inter-tight-bold hover:bg-blue-700 transition-colors duration-200 shadow-lg text-center"
                 >
-                  Schedule Your Free Estimate
+                  Book Free Estimate
                 </Link>
                 <CallDropdown />
               </div>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-20 bg-white">
+      {/* services section */}
+      <section className="py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 inter-tight-bold mb-4">
-              Professional Flooring Services
-            </h2>
-            <p className="text-xl text-gray-600 inter-tight-medium max-w-3xl mx-auto">
-              From installation to refinishing, we handle all your flooring
-              needs with precision and care.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {/* Vinyl Service */}
-            <div className="text-center group">
-              <div className="relative  overflow-hidden mb-4 group-hover:scale-105 transition-transform duration-300">
-                <Image
-                  src="/vinyl-service.png"
-                  alt="Vinyl flooring installation service"
-                  width={400}
-                  height={400}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0  transition-colors"></div>
-              </div>
-              <div className="flex items-center justify-center mb-2">
-                <HardwoodIcon className="w-6 h-6 text-blue-600 mr-2" />
-                <h3 className="text-xl font-semibold text-gray-900 inter-tight-semibold">
-                  Luxury Vinyl Installation
-                </h3>
-              </div>
-              <p className="text-gray-600 inter-tight-regular">
-                Premium vinyl floors installed with precision and care.
+          <AnimatedSection className="text-center space-y-12">
+            <div className="space-y-4">
+              <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 inter-tight-bold">
+                Our Services
+              </h2>
+              <p className="text-xl text-gray-600 inter-tight-medium max-w-3xl mx-auto">
+                Professional flooring services with quality materials and honest
+                pricing. We handle everything from installation to refinishing.
               </p>
             </div>
 
-            {/* Stair Service */}
-            <div className="text-center group">
-              <div className="relative  overflow-hidden mb-4 group-hover:scale-105 transition-transform duration-300">
-                <Image
-                  src="/stair-service.png"
-                  alt="Stair installation and remodeling service"
-                  width={300}
-                  height={300}
-                  className="w-full h-full  object-cover"
-                />
-                <div className="absolute inset-0  transition-colors"></div>
-              </div>
-              <div className="flex items-center justify-center mb-2">
-                <VinylIcon className="w-6 h-6 text-blue-600 mr-2" />
-                <h3 className="text-xl font-semibold text-gray-900 inter-tight-semibold">
-                  Stair Installation
-                </h3>
-              </div>
-              <p className="text-gray-600 inter-tight-regular">
-                Durable and modern stair remodels.
-              </p>
-            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Vinyl Installation */}
+              <AnimatedDelay className="text-center group">
+                <div className="relative overflow-hidden rounded-lg mb-4">
+                  <Image
+                    src="/landing-page/vinyl-service.png"
+                    alt="Luxury Vinyl Installation"
+                    width={300}
+                    height={300}
+                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="flex items-center justify-center mb-2">
+                  <VinylIcon className="w-6 h-6 text-blue-600 mr-2" />
+                  <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                    Luxury Vinyl
+                  </h3>
+                </div>
+                <p className="text-gray-600 inter-tight-regular">
+                  Waterproof, durable, and beautiful vinyl flooring
+                  installation.
+                </p>
+              </AnimatedDelay>
 
-            {/* Refinish Service */}
-            <div className="text-center group">
-              <div className="relative overflow-hidden mb-4 group-hover:scale-105 transition-transform duration-300">
-                <Image
-                  src="/refinish-service.png"
-                  alt="Floor refinishing and repair service"
-                  width={300}
-                  height={300}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0  transition-colors"></div>
-              </div>
-              <div className="flex items-center justify-center mb-2">
-                <RefinishIcon className="w-6 h-6 text-blue-600 mr-2" />
-                <h3 className="text-xl font-semibold text-gray-900 inter-tight-semibold">
-                  Refinishing & Repairs
-                </h3>
-              </div>
-              <p className="text-gray-600 inter-tight-regular">
-                Restore your existing floors to their original beauty.
-              </p>
-            </div>
+              {/* Hardwood Installation */}
+              <AnimatedDelay className="text-center group">
+                <div className="relative overflow-hidden rounded-lg mb-4">
+                  <Image
+                    src="/landing-page/stair-service.png"
+                    alt="Hardwood Installation"
+                    width={300}
+                    height={300}
+                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="flex items-center justify-center mb-2">
+                  <HardwoodIcon className="w-6 h-6 text-blue-600 mr-2" />
+                  <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                    Hardwood & Stairs
+                  </h3>
+                </div>
+                <p className="text-gray-600 inter-tight-regular">
+                  Premium hardwood installation and stair remodeling services.
+                </p>
+              </AnimatedDelay>
 
-            {/* Custom Service */}
-            <div className="text-center group">
-              <div className="relative overflow-hidden mb-4 group-hover:scale-105 transition-transform duration-300">
-                <Image
-                  src="/custom-service.png"
-                  alt="Custom flooring design service"
-                  width={300}
-                  height={300}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0  transition-colors"></div>
-              </div>
-              <div className="flex items-center justify-center mb-2">
-                <CustomIcon className="w-6 h-6 text-blue-600 mr-2" />
-                <h3 className="text-xl font-semibold text-gray-900 inter-tight-semibold">
-                  Custom Flooring
-                </h3>
-              </div>
-              <p className="text-gray-600 inter-tight-regular">
-                Unique designs and patterns to match your vision.
-              </p>
+              {/* Refinishing */}
+              <AnimatedDelay className="text-center group">
+                <div className="relative overflow-hidden rounded-lg mb-4">
+                  <Image
+                    src="/landing-page/refinish-service.png"
+                    alt="Floor Refinishing"
+                    width={300}
+                    height={300}
+                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="flex items-center justify-center mb-2">
+                  <RefinishIcon className="w-6 h-6 text-blue-600 mr-2" />
+                  <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                    Refinishing
+                  </h3>
+                </div>
+                <p className="text-gray-600 inter-tight-regular">
+                  Restore your existing floors to their original beauty.
+                </p>
+              </AnimatedDelay>
+
+              {/* Custom Services */}
+              <AnimatedDelay className="text-center group">
+                <div className="relative overflow-hidden rounded-lg mb-4">
+                  <Image
+                    src="/landing-page/custom-service.png"
+                    alt="Custom Flooring Services"
+                    width={300}
+                    height={300}
+                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="flex items-center justify-center mb-2">
+                  <CustomIcon className="w-6 h-6 text-blue-600 mr-2" />
+                  <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                    Custom Services
+                  </h3>
+                </div>
+                <p className="text-gray-600 inter-tight-regular">
+                  Specialized flooring solutions for unique projects.
+                </p>
+              </AnimatedDelay>
             </div>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -246,7 +237,7 @@ export default function Home() {
       <AnimatedCounter endValue={862} />
 
       {/* Local Service Areas Section */}
-      <section className="py-20 bg-gradient-to-b from-[#222222] to-[#222222] relative overflow-hidden">
+      <section className="py-20 bg-[#222222] relative overflow-hidden">
         {/* Background decorative elements */}
         <div className="absolute top-10 left-10 w-32 h-32 bg-blue-200 rounded-full opacity-20 blur-xl"></div>
         <div className="absolute bottom-20 right-20 w-24 h-24 bg-gray-300 rounded-full opacity-30 blur-lg"></div>
@@ -270,7 +261,7 @@ export default function Home() {
               <h3 className="text-lg font-bold text-white inter-tight-medium mb-3">
                 Orange County
               </h3>
-              <ul className="space-y-2 text-white inter-tight-light text-sm">
+              <ul className="space-y-2 text-gray-300 inter-tight-light text-sm">
                 <li className="flex items-center">
                   <span className="w-1 h-1 bg-white rounded-full mr-2"></span>
                   Anaheim
@@ -382,24 +373,33 @@ export default function Home() {
       {/* steps section */}
       <section className="py-20 bg-white"></section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-blue-600">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white inter-tight-bold mb-4">
-            Ready to Transform Your Floors?
-          </h2>
-          <p className="text-xl text-blue-100 inter-tight-medium mb-8">
-            Get your free estimate today. No obligation, just honest pricing.
-          </p>
-          <div className="flex flex-col items-center sm:flex-row gap-4 justify-center">
-            <Link
-              href="/bookings"
-              className="bg-white text-blue-600 hover:bg-gray-100 font-bold py-4 px-8 rounded-lg text-lg inter-tight-semibold transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-            >
-              Book My Free Estimate
-            </Link>
-            <CallDropdown variant="white" />
-          </div>
+      {/* CTA section */}
+      <section className="py-16 lg:py-24 bg-gradient-to-br from-blue-600 to-blue-700">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <AnimatedSection className="space-y-8">
+            <h2 className="text-3xl lg:text-5xl font-bold text-white inter-tight-bold">
+              Ready to Transform Your Floors?
+            </h2>
+            <p className="text-xl text-blue-100 inter-tight-medium max-w-3xl mx-auto">
+              Get your free estimate today and see how we can bring your
+              flooring vision to life. No pressure, just honest advice and fair
+              pricing.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Link
+                href="/bookings"
+                className="bg-white text-blue-600 px-8 py-4 rounded-lg font-bold text-lg inter-tight-bold hover:bg-gray-100 transition-colors duration-200 shadow-lg"
+              >
+                Book Your Free Estimate
+              </Link>
+              <CallDropdown />
+            </div>
+
+            <p className="text-blue-100 inter-tight-regular">
+              Serving Orange County and LA County • Insured • Free Estimates
+            </p>
+          </AnimatedSection>
         </div>
       </section>
     </div>
