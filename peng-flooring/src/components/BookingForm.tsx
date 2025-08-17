@@ -49,6 +49,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
       email: formData.get("email") as string,
       address: formData.get("address") as string,
       phone_number: formData.get("phone") as string,
+      lived_in: formData.get("lived-in") as string,
       service: formData.get("service") as string,
       house_size: formData.get("houseSize") as string,
       rooms: formData.get("rooms") as string,
@@ -209,6 +210,33 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                 Don&apos;t worry about providing your exact address right now.
                 We&apos;ll ask for the specific address later if you decide to
                 proceed with the estimate.
+              </p>
+            </div>
+
+            <div>
+              <label
+                htmlFor="lived_in"
+                className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
+              >
+                Is Anyone Currently Living in the Property? *
+              </label>
+              <select
+                id="lived-in-boolean"
+                name="lived-in"
+                required
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="">Select an option</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+                <option value="no-but-furniture">
+                  No, but there is furniture
+                </option>
+              </select>
+              <p className="text-xs text-gray-500 mt-1 inter-tight-regular">
+                Please let us know if the property is occupied. Projects in
+                furnished or occupied homes may require additional preparation
+                and labor, which can affect the overall cost
               </p>
             </div>
 
