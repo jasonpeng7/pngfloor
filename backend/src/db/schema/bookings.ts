@@ -14,6 +14,7 @@ export const bookings = schema.table("bookings", {
   address: t.varchar("address", { length: 255 }).notNull(),
   phone_number: t.varchar("phone_number", { length: 255 }).notNull(),
   house_size: t.integer("house_size").notNull(),
+  lived_in: t.varchar("lived_in", { length: 255 }).notNull(),
   rooms: t.varchar("rooms", { length: 255 }).notNull(),
   service: t.varchar("service", { length: 255 }).notNull(),
   message: t.text("message").notNull(),
