@@ -39,6 +39,7 @@ export const createBooking = factory.createHandlers(async (c) => {
         address: body.address,
         phone_number: body.phone_number,
         house_size: body.house_size,
+        lived_in: body.lived_in,
         rooms: body.rooms,
         service: body.service,
         message: body.message,
@@ -120,4 +121,31 @@ export const cancelBooking = factory.createHandlers(async (c) => {
   if (deletedBooking.length === 0)
     return c.json({ error: "Booking not found" }, 404);
   return c.json(deletedBooking[0]);
+});
+
+export const updateBookingStatus = factory.createHandlers(async (c) => {
+  const bookingId = c.req.param("id");
+  if (!bookingId) return c.json({ error: "Booking ID is required" }, 400);
+  const body = await c.req.json();
+
+  if (!body.status) return c.json({ error: "Status is required" }, 400);
+
+  try {
+    const [updatedBooking] = await db
+      .update(bookings)
+      .set({
+        status: body.status,
+      })
+      .where(eq(bookings.id, bookingId))
+      .returning();
+
+    if (!updatedBooking) {
+      return c.json({ error: "Booking not found" }, 404);
+    }
+
+    return c.json(updatedBooking);
+  } catch (error) {
+    console.error("Error updating booking status:", error);
+    return c.json({ error: "Failed to update booking status" }, 500);
+  }
 });
