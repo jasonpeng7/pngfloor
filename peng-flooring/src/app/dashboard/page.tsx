@@ -15,6 +15,7 @@ interface Booking {
   address: string;
   phone_number: string;
   house_size: number;
+  lived_in: string;
   rooms: string;
   service: string;
   message: string;
@@ -263,7 +264,7 @@ export default function DashboardPage() {
               </div>
               <div className="ml-3">
                 <p className="text-sm font-medium text-green-800">
-                  ✅ Your free estimate is booked!
+                  Your free estimate is confirmed!
                 </p>
               </div>
             </div>
@@ -296,7 +297,7 @@ export default function DashboardPage() {
         {userBookings.length === 0 ? (
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 text-center">
             <Image
-              src="/dissapointed.svg"
+              src="/dashboard/dissapointed.svg"
               alt="No bookings yet"
               width={100}
               height={100}
@@ -426,6 +427,14 @@ export default function DashboardPage() {
                               </p>
                               <p className="text-gray-900">
                                 {booking.phone_number}
+                              </p>
+                            </div>
+                            <div>
+                              <p className="text-sm font-medium text-gray-500 mb-1">
+                                Lived In?
+                              </p>
+                              <p className="text-gray-900">
+                                {booking.lived_in}
                               </p>
                             </div>
                           </div>
