@@ -1,22 +1,23 @@
 import { StarIcon } from "./icons";
+import Image from "next/image";
 
 const testimonials = [
   {
     id: 1,
     name: "Dewi H.",
-    location: "Pasadena, CA",
+    location: "Rowland Heights, CA",
     rating: 5,
-    text: "Best work in the 626 area! He transformed our old floors into a very modern and sleek finish that completely elevated our home. Professional, timely, and honest pricing. Will definitely hire again for future projects.",
+    text: "Best work in the 626 area! He transformed our old floors into a very modern and sleek finish that completely elevated our home. Professional, timely, and honest pricing.",
     avatar: "D",
     avatarColor: "blue",
   },
   {
     id: 2,
-    name: "Maria S.",
-    location: "Anaheim, CA",
+    name: "Shuting L.",
+    location: "Chino Hills, CA",
     rating: 5,
-    text: "Incredible attention to detail! The hardwood installation in our living room is absolutely stunning. Fair pricing, clean work, and they treated our home with respect. Highly recommend!",
-    avatar: "M",
+    text: "Speaks Chinese! We remodeled our hown with luxury vinyl, and it is absolutely beautiful. Our house was around 2000 sqft., single story, and it took him around 1½ week. Fair pricing, and extremely clean. Highly recommend!",
+    avatar: "S",
     avatarColor: "green",
   },
 ];
@@ -37,16 +38,28 @@ export default function Testimonials() {
                 className="bg-white rounded-xl p-8 shadow-lg"
               >
                 <div className="flex items-center space-x-3 mb-4">
-                  <div
-                    className={`w-12 h-12 bg-${testimonial.avatarColor}-100 rounded-full flex items-center justify-center`}
-                  >
-                    <span
-                      className={`text-${testimonial.avatarColor}-600 font-bold inter-tight-bold`}
+                  {testimonial.id === 1 ? (
+                    <div className="w-12 h-12 rounded-full overflow-hidden">
+                      <Image
+                        src="/dewi.jpg"
+                        alt={`${testimonial.name} - Satisfied Customer`}
+                        width={48}
+                        height={48}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      className={`w-12 h-12 bg-${testimonial.avatarColor}-100 rounded-full flex items-center justify-center`}
                     >
-                      {testimonial.avatar}
-                    </span>
-                  </div>
-                  <div>
+                      <span
+                        className={`text-${testimonial.avatarColor}-600 font-bold inter-tight-bold`}
+                      >
+                        {testimonial.avatar}
+                      </span>
+                    </div>
+                  )}
+                  <div className="flex flex-col items-start">
                     <p className="font-semibold text-gray-900 inter-tight-semibold">
                       {testimonial.name}
                     </p>
