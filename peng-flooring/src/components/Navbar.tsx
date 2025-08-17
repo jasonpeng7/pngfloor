@@ -180,15 +180,6 @@ export default function Navbar() {
               Sign In
             </Link>
           )}
-
-          {/* Mobile Language Switcher */}
-          <div className="border-t border-gray-200 pt-4 mt-4">
-            <div className="flex items-center justify-between px-3 py-2">
-              <span className="text-sm font-medium text-gray-700">
-                Language
-              </span>
-            </div>
-          </div>
         </div>
       </div>
     </nav>
