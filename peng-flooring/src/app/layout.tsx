@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./animations.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { AuthProvider } from "../contexts/AuthContext";
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Family-owned flooring company serving Orange County and LA County since 2009. Professional hardwood installation, refinishing, vinyl & laminate flooring. Free estimates, honest pricing, 4.9/5 stars from 500+ reviews.",
   icons: {
-    icon: "/penglogo.svg",
+    icon: "landing-page/penglogo.svg",
   },
   keywords: [
     "flooring installation Orange County",
@@ -101,10 +102,10 @@ export default function RootLayout({
               description:
                 "Family-owned flooring company serving Orange County and LA County since 2009. Professional hardwood installation, refinishing, vinyl & laminate flooring.",
               url: "https://pengflooring.com",
-              telephone: "+1-XXX-XXX-XXXX",
+              telephone: "+1-626-540-7720",
               address: {
                 "@type": "PostalAddress",
-                addressRegion: "Orange County, CA",
+                addressRegion: "Rowland Heights, CA",
                 addressCountry: "US",
               },
               geo: {
