@@ -31,6 +31,7 @@ const main = async () => {
     address: "123 Main St, Anytown, USA",
     phone_number: "6281234567890",
     house_size: 2000,
+    lived_in: "Yes",
     rooms: "2",
     service: "Free Estimate",
     message: "I would like to get an estimate for my home",
