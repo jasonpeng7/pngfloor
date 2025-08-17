@@ -13,39 +13,45 @@ const steps = [
     number: "01",
     title: "Carpet/Baseboard Removal",
     description:
-      "Carefully remove existing carpet and baseboards to prepare the surface",
+      "Carefully remove existing carpet or flooring and baseboards to prepare the surface for underlayment",
     icon: TrashIcon,
+    timeFrame: "1-2 days",
   },
   {
     number: "02",
     title: "Prime Floor",
     description:
-      "Clean/smoothe floor + apply primer sheet to protect from water/heat damage",
+      "Clean/smoothe floor + apply underlayment to protect from water/heat damage",
     icon: PaintBrushIcon,
+    timeFrame: "1-2 days",
   },
   {
     number: "03",
     title: "Install Flooring",
     description: "Professional installation of your chosen flooring material",
     icon: HammerIcon,
+    timeFrame: "3-5 days",
   },
   {
     number: "04",
     title: "Install Baseboard",
-    description: "Install and finish baseboards for the complete look",
+    description: "Install and touch up baseboards for the complete look",
     icon: RulerIcon,
+    timeFrame: "2-3 days",
   },
   {
     number: "05",
     title: "Finishing Touches",
     description: "Add final details and ensure everything is perfect",
     icon: SparklesIcon,
+    timeFrame: "Same day",
   },
   {
     number: "06",
     title: "Clean",
     description: "Thorough cleanup leaving your space spotless!",
     icon: BroomIcon,
+    timeFrame: "Same day",
   },
 ];
 
@@ -89,8 +95,14 @@ export default function StepsShowcase() {
                   <h3 className="text-xl font-bold text-gray-900 inter-tight-bold mb-3">
                     {step.title}
                   </h3>
-                  <p className="text-gray-600 inter-tight-regular">
+                  <p className="text-gray-600 inter-tight-regular sm: mb-[5px] md:mb-[10px]">
                     {step.description}
+                  </p>
+                  <p className="text-gray-600 inter-tight-regular text-sm">
+                    Timeframe: {step.timeFrame}
+                  </p>
+                  <p className="text-gray-600 inter-tight-regular text-xs">
+                    *Exact time frame depends on the size of the project
                   </p>
                 </div>
               );
