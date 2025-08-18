@@ -17,9 +17,7 @@ export const SESSION_COOKIE = "png_session";
 dayjs.extend(duration);
 const SESSION_LENGTH = dayjs.duration({ days: 30 });
 
-export const COOKIE_DOMAIN = !isLocal
-  ? new URL(appEnv.FRONTEND_URL).hostname
-  : undefined;
+export const COOKIE_DOMAIN = undefined;
 
 let googleClient: any;
 
@@ -42,10 +40,12 @@ googleAuthRoutes.get("/", async (c) => {
     httpOnly: true,
     secure: !isLocal,
     domain: COOKIE_DOMAIN,
+    sameSite: "None",
+    path: "/",
   });
 
   const redirect = client.buildAuthorizationUrl(googleClientInstance, {
-    redirect_uri: appEnv.GOOGLE_REDIRECT_URI,
+    redirect_uri: appEnv.GOOGLE_REDIRECT_URI!,
     scope: "openid email profile",
     state,
     prompt: "select_account",
@@ -65,11 +65,13 @@ googleAuthRoutes.get("/callback", async (c) => {
     httpOnly: true,
     domain: COOKIE_DOMAIN,
     secure: !isLocal,
+    sameSite: "None",
+    path: "/",
   });
 
   let rawToken;
   const url = new URL(c.req.url);
-  const urlOfRedirect = new URL(appEnv.GOOGLE_REDIRECT_URI);
+  const urlOfRedirect = new URL(appEnv.GOOGLE_REDIRECT_URI!);
 
   if (
     urlOfRedirect.protocol === "https:" ||
@@ -242,6 +244,8 @@ googleAuthRoutes.get("/callback", async (c) => {
     expires: session[0].expires_at,
     domain: COOKIE_DOMAIN,
     secure: !isLocal,
+    sameSite: "None",
+    path: "/",
   });
 
   // Redirect based on user role
@@ -349,6 +353,8 @@ authRoutes.delete("/logout", async (c) => {
     httpOnly: true,
     domain: COOKIE_DOMAIN,
     secure: !isLocal,
+    sameSite: "None",
+    path: "/",
   });
 
   return c.json({ success: true });
