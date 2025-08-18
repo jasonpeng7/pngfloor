@@ -9,14 +9,26 @@ const app = new Hono();
 
 const normalizeOrigin = (origin?: string) => origin?.replace(/\/$/, "");
 
-const allowedOrigins = [
+const allowedFixedOrigins = [
   normalizeOrigin("http://localhost:3000"),
   normalizeOrigin(appEnv.FRONTEND_URL),
 ].filter((v): v is string => Boolean(v));
 
+const isAllowedOrigin = (origin?: string): boolean => {
+  if (!origin) return false;
+  const normalized = normalizeOrigin(origin)!;
+  if (allowedFixedOrigins.includes(normalized)) return true;
+  try {
+    const hostname = new URL(origin).hostname;
+    // Allow Cloudflare Pages preview subdomains like <hash>.<project>.pages.dev
+    if (hostname.endsWith(".pages.dev")) return true;
+  } catch {}
+  return false;
+};
+
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: (origin) => (isAllowedOrigin(origin) ? origin : null),
     allowMethods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   })
