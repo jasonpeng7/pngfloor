@@ -286,8 +286,8 @@ export default function Home() {
                   <span className="w-1 h-1 bg-white rounded-full mr-2"></span>
                   Newport Beach
                 </li>
-                <li className="flex items-center text-yellow-200 font-semibold">
-                  <span className="w-1 h-1 bg-yellow-200 rounded-full mr-2"></span>
+                <li className="flex items-center text-yellow-300 font-semibold">
+                  <span className="w-1 h-1 bg-yellow-300 rounded-full mr-2"></span>
                   And many more!
                 </li>
               </ul>
@@ -325,7 +325,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
-                  Walnut!
+                  Walnut
                 </li>
                 <li className="flex items-center text-yellow-300 font-semibold">
                   <span className="w-1.5 h-1.5 bg-yellow-300 rounded-full mr-2"></span>

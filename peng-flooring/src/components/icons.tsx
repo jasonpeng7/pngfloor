@@ -315,3 +315,19 @@ export const BaseboardIcon = ({
     />
   </svg>
 );
+
+export const ChineseLanguageIcon = ({
+  className = "w-5 h-5",
+  fill = "currentColor",
+}: {
+  className?: string;
+  fill?: string;
+}) => (
+  <svg className={className} fill={fill} viewBox="0 0 20 20">
+    <path
+      fillRule="evenodd"
+      d="M7 2a1 1 0 000 2h6a1 1 0 100-2H7zM5 6a1 1 0 00-1 1v8a1 1 0 001 1h10a1 1 0 001-1V7a1 1 0 00-1-1H5zm3 2a1 1 0 000 2h4a1 1 0 100-2H8zm0 4a1 1 0 000 2h4a1 1 0 100-2H8z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
