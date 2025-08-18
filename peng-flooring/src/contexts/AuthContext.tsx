@@ -33,9 +33,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/auth/me", {
-        credentials: "include", // Include cookies
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE}/api/auth/me`,
+        {
+          credentials: "include", // Include cookies
+        }
+      );
 
       if (response.ok) {
         const userData = await response.json();
@@ -53,10 +56,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/auth/logout", {
-        method: "DELETE",
-        credentials: "include",
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE}/api/auth/logout`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
 
       if (response.ok) {
         setUser(null);
