@@ -249,18 +249,21 @@ googleAuthRoutes.get("/callback", async (c) => {
   });
 
   // Redirect based on user role
+  const frontendBase = (appEnv.FRONTEND_URL || "").replace(/\/$/, "");
   const redirectUrl = isAdmin
-    ? appEnv.FRONTEND_URL + "/admin"
-    : appEnv.FRONTEND_URL + "/bookings";
+    ? `${frontendBase}/admin`
+    : `${frontendBase}/bookings`;
 
   return c.redirect(redirectUrl);
 });
 
 googleAuthRoutes.onError((err, c) => {
-  if (err instanceof GoogleAuthError)
+  if (err instanceof GoogleAuthError) {
+    const frontendBase = (appEnv.FRONTEND_URL || "").replace(/\/$/, "");
     return c.redirect(
-      appEnv.FRONTEND_URL + "/login?error=" + encodeURIComponent(err.code)
+      `${frontendBase}/login?error=${encodeURIComponent(err.code)}`
     );
+  }
 
   throw err;
 });
