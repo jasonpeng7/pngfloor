@@ -11,6 +11,7 @@ import {
   HardwoodIcon,
   RefinishIcon,
   CustomIcon,
+  ChineseLanguageIcon,
 } from "../../components/icons";
 import StepsShowcase from "../../components/StepsShowcase";
 import Testimonials from "../../components/Testimonials";
@@ -41,7 +42,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="relative">
-              <div className="relative overflow-hidden shadow-2xl">
+              <div className="relative overflow-hidden">
                 <Image
                   src="/about-page/longde.png"
                   alt="Professional flooring contractor working on hardwood installation"
@@ -63,13 +64,22 @@ export default function AboutPage() {
                     Insured
                   </span>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 mb-2">
                   <AwardIcon
                     className="w-5 h-5 text-blue-500"
                     fill="currentColor"
                   />
                   <span className="text-sm font-semibold text-gray-900 inter-tight-semibold">
                     15+ Years Experience
+                  </span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <ChineseLanguageIcon
+                    className="w-5 h-5 text-red-500"
+                    fill="currentColor"
+                  />
+                  <span className="text-sm font-semibold text-gray-900 inter-tight-semibold">
+                    Speaks Chinese
                   </span>
                 </div>
               </AnimatedDelay>
@@ -184,7 +194,7 @@ export default function AboutPage() {
               <div className="pt-6">
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
                   <div className="text-3xl font-bold text-blue-600 inter-tight-bold">
-                    1+
+                    2+
                   </div>
                   <div className="text-sm text-gray-600 inter-tight-medium">
                     Years Experience
@@ -275,9 +285,12 @@ export default function AboutPage() {
 
             {/* Specializations */}
             <div className="mt-12">
-              <h3 className="text-2xl font-bold text-gray-900 inter-tight-bold mb-8">
+              <h3 className="text-2xl font-bold text-gray-900 inter-tight-bold mb-2">
                 Our Core Services
               </h3>
+              <p className="text-gray-600 text-xs inter-tight-light mb-8">
+                *These photos are for reference only.
+              </p>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {/* Vinyl Installation */}
                 <AnimatedDelay className="text-center group">
