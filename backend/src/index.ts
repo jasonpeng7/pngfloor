@@ -3,12 +3,20 @@ import { cors } from "hono/cors";
 import customersRouter from "./routes/customers";
 import bookingsRouter from "./routes/bookings";
 import authRoutes from "./routes/auth";
+import { appEnv } from "./types/env";
 
 const app = new Hono();
 
+const normalizeOrigin = (origin?: string) => origin?.replace(/\/$/, "");
+
+const allowedOrigins = [
+  normalizeOrigin("http://localhost:3000"),
+  normalizeOrigin(appEnv.FRONTEND_URL),
+].filter((v): v is string => Boolean(v));
+
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: allowedOrigins,
     allowMethods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   })
