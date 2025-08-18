@@ -20,8 +20,12 @@ export default function GoogleSignIn({
     setIsLoading(true);
 
     try {
+      const rawBase =
+        process.env.NEXT_PUBLIC_API_BASE ||
+        "https://hono-backend.jasonpeng.workers.dev";
+      const apiBase = rawBase.replace(/\/$/, "");
       // Redirect to backend OAuth endpoint
-      window.location.href = `${process.env.NEXT_PUBLIC_API_BASE}/api/auth/google/callback`;
+      window.location.href = `${apiBase}/api/auth/google`;
     } catch (error) {
       setIsLoading(false);
       onError?.(error instanceof Error ? error.message : "Sign in failed");
