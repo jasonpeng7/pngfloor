@@ -58,14 +58,17 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/api/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(bookingData),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE}/api/bookings`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(bookingData),
+        }
+      );
 
       if (response.ok) {
         setSubmitMessage({

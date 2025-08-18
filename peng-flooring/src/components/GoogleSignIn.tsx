@@ -21,7 +21,7 @@ export default function GoogleSignIn({
 
     try {
       // Redirect to backend OAuth endpoint
-      window.location.href = "http://localhost:8080/api/auth/google";
+      window.location.href = `${process.env.NEXT_PUBLIC_API_BASE}/api/auth/google/callback`;
     } catch (error) {
       setIsLoading(false);
       onError?.(error instanceof Error ? error.message : "Sign in failed");

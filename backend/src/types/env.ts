@@ -1,25 +1,18 @@
 import { z } from "zod";
 
 export const zEnv = z.object({
-  POSTGRES_DB: z.string().nonempty(),
-  POSTGRES_USER: z.string().nonempty(),
-  POSTGRES_PASSWORD: z.string().nonempty(),
-  POSTGRES_HOST: z.string().nonempty(),
-  POSTGRES_PORT: z.coerce.number().gt(0).default(5430),
-  POSTGRES_SSL: z
-    .enum(["false", "require", "allow", "prefer", "verify-full"])
-    .default("false"),
+  DATABASE_URL: z.string().nonempty(),
   ENVIRONMENT: z.enum(["LOCAL", "STAGE", "PROD"]).default("LOCAL"),
 
-  // OAuth
-  GOOGLE_CLIENT_ID: z.string().nonempty(),
-  GOOGLE_CLIENT_SECRET: z.string().nonempty(),
-  GOOGLE_REDIRECT_URI: z.string().url(),
-  FRONTEND_URL: z.string().url(),
-  ADMIN_EMAIL: z.string().email(),
+  // OAuth (optional for now)
+  GOOGLE_CLIENT_ID: z.string().optional(),
+  GOOGLE_CLIENT_SECRET: z.string().optional(),
+  GOOGLE_REDIRECT_URI: z.string().url().optional(),
+  FRONTEND_URL: z.string().url().optional(),
+  ADMIN_EMAIL: z.string().email().optional(),
 });
 
-export const appEnv = zEnv.parse(Bun.env);
+export const appEnv = zEnv.parse(process.env);
 
 export const isProd = appEnv.ENVIRONMENT === "PROD"; // for .org
 export const isStage = appEnv.ENVIRONMENT === "STAGE"; // for .dev
