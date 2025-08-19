@@ -7,54 +7,54 @@ import { AuthProvider } from "../contexts/AuthContext";
 
 export const metadata: Metadata = {
   title:
-    "Peng Flooring - Family-Owned Flooring Company in Orange County & LA County | Free Estimates",
+    "Peng Flooring - Family-Owned Flooring Company in the greater 626 area",
   description:
-    "Family-owned flooring company serving Orange County and LA County since 2009. Professional hardwood installation, refinishing, vinyl & laminate flooring. Free estimates, honest pricing, 4.9/5 stars from 500+ reviews.",
+    "Family-owned flooring company serving Orange County, LA County, and 626 area. Professional flooring installation and stair remodeling. Free estimates, honest pricing, 4.9/5 stars from 800+ reviews.",
   icons: {
     icon: "landing-page/penglogo.svg",
   },
   keywords: [
+    "Peng flooring installation",
+    "Top flooring installers near me",
+    "Peng flooring vinyl flooring installation",
     "flooring installation Orange County",
-    "hardwood refinishing near me",
     "family-owned flooring company Orange County",
     "flooring installation LA County",
-    "hardwood installation Anaheim",
     "flooring refinishing Fullerton",
     "vinyl flooring installation Orange County",
     "laminate flooring LA County",
     "flooring contractor Orange County",
-    "hardwood floor refinishing near me",
     "flooring installation Costa Mesa",
     "flooring company Huntington Beach",
     "flooring services Irvine",
-    "hardwood installation Newport Beach",
     "flooring contractor LA County",
+    "vinyl flooring installation",
   ],
   authors: [{ name: "Peng Flooring" }],
-  creator: "Peng Flooring",
-  publisher: "Peng Flooring",
+  creator: "Peng Floor",
+  publisher: "Peng Floor",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://pengflooring.com"),
+  metadataBase: new URL("https://www.pengfloor.com"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title:
-      "Peng Flooring - Family-Owned Flooring Company in Orange County & LA County",
+      "Peng Flooring - Family-Owned Flooring Company in the greater 626 area",
     description:
-      "Professional flooring services with free estimates. Hardwood installation, refinishing, vinyl & laminate flooring. Serving Orange County and LA County since 2009.",
+      "Professional flooring services with free estimates. Luxury vinyl & laminate flooring installation and stair remodeling. Serving Orange County, LA County, and 626 area since 2009.",
     url: "https://pengflooring.com",
     siteName: "Peng Flooring",
     images: [
       {
-        url: "/wood-flooring.png",
+        url: "/full-service1.JPG",
         width: 1200,
         height: 630,
-        alt: "Beautiful hardwood flooring installation by Peng Flooring",
+        alt: "Beautiful luxury vinyl installation and full stair remodel by Peng Flooring",
       },
     ],
     locale: "en_US",
@@ -62,11 +62,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title:
-      "Peng Flooring - Family-Owned Flooring Company in Orange County & LA County",
+    title: "Peng Flooring - Family-Owned Flooring Company in 626 area",
     description:
-      "Professional flooring services with free estimates. Hardwood installation, refinishing, vinyl & laminate flooring.",
-    images: ["/wood-flooring.png"],
+      "Professional flooring services with free estimates. Luxury vinyl installation, stair remodeling, floor refinishing, and more.",
+    images: ["/full-service2.JPG"],
   },
   robots: {
     index: true,
@@ -100,8 +99,8 @@ export default function RootLayout({
               "@type": "LocalBusiness",
               name: "Peng Flooring",
               description:
-                "Family-owned flooring company serving Orange County and LA County since 2009. Professional hardwood installation, refinishing, vinyl & laminate flooring.",
-              url: "https://pengflooring.com",
+                "Professional flooring services with free estimates. Luxury vinyl installation, stair remodeling, floor refinishing, and more.",
+              url: "https://pengfloor.com",
               telephone: "+1-626-540-7720",
               address: {
                 "@type": "PostalAddress",
@@ -110,25 +109,29 @@ export default function RootLayout({
               },
               geo: {
                 "@type": "GeoCoordinates",
-                latitude: "33.7175",
-                longitude: "-117.8311",
+                latitude: "34.0203",
+                longitude: "117.8653",
               },
               areaServed: [
                 {
                   "@type": "City",
-                  name: "Anaheim",
+                  name: "Rowland Heights",
                 },
                 {
                   "@type": "City",
-                  name: "Fullerton",
+                  name: "Diamond Bar",
                 },
                 {
                   "@type": "City",
-                  name: "Costa Mesa",
+                  name: "Walnut",
                 },
                 {
                   "@type": "City",
-                  name: "Huntington Beach",
+                  name: "Chino Hills",
+                },
+                {
+                  "@type": "City",
+                  name: "Chino",
                 },
                 {
                   "@type": "City",
@@ -136,15 +139,31 @@ export default function RootLayout({
                 },
                 {
                   "@type": "City",
-                  name: "Newport Beach",
+                  name: "El Monte",
                 },
                 {
                   "@type": "City",
+                  name: "Alhambra",
+                },
+                {
+                  "@type": "County",
                   name: "Orange County",
                 },
                 {
-                  "@type": "City",
+                  "@type": "County",
                   name: "LA County",
+                },
+                {
+                  "@type": "City",
+                  name: "Arcadia",
+                },
+                {
+                  "@type": "City",
+                  name: "Cerritos",
+                },
+                {
+                  "@type": "County",
+                  name: "San Gabriel Valley",
                 },
               ],
               serviceArea: {
@@ -164,27 +183,27 @@ export default function RootLayout({
                     "@type": "Offer",
                     itemOffered: {
                       "@type": "Service",
-                      name: "Hardwood Floor Installation",
+                      name: "Luxury Vinyl Installation",
                       description:
-                        "Professional hardwood floor installation in Orange County and LA County",
+                        "Professional luxury vinyl installation in LAC, OC, and 626 area with free estimates and honest pricing.",
                     },
                   },
                   {
                     "@type": "Offer",
                     itemOffered: {
                       "@type": "Service",
-                      name: "Hardwood Floor Refinishing",
+                      name: "Stair remodeling",
                       description:
-                        "Hardwood floor refinishing and restoration services",
+                        "Full service stair remodeling in LAC, OC, and 626 area.",
                     },
                   },
                   {
                     "@type": "Offer",
                     itemOffered: {
                       "@type": "Service",
-                      name: "Vinyl & Laminate Flooring",
+                      name: "Carpet Removal",
                       description:
-                        "Vinyl and laminate flooring installation services",
+                        "Full carpet removal and disposal in LAC, OC, and 626 area.",
                     },
                   },
                 ],
@@ -196,7 +215,7 @@ export default function RootLayout({
               },
               foundingDate: "2009",
               priceRange: "$$",
-              paymentAccepted: ["Cash", "Check", "Credit Card"],
+              paymentAccepted: ["Cash", "Check"],
               currenciesAccepted: "USD",
             }),
           }}
