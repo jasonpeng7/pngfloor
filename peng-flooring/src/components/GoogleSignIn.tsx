@@ -20,8 +20,10 @@ export default function GoogleSignIn({
     setIsLoading(true);
 
     try {
-      const apiBase =
-        process.env.NEXT_PUBLIC_API_BASE?.replace(/\/$/, "") || "";
+      const apiBase = (process.env.NEXT_PUBLIC_API_BASE || "").replace(
+        /\/$/,
+        ""
+      );
       // If NEXT_PUBLIC_API_BASE is unset, assume Worker is mounted at /api on same domain
       const target = apiBase
         ? `${apiBase}/api/auth/google`

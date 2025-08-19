@@ -33,11 +33,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const checkAuthSafari = async () => {
     try {
-      const apiBase =
-        process.env.NEXT_PUBLIC_API_BASE ||
-        "https://hono-backend.jasonpeng.workers.dev";
+      const apiBase = (process.env.NEXT_PUBLIC_API_BASE || "").replace(
+        /\/$/,
+        ""
+      );
       console.log("🦁 Safari-specific auth check");
-      console.log("🦁 Full URL:", `${apiBase}/api/auth/me-safari`);
+      console.log(
+        "🦁 Full URL:",
+        `${apiBase}/api/auth/me-safari` || "/api/auth/me-safari"
+      );
 
       // For Safari, use localStorage token if available
       const token = localStorage.getItem("auth_token");
@@ -47,15 +51,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return;
       }
 
-      const response = await fetch(`${apiBase}/api/auth/me-safari`, {
-        credentials: "include",
-        headers: {
-          "Cache-Control": "no-cache",
-          Pragma: "no-cache",
-          "X-Requested-With": "XMLHttpRequest",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${apiBase}/api/auth/me-safari` || "/api/auth/me-safari",
+        {
+          credentials: "include",
+          headers: {
+            "Cache-Control": "no-cache",
+            Pragma: "no-cache",
+            "X-Requested-With": "XMLHttpRequest",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       console.log("🦁 Safari response status:", response.status);
 
@@ -77,11 +84,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const checkAuth = async (retryCount = 0) => {
     try {
-      const apiBase =
-        process.env.NEXT_PUBLIC_API_BASE ||
-        "https://hono-backend.jasonpeng.workers.dev";
-      console.log("🔍 API Base:", apiBase);
-      console.log("🔍 Full URL:", `${apiBase}/api/auth/me`);
+      const apiBase = (process.env.NEXT_PUBLIC_API_BASE || "").replace(
+        /\/$/,
+        ""
+      );
+      console.log("🔍 API Base:", apiBase || "<same-origin>");
+      console.log("🔍 Full URL:", `${apiBase}/api/auth/me` || "/api/auth/me");
       console.log("🔍 Retry attempt:", retryCount);
       console.log("🔍 User Agent:", navigator.userAgent);
       console.log(
@@ -90,7 +98,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           !/Chrome/.test(navigator.userAgent)
       );
 
-      const response = await fetch(`${apiBase}/api/auth/me`, {
+      const response = await fetch(`${apiBase}/api/auth/me` || "/api/auth/me", {
         credentials: "include", // Include cookies
         headers: {
           "Cache-Control": "no-cache",
@@ -148,9 +156,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // Retry on network errors
       if (retryCount < 3) {
         console.log(
-          `🔄 Network error, retrying in ${(retryCount + 1) * 2}s... (${
-            retryCount + 1
-          }/3)`
+          `🔄 Network error, retrying in ${(retryCount + 1) * 2}s... (${`
+            ${retryCount + 1}
+          `}/3)`
         );
         setTimeout(() => checkAuth(retryCount + 1), (retryCount + 1) * 2000);
         return;
@@ -164,13 +172,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     try {
-      const apiBase =
-        process.env.NEXT_PUBLIC_API_BASE ||
-        "https://hono-backend.jasonpeng.workers.dev";
-      const response = await fetch(`${apiBase}/api/auth/logout`, {
-        method: "DELETE",
-        credentials: "include",
-      });
+      const apiBase = (process.env.NEXT_PUBLIC_API_BASE || "").replace(
+        /\/$/,
+        ""
+      );
+      const response = await fetch(
+        `${apiBase}/api/auth/logout` || "/api/auth/logout",
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
 
       if (response.ok) {
         setUser(null);
