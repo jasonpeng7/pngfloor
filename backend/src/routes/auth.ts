@@ -20,9 +20,10 @@ const SESSION_LENGTH = dayjs.duration({ days: 30 });
 // Safari-compatible cookie settings
 const getCookieOptions = (isSecure: boolean) => ({
   httpOnly: true,
-  secure: isSecure,
-  sameSite: "None" as const, // Safari needs None for cross-site
+  secure: true,
+  sameSite: "None" as const,
   path: "/",
+  domain: "hono-backend.jasonpeng.workers.dev",
   maxAge: 30 * 24 * 60 * 60, // 30 days in seconds
 });
 
