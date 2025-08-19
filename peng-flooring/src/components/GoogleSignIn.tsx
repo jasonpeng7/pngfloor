@@ -20,12 +20,13 @@ export default function GoogleSignIn({
     setIsLoading(true);
 
     try {
-      const rawBase =
-        process.env.NEXT_PUBLIC_API_BASE ||
-        "https://hono-backend.jasonpeng.workers.dev";
-      const apiBase = rawBase.replace(/\/$/, "");
-      // Redirect to backend OAuth endpoint
-      window.location.href = `${apiBase}/api/auth/google`;
+      const apiBase =
+        process.env.NEXT_PUBLIC_API_BASE?.replace(/\/$/, "") || "";
+      // If NEXT_PUBLIC_API_BASE is unset, assume Worker is mounted at /api on same domain
+      const target = apiBase
+        ? `${apiBase}/api/auth/google`
+        : `/api/auth/google`;
+      window.location.href = target;
     } catch (error) {
       setIsLoading(false);
       onError?.(error instanceof Error ? error.message : "Sign in failed");
