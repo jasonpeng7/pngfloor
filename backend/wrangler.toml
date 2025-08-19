@@ -6,6 +6,6 @@ compatibility_flags = ["nodejs_compat"]
 [vars]
 ENVIRONMENT = "STAGE"
 # URL of your Cloudflare Pages site
-FRONTEND_URL = " https://www.pengflooring.com/"
+FRONTEND_URL = " https://www.pengfloor.com/"
 # OAuth redirect URI configured in Google Console
 GOOGLE_REDIRECT_URI = "https://www.pengfloor.com/api/auth/google/callback"
