@@ -17,7 +17,14 @@ export const SESSION_COOKIE = "png_session";
 dayjs.extend(duration);
 const SESSION_LENGTH = dayjs.duration({ days: 30 });
 
-export const COOKIE_DOMAIN = undefined;
+// Universal cookie settings that work across all browsers
+const getCookieOptions = (isSecure: boolean) => ({
+  httpOnly: true,
+  secure: isSecure,
+  sameSite: "Lax" as const,
+  path: "/",
+  maxAge: 30 * 24 * 60 * 60, // 30 days in seconds
+});
 
 let googleClient: any;
 
@@ -36,13 +43,8 @@ const googleAuthRoutes = new Hono();
 googleAuthRoutes.get("/", async (c) => {
   const googleClientInstance = await initializeGoogleClient();
   const state = crypto.getRandomValues(new Uint8Array(32)).join("");
-  setCookie(c, STATE_COOKIE, state, {
-    httpOnly: true,
-    secure: !isLocal,
-    domain: COOKIE_DOMAIN,
-    sameSite: "None",
-    path: "/",
-  });
+
+  setCookie(c, STATE_COOKIE, state, getCookieOptions(!isLocal));
 
   const redirect = client.buildAuthorizationUrl(googleClientInstance, {
     redirect_uri: appEnv.GOOGLE_REDIRECT_URI!,
@@ -61,13 +63,7 @@ class GoogleAuthError extends Error {
 }
 googleAuthRoutes.get("/callback", async (c) => {
   const stateCookie = getCookie(c, STATE_COOKIE);
-  deleteCookie(c, STATE_COOKIE, {
-    httpOnly: true,
-    domain: COOKIE_DOMAIN,
-    secure: !isLocal,
-    sameSite: "None",
-    path: "/",
-  });
+  deleteCookie(c, STATE_COOKIE, getCookieOptions(!isLocal));
 
   let rawToken;
   const url = new URL(c.req.url);
@@ -239,13 +235,10 @@ googleAuthRoutes.get("/callback", async (c) => {
   if (session.length === 0)
     throw new GoogleAuthError("session_db_error", "Session database error");
 
+  // Set session cookie with universal settings
   setCookie(c, SESSION_COOKIE, session[0].session_id, {
-    httpOnly: true,
+    ...getCookieOptions(!isLocal),
     expires: session[0].expires_at,
-    domain: COOKIE_DOMAIN,
-    secure: !isLocal,
-    sameSite: "None",
-    path: "/",
   });
 
   // Redirect based on user role
@@ -352,13 +345,7 @@ authRoutes.delete("/logout", async (c) => {
   await db.delete(sessions).where(eq(sessions.session_id, sessionId));
 
   // Delete the cookie from the browser
-  deleteCookie(c, SESSION_COOKIE, {
-    httpOnly: true,
-    domain: COOKIE_DOMAIN,
-    secure: !isLocal,
-    sameSite: "None",
-    path: "/",
-  });
+  deleteCookie(c, SESSION_COOKIE, getCookieOptions(!isLocal));
 
   return c.json({ success: true });
 });
