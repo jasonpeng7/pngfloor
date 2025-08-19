@@ -25,7 +25,7 @@ export default function GoogleSignIn({
         "https://hono-backend.jasonpeng.workers.dev";
       const apiBase = rawBase.replace(/\/$/, "");
       // Redirect to backend OAuth endpoint
-      window.location.href = `${apiBase}/api/auth/google`;
+      window.location.href = `${apiBase}/api/auth/google/callback`;
     } catch (error) {
       setIsLoading(false);
       onError?.(error instanceof Error ? error.message : "Sign in failed");
