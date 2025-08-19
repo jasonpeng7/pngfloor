@@ -21,10 +21,10 @@ const SESSION_LENGTH = dayjs.duration({ days: 30 });
 const getCookieOptions = (isSecure: boolean) => ({
   httpOnly: true,
   secure: isSecure,
-  sameSite: "None" as const,
+  sameSite: "Strict" as const, // Changed to "Strict" for better Safari ITP compatibility
   path: "/",
   maxAge: 30 * 24 * 60 * 60, // 30 days in seconds
-  domain: isLocal ? undefined : ".jasonpeng.workers.dev", // Add domain for cross-subdomain sharing
+  // Removed domain setting to avoid cross-site tracking issues
 });
 
 let googleClient: any;
@@ -348,6 +348,31 @@ authRoutes.get("/me", async (c) => {
     console.error("Error getting user info:", error);
     return c.json({ error: "Internal server error" }, 500);
   }
+});
+
+// Safari-specific auth check that doesn't rely on cookies
+authRoutes.get("/me-safari", async (c) => {
+  // Add Safari-specific headers
+  c.header("Cache-Control", "no-cache, no-store, must-revalidate");
+  c.header("Pragma", "no-cache");
+  c.header("Expires", "0");
+
+  // For Safari, we'll use a different approach - check if there's a valid session
+  // This is a fallback for when cookies are blocked by ITP
+  const userAgent = c.req.header("User-Agent");
+  const isSafari =
+    userAgent && /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
+
+  if (!isSafari) {
+    return c.json({ error: "Safari-only endpoint" }, 403);
+  }
+
+  // For now, return not authenticated - this would need a different auth mechanism
+  // like localStorage or a different session management approach
+  return c.json(
+    { error: "Safari ITP detected - alternative auth needed" },
+    401
+  );
 });
 
 authRoutes.delete("/logout", async (c) => {

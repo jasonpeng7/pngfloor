@@ -50,6 +50,11 @@ app.use("*", async (c, next) => {
   c.header("Pragma", "no-cache");
   c.header("Expires", "0");
 
+  // Safari-specific headers to help with ITP
+  c.header("Cross-Origin-Embedder-Policy", "unsafe-none");
+  c.header("Cross-Origin-Opener-Policy", "same-origin");
+  c.header("Cross-Origin-Resource-Policy", "cross-origin");
+
   // Ensure CORS headers are set for all responses
   const origin = c.req.header("Origin");
   if (origin && isAllowedOrigin(origin)) {

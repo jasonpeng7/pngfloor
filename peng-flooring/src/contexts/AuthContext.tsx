@@ -31,6 +31,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const checkAuthSafari = async () => {
+    try {
+      const apiBase =
+        process.env.NEXT_PUBLIC_API_BASE ||
+        "https://hono-backend.jasonpeng.workers.dev";
+      console.log("🦁 Safari-specific auth check");
+      console.log("🦁 Full URL:", `${apiBase}/api/auth/me-safari`);
+
+      const response = await fetch(`${apiBase}/api/auth/me-safari`, {
+        credentials: "include",
+        headers: {
+          "Cache-Control": "no-cache",
+          Pragma: "no-cache",
+          "X-Requested-With": "XMLHttpRequest",
+        },
+      });
+
+      console.log("🦁 Safari response status:", response.status);
+
+      if (response.ok) {
+        const userData = await response.json();
+        console.log("🦁 Safari user data:", userData);
+        setUser(userData);
+      } else {
+        console.log("🦁 Safari auth failed:", response.status);
+        setUser(null);
+      }
+    } catch (error) {
+      console.error("🦁 Safari auth check failed:", error);
+      setUser(null);
+    }
+  };
+
   const checkAuth = async (retryCount = 0) => {
     try {
       const apiBase =
@@ -72,6 +105,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const shouldRetry = retryCount < 3 && response.status === 401;
 
         if (shouldRetry) {
+          // For Safari, try the Safari-specific endpoint on the last retry
+          if (isSafari && retryCount === 2) {
+            console.log(
+              "🔄 Safari ITP detected, trying Safari-specific endpoint"
+            );
+            setTimeout(() => checkAuthSafari(), 1000);
+            return;
+          }
+
           const delay = isSafari
             ? (retryCount + 1) * 3000
             : (retryCount + 1) * 2000; // Longer delays for Safari
