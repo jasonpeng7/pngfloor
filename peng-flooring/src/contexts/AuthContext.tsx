@@ -39,12 +39,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       console.log("🦁 Safari-specific auth check");
       console.log("🦁 Full URL:", `${apiBase}/api/auth/me-safari`);
 
+      // For Safari, use localStorage token if available
+      const token = localStorage.getItem("auth_token");
+      if (!token) {
+        console.log("🦁 No Safari token found in localStorage");
+        setUser(null);
+        return;
+      }
+
       const response = await fetch(`${apiBase}/api/auth/me-safari`, {
         credentials: "include",
         headers: {
           "Cache-Control": "no-cache",
           Pragma: "no-cache",
           "X-Requested-With": "XMLHttpRequest",
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -56,6 +65,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(userData);
       } else {
         console.log("🦁 Safari auth failed:", response.status);
+        // Clear invalid token
+        localStorage.removeItem("auth_token");
         setUser(null);
       }
     } catch (error) {
@@ -159,6 +170,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (response.ok) {
         setUser(null);
+        // Clear Safari token if it exists
+        localStorage.removeItem("auth_token");
         // force a rerender by updating loading state briefly
         setIsLoading(true);
         setTimeout(() => setIsLoading(false), 100);
@@ -169,6 +182,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       console.error("❌ Logout failed:", error);
       // clear the local state even on failure
       setUser(null);
+      localStorage.removeItem("auth_token");
     }
   };
 
@@ -176,14 +190,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const hasAuthParams = urlParams.has("code") || urlParams.has("error");
+    const token = urlParams.get("token");
+    const isSafari =
+      /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
 
     console.log("🚀 AuthProvider mounted, hasAuthParams:", hasAuthParams);
+    console.log("🚀 Token in URL:", token ? "present" : "not present");
+
+    // If there's a token in the URL (Safari OAuth callback), store it
+    if (token && isSafari) {
+      console.log("🦁 Storing Safari token in localStorage");
+      localStorage.setItem("auth_token", token);
+      // Clean up the URL
+      const newUrl = new URL(window.location.href);
+      newUrl.searchParams.delete("token");
+      window.history.replaceState({}, "", newUrl.toString());
+    }
 
     if (hasAuthParams) {
       // Longer delay for OAuth callback to ensure cookies are set (especially for Safari)
-      const isSafari =
-        /Safari/.test(navigator.userAgent) &&
-        !/Chrome/.test(navigator.userAgent);
       const delay = isSafari ? 5000 : 3000; // Longer delay for Safari
       console.log(
         `⏳ OAuth callback detected, waiting ${
@@ -191,11 +216,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }s before auth check ${isSafari ? "[Safari]" : ""}`
       );
       setTimeout(() => {
-        checkAuth();
+        if (isSafari && localStorage.getItem("auth_token")) {
+          checkAuthSafari();
+        } else {
+          checkAuth();
+        }
       }, delay);
     } else {
       console.log("🔍 No OAuth params, checking auth immediately");
-      checkAuth();
+      if (isSafari && localStorage.getItem("auth_token")) {
+        checkAuthSafari();
+      } else {
+        checkAuth();
+      }
     }
   }, []);
 

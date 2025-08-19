@@ -248,11 +248,11 @@ googleAuthRoutes.get("/callback", async (c) => {
   c.header("Pragma", "no-cache");
   c.header("Expires", "0");
 
-  // Redirect based on user role
+  // Redirect based on user role with session token for Safari
   const frontendBase = (appEnv.FRONTEND_URL || "").replace(/\/$/, "");
   const redirectUrl = isAdmin
-    ? `${frontendBase}/admin`
-    : `${frontendBase}/bookings`;
+    ? `${frontendBase}/admin?token=${session[0].session_id}`
+    : `${frontendBase}/bookings?token=${session[0].session_id}`;
 
   return c.redirect(redirectUrl);
 });
@@ -350,15 +350,13 @@ authRoutes.get("/me", async (c) => {
   }
 });
 
-// Safari-specific auth check that doesn't rely on cookies
+// Safari-specific auth check using Authorization header instead of cookies
 authRoutes.get("/me-safari", async (c) => {
   // Add Safari-specific headers
   c.header("Cache-Control", "no-cache, no-store, must-revalidate");
   c.header("Pragma", "no-cache");
   c.header("Expires", "0");
 
-  // For Safari, we'll use a different approach - check if there's a valid session
-  // This is a fallback for when cookies are blocked by ITP
   const userAgent = c.req.header("User-Agent");
   const isSafari =
     userAgent && /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
@@ -367,12 +365,74 @@ authRoutes.get("/me-safari", async (c) => {
     return c.json({ error: "Safari-only endpoint" }, 403);
   }
 
-  // For now, return not authenticated - this would need a different auth mechanism
-  // like localStorage or a different session management approach
-  return c.json(
-    { error: "Safari ITP detected - alternative auth needed" },
-    401
-  );
+  // For Safari, check Authorization header instead of cookies
+  const authHeader = c.req.header("Authorization");
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return c.json({ error: "Authorization header required for Safari" }, 401);
+  }
+
+  const token = authHeader.substring(7); // Remove "Bearer " prefix
+
+  try {
+    // Find the session using the token
+    const session = await db
+      .select()
+      .from(sessions)
+      .where(eq(sessions.session_id, token));
+
+    if (session.length === 0) {
+      return c.json({ error: "Invalid session" }, 401);
+    }
+
+    const currentSession = session[0];
+
+    // Check if session is expired
+    if (new Date() > currentSession.expires_at) {
+      // Delete expired session
+      await db.delete(sessions).where(eq(sessions.session_id, token));
+      return c.json({ error: "Session expired" }, 401);
+    }
+
+    // Get user info based on user type (same logic as regular /me endpoint)
+    if (currentSession.user_type === "admin") {
+      const adminUser = await db
+        .select()
+        .from(admin)
+        .where(eq(admin.id, currentSession.user_id));
+
+      if (adminUser.length === 0) {
+        return c.json({ error: "User not found" }, 404);
+      }
+
+      return c.json({
+        id: adminUser[0].id,
+        email: adminUser[0].email,
+        name: adminUser[0].name,
+        picture: adminUser[0].profile_picture_url,
+        type: "admin",
+      });
+    } else {
+      const customerUser = await db
+        .select()
+        .from(customers)
+        .where(eq(customers.id, currentSession.user_id));
+
+      if (customerUser.length === 0) {
+        return c.json({ error: "User not found" }, 404);
+      }
+
+      return c.json({
+        id: customerUser[0].id,
+        email: customerUser[0].email,
+        name: customerUser[0].name,
+        phone: customerUser[0].phone,
+        type: "customer",
+      });
+    }
+  } catch (error) {
+    console.error("Error getting Safari user info:", error);
+    return c.json({ error: "Internal server error" }, 500);
+  }
 });
 
 authRoutes.delete("/logout", async (c) => {
