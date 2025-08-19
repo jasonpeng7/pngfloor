@@ -26,23 +26,68 @@ export const getBookingById = factory.createHandlers(async (c) => {
 export const createBooking = factory.createHandlers(async (c) => {
   const new_bookingId = ulid();
   const body = await c.req.json();
+
+  // Basic validation/coercion to avoid 500s from bad payloads
+  const requiredString = (val: unknown) =>
+    typeof val === "string" && val.trim().length > 0 ? val.trim() : null;
+  const requiredInt = (val: unknown) => {
+    if (typeof val === "number" && Number.isFinite(val)) return Math.trunc(val);
+    if (typeof val === "string" && val.trim() !== "") {
+      const parsed = parseInt(val, 10);
+      return Number.isFinite(parsed) ? parsed : null;
+    }
+    return null;
+  };
+
+  const payload = {
+    customer_id: requiredString(body.customer_id),
+    date: requiredString(body.date),
+    name: requiredString(body.name),
+    email: requiredString(body.email),
+    address: requiredString(body.address),
+    phone_number: requiredString(body.phone_number),
+    house_size: requiredInt(body.house_size),
+    lived_in: requiredString(body.lived_in),
+    rooms: requiredString(body.rooms),
+    service: requiredString(body.service),
+    message:
+      typeof body.message === "string" ? body.message : body.message ?? "",
+    status: typeof body.status === "string" ? body.status : "pending",
+  } as const;
+
+  const missing = Object.entries(payload)
+    .filter(([key, value]) =>
+      ["message", "status"].includes(key) ? false : value === null
+    )
+    .map(([key]) => key);
+
+  if (missing.length > 0) {
+    return c.json(
+      {
+        error: "Missing or invalid fields",
+        fields: missing,
+      },
+      400
+    );
+  }
+
   try {
     const [newBooking] = await db
       .insert(bookings)
       .values({
         id: new_bookingId,
-        customer_id: body.customer_id,
-        date: new Date(body.date),
-        name: body.name,
-        email: body.email,
-        address: body.address,
-        phone_number: body.phone_number,
-        house_size: body.house_size,
-        lived_in: body.lived_in,
-        rooms: body.rooms,
-        service: body.service,
-        message: body.message,
-        status: body.status || "pending",
+        customer_id: payload.customer_id!,
+        date: new Date(payload.date!),
+        name: payload.name!,
+        email: payload.email!,
+        address: payload.address!,
+        phone_number: payload.phone_number!,
+        house_size: payload.house_size!,
+        lived_in: payload.lived_in!,
+        rooms: payload.rooms!,
+        service: payload.service!,
+        message: payload.message,
+        status: payload.status,
       })
       .returning();
     console.log("Booking created successfully:", newBooking);
