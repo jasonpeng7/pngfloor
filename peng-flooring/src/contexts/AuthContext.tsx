@@ -31,16 +31,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const checkAuth = async () => {
+  const checkAuth = async (retryCount = 0) => {
     try {
       const apiBase =
         process.env.NEXT_PUBLIC_API_BASE ||
         "https://hono-backend.jasonpeng.workers.dev";
       console.log("🔍 API Base:", apiBase);
       console.log("🔍 Full URL:", `${apiBase}/api/auth/me`);
+      console.log("🔍 Retry attempt:", retryCount);
 
       const response = await fetch(`${apiBase}/api/auth/me`, {
         credentials: "include", // Include cookies
+        headers: {
+          "Cache-Control": "no-cache",
+          Pragma: "no-cache",
+        },
       });
 
       console.log("📡 Response status:", response.status);
@@ -52,12 +57,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } else {
         console.log("❌ Auth failed:", response.status);
         setUser(null);
+
+        // Retry logic for Safari ITP issues
+        if (retryCount < 3 && response.status === 401) {
+          console.log(
+            `🔄 Auth failed, retrying in ${(retryCount + 1) * 2}s... (${
+              retryCount + 1
+            }/3)`
+          );
+          setTimeout(() => checkAuth(retryCount + 1), (retryCount + 1) * 2000);
+          return;
+        }
       }
     } catch (error) {
       console.error("🚨 Auth check failed:", error);
       setUser(null);
+
+      // Retry on network errors
+      if (retryCount < 3) {
+        console.log(
+          `🔄 Network error, retrying in ${(retryCount + 1) * 2}s... (${
+            retryCount + 1
+          }/3)`
+        );
+        setTimeout(() => checkAuth(retryCount + 1), (retryCount + 1) * 2000);
+        return;
+      }
     } finally {
-      setIsLoading(false);
+      if (retryCount === 0) {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -91,11 +120,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const urlParams = new URLSearchParams(window.location.search);
     const hasAuthParams = urlParams.has("code") || urlParams.has("error");
 
+    console.log("🚀 AuthProvider mounted, hasAuthParams:", hasAuthParams);
+
     if (hasAuthParams) {
+      // Longer delay for OAuth callback to ensure cookies are set (especially for Safari)
+      console.log("⏳ OAuth callback detected, waiting 3s before auth check");
       setTimeout(() => {
         checkAuth();
-      }, 1000);
+      }, 3000);
     } else {
+      console.log("🔍 No OAuth params, checking auth immediately");
       checkAuth();
     }
   }, []);
@@ -103,6 +137,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // periodic auth check to keep state in sync
   useEffect(() => {
     const interval = setInterval(() => {
+      console.log("🔄 Periodic auth check");
       checkAuth();
     }, 30000);
 
@@ -116,6 +151,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     checkAuth,
     logout,
   };
+
+  console.log(
+    "🎯 AuthContext state - user:",
+    user ? "logged in" : "not logged in",
+    "loading:",
+    isLoading
+  );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

@@ -17,13 +17,12 @@ export const SESSION_COOKIE = "png_session";
 dayjs.extend(duration);
 const SESSION_LENGTH = dayjs.duration({ days: 30 });
 
-// Safari-compatible cookie settings
+// Safari-compatible cookie settings with multiple strategies
 const getCookieOptions = (isSecure: boolean) => ({
   httpOnly: true,
-  secure: true,
+  secure: isSecure,
   sameSite: "None" as const,
   path: "/",
-  domain: "hono-backend.jasonpeng.workers.dev",
   maxAge: 30 * 24 * 60 * 60, // 30 days in seconds
 });
 
@@ -45,13 +44,14 @@ googleAuthRoutes.get("/", async (c) => {
   const googleClientInstance = await initializeGoogleClient();
   const state = crypto.getRandomValues(new Uint8Array(32)).join("");
 
+  // Set state cookie with Safari-compatible settings
   setCookie(c, STATE_COOKIE, state, getCookieOptions(!isLocal));
 
   const redirect = client.buildAuthorizationUrl(googleClientInstance, {
     redirect_uri: appEnv.GOOGLE_REDIRECT_URI!,
     scope: "openid email profile",
     state,
-    prompt: "select_account",
+    prompt: "select_account", // Force account selection to help with ITP
   });
 
   return c.redirect(redirect.toString());
@@ -241,6 +241,11 @@ googleAuthRoutes.get("/callback", async (c) => {
     ...getCookieOptions(!isLocal),
     expires: session[0].expires_at,
   });
+
+  // Add additional headers to help with Safari ITP
+  c.header("Cache-Control", "no-cache, no-store, must-revalidate");
+  c.header("Pragma", "no-cache");
+  c.header("Expires", "0");
 
   // Redirect based on user role
   const frontendBase = (appEnv.FRONTEND_URL || "").replace(/\/$/, "");
