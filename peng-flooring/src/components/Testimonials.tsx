@@ -41,7 +41,7 @@ export default function Testimonials() {
                   {testimonial.id === 1 ? (
                     <div className="w-12 h-12 rounded-full overflow-hidden">
                       <Image
-                        src="/dewi.jpg"
+                        src="/landing-page/dewi.jpg"
                         alt={`${testimonial.name} - Satisfied Customer`}
                         width={48}
                         height={48}
