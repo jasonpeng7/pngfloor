@@ -17,14 +17,14 @@ export const SESSION_COOKIE = "png_session";
 dayjs.extend(duration);
 const SESSION_LENGTH = dayjs.duration({ days: 30 });
 
-// Safari-compatible cookie settings with multiple strategies
+// Cookie settings. Prefer first-party by serving API on same apex and using Lax.
 const getCookieOptions = (isSecure: boolean) => ({
   httpOnly: true,
   secure: isSecure,
-  sameSite: "Strict" as const, // Changed to "Strict" for better Safari ITP compatibility
+  sameSite: "Lax" as const,
   path: "/",
-  maxAge: 30 * 24 * 60 * 60, // 30 days in seconds
-  // Removed domain setting to avoid cross-site tracking issues
+  maxAge: 30 * 24 * 60 * 60,
+  domain: appEnv.COOKIE_DOMAIN || undefined,
 });
 
 let googleClient: any;

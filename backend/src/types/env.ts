@@ -10,6 +10,9 @@ export const zEnv = z.object({
   GOOGLE_REDIRECT_URI: z.string().url().optional(),
   FRONTEND_URL: z.string().url().optional(),
   ADMIN_EMAIL: z.string().email().optional(),
+
+  // Cookie settings
+  COOKIE_DOMAIN: z.string().optional(), // e.g. .pengflooring.com
 });
 
 export const appEnv = zEnv.parse(process.env);
