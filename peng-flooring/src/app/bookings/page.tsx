@@ -49,7 +49,7 @@ export default function BookingsPage() {
     return (
       <div className="max-w-[2000px] min-h-screen bg-gray-50">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-blue-600 to-blue-700 py-20">
+        <section className="w-full bg-blue-700 bg-gradient-to-br from-blue-600 to-blue-700 py-20">
           <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
             <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 inter-tight-bold">
               Sign In Required
@@ -209,6 +209,253 @@ export default function BookingsPage() {
                 </p>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Service Areas */}
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 inter-tight-bold">
+                Top Services We Offer
+              </h2>
+              <p className="text-lg text-gray-600 inter-tight-medium">
+                Professional flooring solutions tailored to your needs
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Luxury Vinyl - Popular Choice */}
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200 relative">
+                <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+                  POPULAR
+                </div>
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
+                    <VinylIcon
+                      className="w-6 h-6 text-white"
+                      fill="currentColor"
+                    />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                    Luxury Vinyl
+                  </h3>
+                </div>
+                <p className="text-gray-700 inter-tight-regular">
+                  Professional installation of durable, waterproof luxury vinyl
+                  flooring.
+                </p>
+              </div>
+
+              {/* Stairs */}
+              <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mr-4">
+                    <StairsIcon
+                      className="w-6 h-6 text-white"
+                      fill="currentColor"
+                    />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                    Stair Renovation
+                  </h3>
+                </div>
+                <p className="text-gray-700 inter-tight-regular">
+                  Complete stair renovation and installation services.
+                </p>
+              </div>
+
+              {/* Baseboard */}
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200 relative">
+                <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+                  POPULAR
+                </div>
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
+                    <BaseboardIcon
+                      className="w-6 h-6 text-white"
+                      fill="currentColor"
+                    />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                    Baseboard Work
+                  </h3>
+                </div>
+                <p className="text-gray-700 inter-tight-regular">
+                  Professional baseboard repairs and installation.
+                </p>
+              </div>
+
+              {/* Custom Solutions */}
+              <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mr-4">
+                    <CustomIcon
+                      className="w-6 h-6 text-white"
+                      fill="currentColor"
+                    />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                    Custom Solutions
+                  </h3>
+                </div>
+                <p className="text-gray-700 inter-tight-regular">
+                  Tailored flooring solutions for unique spaces and
+                  requirements.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Booking Steps Section */}
+        <BookingSteps />
+
+        {/* Booking Form Section */}
+        <BookingForm />
+
+        {/* Why Choose Us Block */}
+        <section className="py-12 bg-[#222222]">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="p-8 ">
+              <h3 className="text-2xl font-bold text-white mb-6 text-center inter-tight-bold">
+                Why Choose Us?
+              </h3>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <ClockIcon
+                      className="w-6 h-6 text-blue-600"
+                      fill="currentColor"
+                    />
+                  </div>
+                  <div className="text-2xl font-bold text-blue-600 inter-tight-bold mb-1">
+                    15+
+                  </div>
+                  <div className="text-sm text-white inter-tight-medium">
+                    Years Experience
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <StarIcon
+                      className="w-6 h-6 text-yellow-500"
+                      fill="currentColor"
+                    />
+                  </div>
+                  <div className="text-2xl font-bold text-yellow-600 inter-tight-bold mb-1">
+                    4.9/5
+                  </div>
+                  <div className="text-sm text-white inter-tight-medium">
+                    Customer Rating
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <CheckIcon
+                      className="w-6 h-6 text-green-600"
+                      fill="currentColor"
+                    />
+                  </div>
+                  <div className="text-2xl font-bold text-green-600 inter-tight-bold mb-1">
+                    800+
+                  </div>
+                  <div className="text-sm text-white inter-tight-medium">
+                    Happy Customers
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Why Choose Us Section */}
+        <section className="py-16 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 mb-4 inter-tight-bold">
+                Why Choose Our Family-Owned Flooring Company?
+              </h2>
+              <p className="text-lg text-gray-600 inter-tight-medium">
+                Professional flooring services with honest pricing and quality
+                workmanship.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <div className="text-center">
+                <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <CheckIcon className="w-8 h-8 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2 inter-tight-semibold">
+                  Free Estimates
+                </h3>
+                <p className="text-gray-600 inter-tight-regular">
+                  No obligation, honest pricing for all flooring services
+                </p>
+              </div>
+
+              <div className="text-center">
+                <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <StarIcon
+                    className="w-8 h-8 text-blue-600"
+                    fill="currentColor"
+                  />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2 inter-tight-semibold">
+                  4.9/5 Rating
+                </h3>
+                <p className="text-gray-600 inter-tight-regular">
+                  800+ satisfied customers in OC, LAC, and the greater 626 area
+                </p>
+              </div>
+
+              <div className="text-center">
+                <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <ClockIcon className="w-8 h-8 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2 inter-tight-semibold">
+                  15+ Years Experience
+                </h3>
+                <p className="text-gray-600 inter-tight-regular">
+                  Family-owned business since 2009 serving the community
+                </p>
+              </div>
+
+              <div className="text-center">
+                <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <CheckIcon className="w-8 h-8 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2 inter-tight-semibold">
+                  Specialized & Insured
+                </h3>
+                <p className="text-gray-600 inter-tight-regular">
+                  A professional you can trust
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-16 bg-blue-600">
+          <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold text-white mb-4 inter-tight-bold">
+              Ready to Transform Your Floors?
+            </h2>
+            <p className="text-xl text-blue-100 mb-8 inter-tight-medium">
+              Get your free estimate today from us. No Obligations. Professional
+              floor installation, stair renovation, and flooring services in OC,
+              LAC, and the greater 626 area.
+            </p>
+            <Link
+              href="/"
+              className="bg-white text-blue-600 hover:bg-gray-100 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 text-center"
+            >
+              Back to Home
+            </Link>
           </div>
         </section>
       </div>
@@ -490,7 +737,7 @@ export default function BookingsPage() {
           </p>
           <Link
             href="/"
-            className="bg-white text-blue-600 hover:bg-gray-100 font-bold py-4 px-8 rounded-lg text-lg transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 inline-block"
+            className="bg-white text-blue-600 hover:bg-gray-100 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 text-center"
           >
             Back to Home
           </Link>

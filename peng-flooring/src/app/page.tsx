@@ -335,7 +335,7 @@ export default function Home() {
             </div>
 
             {/* Why Choose Us - Last on mobile, large prominent card on desktop */}
-            <div className="order-3 lg:order-1 lg:col-span-5 lg:col-start-1 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-8 shadow-2xl transform lg:-rotate-1 hover:rotate-0 transition-transform duration-300">
+            <div className="order-3 lg:order-1 lg:col-span-5 lg:col-start-1 bg-green-600 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-8 shadow-2xl transform lg:-rotate-1 hover:rotate-0 transition-transform duration-300">
               <h3 className="text-2xl font-bold text-white inter-tight-medium mb-6">
                 Why Choose Us?
               </h3>
@@ -374,7 +374,7 @@ export default function Home() {
       <section className="py-20 bg-white"></section>
 
       {/* CTA section */}
-      <section className="py-16 lg:py-24 bg-gradient-to-br from-blue-600 to-blue-700">
+      <section className="py-16 lg:py-24 bg-blue-700 bg-gradient-to-br from-blue-600 to-blue-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection className="space-y-8">
             <h2 className="text-3xl lg:text-5xl font-bold text-white inter-tight-bold">
