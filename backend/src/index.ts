@@ -67,6 +67,11 @@ app.get("/", (c) => {
   return c.text("Hello Hono!");
 });
 
+// Health endpoint for API route root
+app.get("/api", (c) => {
+  return c.text("API OK");
+});
+
 // api routes
 app.route("/api/customers", customersRouter);
 app.route("/api/bookings", bookingsRouter);
