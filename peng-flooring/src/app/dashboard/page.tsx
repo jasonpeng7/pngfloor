@@ -48,12 +48,17 @@ export default function DashboardPage() {
         setLoading(true);
         setError(null);
 
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE}/api/bookings/user/${user.id}`,
-          {
-            credentials: "include",
-          }
+        const apiBase = (process.env.NEXT_PUBLIC_API_BASE || "").replace(
+          /\/$/,
+          ""
         );
+        const url = apiBase
+          ? `${apiBase}/api/bookings/user/${user.id}`
+          : `/api/bookings/user/${user.id}`;
+
+        const response = await fetch(url, {
+          credentials: "include",
+        });
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -95,17 +100,22 @@ export default function DashboardPage() {
   const handleEditSubmit = async (bookingId: string) => {
     setIsSubmitting(true);
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE}/api/bookings/${bookingId}`,
-        {
-          method: "PUT",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(editFormData),
-        }
+      const apiBase = (process.env.NEXT_PUBLIC_API_BASE || "").replace(
+        /\/$/,
+        ""
       );
+      const url = apiBase
+        ? `${apiBase}/api/bookings/${bookingId}`
+        : `/api/bookings/${bookingId}`;
+
+      const response = await fetch(url, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editFormData),
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -137,16 +147,21 @@ export default function DashboardPage() {
     }
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE}/api/bookings/${bookingId}/cancel/${user.id}`,
-        {
-          method: "DELETE",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+      const apiBase = (process.env.NEXT_PUBLIC_API_BASE || "").replace(
+        /\/$/,
+        ""
       );
+      const url = apiBase
+        ? `${apiBase}/api/bookings/${bookingId}/cancel/${user.id}`
+        : `/api/bookings/${bookingId}/cancel/${user.id}`;
+
+      const response = await fetch(url, {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -184,7 +199,7 @@ export default function DashboardPage() {
       cancelled: {
         color: "bg-red-100 text-red-800 border-red-200",
       },
-    };
+    } as const;
 
     const config =
       statusConfig[status as keyof typeof statusConfig] || statusConfig.pending;

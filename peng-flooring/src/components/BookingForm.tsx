@@ -58,17 +58,19 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
     };
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE}/api/bookings`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify(bookingData),
-        }
+      const apiBase = (process.env.NEXT_PUBLIC_API_BASE || "").replace(
+        /\/$/,
+        ""
       );
+      const url = apiBase ? `${apiBase}/api/bookings` : `/api/bookings`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(bookingData),
+      });
 
       if (response.ok) {
         setSubmitMessage({
@@ -241,37 +243,6 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                 furnished or occupied homes may require additional preparation
                 and labor, which can affect the overall cost
               </p>
-            </div>
-
-            <div>
-              <label
-                htmlFor="service"
-                className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
-              >
-                Service Needed *
-              </label>
-              <select
-                id="service"
-                name="service"
-                required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
-                <option value="">Select a service</option>
-                <option value="estimate">Free Estimate</option>
-                <option value="general-installation">
-                  General Flooring Installation
-                </option>
-                <option value="vinyl-laminate">
-                  Vinyl & Laminate Flooring Installation
-                </option>
-                <option value="flooring-repairs">
-                  Flooring Repairs & Maintenance
-                </option>
-                <option value="stair-installation">
-                  Stair Remodel/Installation
-                </option>
-                <option value="other">Other</option>
-              </select>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">

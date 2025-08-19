@@ -42,13 +42,18 @@ export default function AdminPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch bookings
-        const bookingsResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE}/api/bookings`,
-          {
-            credentials: "include",
-          }
+        const apiBase = (process.env.NEXT_PUBLIC_API_BASE || "").replace(
+          /\/$/,
+          ""
         );
+
+        // Fetch bookings
+        const bookingsUrl = apiBase
+          ? `${apiBase}/api/bookings`
+          : `/api/bookings`;
+        const bookingsResponse = await fetch(bookingsUrl, {
+          credentials: "include",
+        });
 
         if (!bookingsResponse.ok) {
           if (bookingsResponse.status === 401) {
@@ -62,12 +67,12 @@ export default function AdminPage() {
         setBookings(bookingsData);
 
         // Fetch customers
-        const customersResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE}/api/customers`,
-          {
-            credentials: "include",
-          }
-        );
+        const customersUrl = apiBase
+          ? `${apiBase}/api/customers`
+          : `/api/customers`;
+        const customersResponse = await fetch(customersUrl, {
+          credentials: "include",
+        });
 
         if (customersResponse.ok) {
           const customersData = await customersResponse.json();
@@ -85,17 +90,22 @@ export default function AdminPage() {
 
   const handleStatusUpdate = async (bookingId: string, newStatus: string) => {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE}/api/bookings/${bookingId}/status`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({ status: newStatus }),
-        }
+      const apiBase = (process.env.NEXT_PUBLIC_API_BASE || "").replace(
+        /\/$/,
+        ""
       );
+      const url = apiBase
+        ? `${apiBase}/api/bookings/${bookingId}/status`
+        : `/api/bookings/${bookingId}/status`;
+
+      const response = await fetch(url, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ status: newStatus }),
+      });
 
       if (!response.ok) {
         throw new Error("Failed to update booking status");
