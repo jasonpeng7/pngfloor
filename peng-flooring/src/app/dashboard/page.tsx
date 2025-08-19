@@ -49,7 +49,7 @@ export default function DashboardPage() {
         setError(null);
 
         const response = await fetch(
-          `http://localhost:8080/api/bookings/user/${user.id}`,
+          `${process.env.NEXT_PUBLIC_API_BASE}/api/bookings/user/${user.id}`,
           {
             credentials: "include",
           }
@@ -96,7 +96,7 @@ export default function DashboardPage() {
     setIsSubmitting(true);
     try {
       const response = await fetch(
-        `http://localhost:8080/api/bookings/${bookingId}`,
+        `${process.env.NEXT_PUBLIC_API_BASE}/api/bookings/${bookingId}`,
         {
           method: "PUT",
           credentials: "include",
@@ -138,7 +138,7 @@ export default function DashboardPage() {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/api/bookings/${bookingId}/cancel/${user.id}`,
+        `${process.env.NEXT_PUBLIC_API_BASE}/api/bookings/${bookingId}/cancel/${user.id}`,
         {
           method: "DELETE",
           credentials: "include",

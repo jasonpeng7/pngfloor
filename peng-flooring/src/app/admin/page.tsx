@@ -44,7 +44,7 @@ export default function AdminPage() {
       try {
         // Fetch bookings
         const bookingsResponse = await fetch(
-          "http://localhost:8080/api/bookings",
+          `${process.env.NEXT_PUBLIC_API_BASE}/api/bookings`,
           {
             credentials: "include",
           }
@@ -63,7 +63,7 @@ export default function AdminPage() {
 
         // Fetch customers
         const customersResponse = await fetch(
-          "http://localhost:8080/api/customers",
+          `${process.env.NEXT_PUBLIC_API_BASE}/api/customers`,
           {
             credentials: "include",
           }
@@ -86,7 +86,7 @@ export default function AdminPage() {
   const handleStatusUpdate = async (bookingId: string, newStatus: string) => {
     try {
       const response = await fetch(
-        `http://localhost:8080/api/bookings/${bookingId}/status`,
+        `${process.env.NEXT_PUBLIC_API_BASE}/api/bookings/${bookingId}/status`,
         {
           method: "PATCH",
           headers: {
