@@ -17,11 +17,11 @@ export const SESSION_COOKIE = "png_session";
 dayjs.extend(duration);
 const SESSION_LENGTH = dayjs.duration({ days: 30 });
 
-// Universal cookie settings that work across all browsers
+// Safari-compatible cookie settings
 const getCookieOptions = (isSecure: boolean) => ({
   httpOnly: true,
   secure: isSecure,
-  sameSite: "Lax" as const,
+  sameSite: "None" as const, // Safari needs None for cross-site
   path: "/",
   maxAge: 30 * 24 * 60 * 60, // 30 days in seconds
 });
@@ -235,7 +235,7 @@ googleAuthRoutes.get("/callback", async (c) => {
   if (session.length === 0)
     throw new GoogleAuthError("session_db_error", "Session database error");
 
-  // Set session cookie with universal settings
+  // Set session cookie with Safari-compatible settings
   setCookie(c, SESSION_COOKIE, session[0].session_id, {
     ...getCookieOptions(!isLocal),
     expires: session[0].expires_at,

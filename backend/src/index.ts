@@ -31,8 +31,27 @@ app.use(
     origin: (origin) => (isAllowedOrigin(origin) ? origin : null),
     allowMethods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
+    allowHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+    exposeHeaders: ["Set-Cookie"],
   })
 );
+
+// Add Safari-specific headers for better cookie handling
+app.use("*", async (c, next) => {
+  await next();
+
+  // Add headers to help with Safari's ITP
+  c.header("Cache-Control", "no-cache, no-store, must-revalidate");
+  c.header("Pragma", "no-cache");
+  c.header("Expires", "0");
+
+  // Ensure CORS headers are set for all responses
+  const origin = c.req.header("Origin");
+  if (origin && isAllowedOrigin(origin)) {
+    c.header("Access-Control-Allow-Origin", origin);
+    c.header("Access-Control-Allow-Credentials", "true");
+  }
+});
 
 app.get("/", (c) => {
   return c.text("Hello Hono!");
