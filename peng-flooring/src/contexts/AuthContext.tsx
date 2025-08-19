@@ -117,23 +117,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         console.log("❌ Auth failed:", response.status);
         setUser(null);
 
-        // Enhanced retry logic for Safari ITP issues
         const isSafari =
           /Safari/.test(navigator.userAgent) &&
           !/Chrome/.test(navigator.userAgent);
         const shouldRetry = retryCount < 3 && response.status === 401;
 
         if (shouldRetry) {
-          // For Safari, try the Safari-specific endpoint on the last retry only if we have a token
-          if (
-            isSafari &&
-            retryCount === 2 &&
-            localStorage.getItem("auth_token")
-          ) {
+          const token = localStorage.getItem("auth_token");
+          // Try token endpoint if we have a token stored, regardless of browser
+          if (token) {
             console.log(
-              "🔄 Safari ITP detected, trying Safari-specific endpoint"
+              "🔄 Token present, trying token-based endpoint (/me-safari)"
             );
-            setTimeout(() => checkAuthSafari(), 1000);
+            setTimeout(() => checkAuthSafari(), 500);
             return;
           }
 
@@ -213,9 +209,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     console.log("🚀 AuthProvider mounted, hasAuthParams:", hasAuthParams);
     console.log("🚀 Token in URL:", token ? "present" : "not present");
 
-    // If there's a token in the URL (Safari OAuth callback), store it
-    if (token && isSafari) {
-      console.log("🦁 Storing Safari token in localStorage");
+    // If there's a token in the URL (OAuth callback), store it
+    if (token) {
+      console.log("🔑 Storing token from URL in localStorage");
       localStorage.setItem("auth_token", token);
       // Clean up the URL
       const newUrl = new URL(window.location.href);
@@ -237,9 +233,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }, delay);
     } else {
       console.log("🔍 No OAuth params, checking auth immediately");
-      // For initial load, try Safari-specific auth if we have a token, otherwise regular auth
-      if (isSafari && localStorage.getItem("auth_token")) {
-        console.log("🦁 Using Safari-specific auth (token found)");
+      const storedToken = localStorage.getItem("auth_token");
+      if (storedToken) {
+        console.log("🔑 Token found in storage, attempting token-based auth");
         checkAuthSafari();
       } else {
         console.log("🔍 Using regular auth");

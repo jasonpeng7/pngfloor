@@ -27,6 +27,20 @@ const getCookieOptions = (isSecure: boolean) => ({
   domain: appEnv.COOKIE_DOMAIN || undefined,
 });
 
+// Build cookie options per-request so we only set Domain when it matches the current host
+const buildCookieOptionsForRequest = (c: any, isSecure: boolean) => {
+  const base = getCookieOptions(isSecure);
+  try {
+    const hostname = new URL(c.req.url).hostname;
+    const configured = appEnv.COOKIE_DOMAIN?.replace(/^\./, "");
+    if (configured && hostname.endsWith(configured)) {
+      return { ...base, domain: appEnv.COOKIE_DOMAIN };
+    }
+  } catch {}
+  const { domain, ...rest } = base;
+  return rest;
+};
+
 let googleClient: any;
 
 async function initializeGoogleClient() {
@@ -46,7 +60,7 @@ googleAuthRoutes.get("/", async (c) => {
   const state = crypto.getRandomValues(new Uint8Array(32)).join("");
 
   // Set state cookie with Safari-compatible settings
-  setCookie(c, STATE_COOKIE, state, getCookieOptions(!isLocal));
+  setCookie(c, STATE_COOKIE, state, buildCookieOptionsForRequest(c, !isLocal));
 
   const redirect = client.buildAuthorizationUrl(googleClientInstance, {
     redirect_uri: appEnv.GOOGLE_REDIRECT_URI!,
@@ -65,7 +79,7 @@ class GoogleAuthError extends Error {
 }
 googleAuthRoutes.get("/callback", async (c) => {
   const stateCookie = getCookie(c, STATE_COOKIE);
-  deleteCookie(c, STATE_COOKIE, getCookieOptions(!isLocal));
+  deleteCookie(c, STATE_COOKIE, buildCookieOptionsForRequest(c, !isLocal));
 
   let rawToken;
   const url = new URL(c.req.url);
@@ -239,7 +253,7 @@ googleAuthRoutes.get("/callback", async (c) => {
 
   // Set session cookie with Safari-compatible settings
   setCookie(c, SESSION_COOKIE, session[0].session_id, {
-    ...getCookieOptions(!isLocal),
+    ...buildCookieOptionsForRequest(c, !isLocal),
     expires: session[0].expires_at,
   });
 
@@ -357,14 +371,6 @@ authRoutes.get("/me-safari", async (c) => {
   c.header("Pragma", "no-cache");
   c.header("Expires", "0");
 
-  const userAgent = c.req.header("User-Agent");
-  const isSafari =
-    userAgent && /Safari/.test(userAgent) && !/Chrome/.test(userAgent);
-
-  if (!isSafari) {
-    return c.json({ error: "Safari-only endpoint" }, 403);
-  }
-
   // For Safari, check Authorization header instead of cookies
   const authHeader = c.req.header("Authorization");
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -447,7 +453,7 @@ authRoutes.delete("/logout", async (c) => {
   await db.delete(sessions).where(eq(sessions.session_id, sessionId));
 
   // Delete the cookie from the browser
-  deleteCookie(c, SESSION_COOKIE, getCookieOptions(!isLocal));
+  deleteCookie(c, SESSION_COOKIE, buildCookieOptionsForRequest(c, !isLocal));
 
   return c.json({ success: true });
 });
