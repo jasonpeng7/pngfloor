@@ -9,7 +9,6 @@ const factory = createFactory();
 export const getBookings = factory.createHandlers(async (c) => {
   console.log("getting all bookings...");
   const read = await db.select().from(bookings);
-  if (read.length === 0) return c.json({ error: "No bookings found" }, 404);
   return c.json(read);
 });
 
