@@ -368,7 +368,8 @@ authRoutes.get("/me-safari", async (c) => {
   // For Safari, check Authorization header instead of cookies
   const authHeader = c.req.header("Authorization");
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    return c.json({ error: "Authorization header required for Safari" }, 401);
+    // If no token provided, return not authenticated (this is expected for initial checks)
+    return c.json({ error: "Not authenticated" }, 401);
   }
 
   const token = authHeader.substring(7); // Remove "Bearer " prefix

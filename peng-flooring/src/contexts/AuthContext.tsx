@@ -116,8 +116,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const shouldRetry = retryCount < 3 && response.status === 401;
 
         if (shouldRetry) {
-          // For Safari, try the Safari-specific endpoint on the last retry
-          if (isSafari && retryCount === 2) {
+          // For Safari, try the Safari-specific endpoint on the last retry only if we have a token
+          if (
+            isSafari &&
+            retryCount === 2 &&
+            localStorage.getItem("auth_token")
+          ) {
             console.log(
               "🔄 Safari ITP detected, trying Safari-specific endpoint"
             );
@@ -216,17 +220,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }s before auth check ${isSafari ? "[Safari]" : ""}`
       );
       setTimeout(() => {
-        if (isSafari && localStorage.getItem("auth_token")) {
-          checkAuthSafari();
-        } else {
-          checkAuth();
-        }
+        // For OAuth callback, always try regular auth first (cookies might work)
+        checkAuth();
       }, delay);
     } else {
       console.log("🔍 No OAuth params, checking auth immediately");
+      // For initial load, try Safari-specific auth if we have a token, otherwise regular auth
       if (isSafari && localStorage.getItem("auth_token")) {
+        console.log("🦁 Using Safari-specific auth (token found)");
         checkAuthSafari();
       } else {
+        console.log("🔍 Using regular auth");
         checkAuth();
       }
     }
