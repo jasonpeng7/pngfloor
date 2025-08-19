@@ -33,21 +33,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE}/api/auth/me`,
-        {
-          credentials: "include", // Include cookies
-        }
-      );
+      const apiBase =
+        process.env.NEXT_PUBLIC_API_BASE ||
+        "https://hono-backend.jasonpeng.workers.dev";
+      console.log("🔍 API Base:", apiBase);
+      console.log("🔍 Full URL:", `${apiBase}/api/auth/me`);
+
+      const response = await fetch(`${apiBase}/api/auth/me`, {
+        credentials: "include", // Include cookies
+      });
+
+      console.log("📡 Response status:", response.status);
 
       if (response.ok) {
         const userData = await response.json();
+        console.log("✅ User data:", userData);
         setUser(userData);
       } else {
+        console.log("❌ Auth failed:", response.status);
         setUser(null);
       }
     } catch (error) {
-      console.error("Auth check failed:", error);
+      console.error("🚨 Auth check failed:", error);
       setUser(null);
     } finally {
       setIsLoading(false);
@@ -56,13 +63,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE}/api/auth/logout`,
-        {
-          method: "DELETE",
-          credentials: "include",
-        }
-      );
+      const apiBase =
+        process.env.NEXT_PUBLIC_API_BASE ||
+        "https://hono-backend.jasonpeng.workers.dev";
+      const response = await fetch(`${apiBase}/api/auth/logout`, {
+        method: "DELETE",
+        credentials: "include",
+      });
 
       if (response.ok) {
         setUser(null);
