@@ -39,12 +39,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       console.log("🔍 API Base:", apiBase);
       console.log("🔍 Full URL:", `${apiBase}/api/auth/me`);
       console.log("🔍 Retry attempt:", retryCount);
+      console.log("🔍 User Agent:", navigator.userAgent);
+      console.log(
+        "🔍 Is Safari:",
+        /Safari/.test(navigator.userAgent) &&
+          !/Chrome/.test(navigator.userAgent)
+      );
 
       const response = await fetch(`${apiBase}/api/auth/me`, {
         credentials: "include", // Include cookies
         headers: {
           "Cache-Control": "no-cache",
           Pragma: "no-cache",
+          "X-Requested-With": "XMLHttpRequest", // Help with CORS preflight
         },
       });
 
@@ -58,14 +65,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         console.log("❌ Auth failed:", response.status);
         setUser(null);
 
-        // Retry logic for Safari ITP issues
-        if (retryCount < 3 && response.status === 401) {
+        // Enhanced retry logic for Safari ITP issues
+        const isSafari =
+          /Safari/.test(navigator.userAgent) &&
+          !/Chrome/.test(navigator.userAgent);
+        const shouldRetry = retryCount < 3 && response.status === 401;
+
+        if (shouldRetry) {
+          const delay = isSafari
+            ? (retryCount + 1) * 3000
+            : (retryCount + 1) * 2000; // Longer delays for Safari
           console.log(
-            `🔄 Auth failed, retrying in ${(retryCount + 1) * 2}s... (${
+            `🔄 Auth failed, retrying in ${delay / 1000}s... (${
               retryCount + 1
-            }/3)`
+            }/3) ${isSafari ? "[Safari]" : ""}`
           );
-          setTimeout(() => checkAuth(retryCount + 1), (retryCount + 1) * 2000);
+          setTimeout(() => checkAuth(retryCount + 1), delay);
           return;
         }
       }
@@ -124,10 +139,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     if (hasAuthParams) {
       // Longer delay for OAuth callback to ensure cookies are set (especially for Safari)
-      console.log("⏳ OAuth callback detected, waiting 3s before auth check");
+      const isSafari =
+        /Safari/.test(navigator.userAgent) &&
+        !/Chrome/.test(navigator.userAgent);
+      const delay = isSafari ? 5000 : 3000; // Longer delay for Safari
+      console.log(
+        `⏳ OAuth callback detected, waiting ${
+          delay / 1000
+        }s before auth check ${isSafari ? "[Safari]" : ""}`
+      );
       setTimeout(() => {
         checkAuth();
-      }, 3000);
+      }, delay);
     } else {
       console.log("🔍 No OAuth params, checking auth immediately");
       checkAuth();

@@ -24,6 +24,7 @@ const getCookieOptions = (isSecure: boolean) => ({
   sameSite: "None" as const,
   path: "/",
   maxAge: 30 * 24 * 60 * 60, // 30 days in seconds
+  domain: isLocal ? undefined : ".jasonpeng.workers.dev", // Add domain for cross-subdomain sharing
 });
 
 let googleClient: any;
@@ -272,7 +273,16 @@ authRoutes.route("/google", googleAuthRoutes);
 
 // Get current user info
 authRoutes.get("/me", async (c) => {
+  // Add Safari-specific headers
+  c.header("Cache-Control", "no-cache, no-store, must-revalidate");
+  c.header("Pragma", "no-cache");
+  c.header("Expires", "0");
+
   const sessionId = getCookie(c, SESSION_COOKIE);
+
+  console.log("🔍 Auth check - Session ID:", sessionId ? "present" : "missing");
+  console.log("🔍 Auth check - Origin:", c.req.header("Origin"));
+  console.log("🔍 Auth check - User-Agent:", c.req.header("User-Agent"));
 
   if (!sessionId) {
     return c.json({ error: "Not authenticated" }, 401);

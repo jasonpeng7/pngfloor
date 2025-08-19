@@ -29,9 +29,14 @@ const isAllowedOrigin = (origin?: string): boolean => {
 app.use(
   cors({
     origin: (origin) => (isAllowedOrigin(origin) ? origin : null),
-    allowMethods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     credentials: true,
-    allowHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+    allowHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "Cookie",
+    ],
     exposeHeaders: ["Set-Cookie"],
   })
 );
