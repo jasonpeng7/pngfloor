@@ -308,12 +308,6 @@ export default function BookingsPage() {
           </div>
         </section>
 
-        {/* Booking Steps Section */}
-        <BookingSteps />
-
-        {/* Booking Form Section */}
-        <BookingForm />
-
         {/* Why Choose Us Block */}
         <section className="py-12 bg-[#222222]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
