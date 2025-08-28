@@ -60,9 +60,8 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
     };
 
     try {
-      // Use local API route for development, Cloudflare function for production
-      const isDevelopment = process.env.NODE_ENV === "development";
-      const url = isDevelopment ? "/api/booking-email" : "/booking-email";
+      // Use API route for now until Cloudflare function is deployed
+      const url = "/api/booking-email";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -87,12 +86,18 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
           router.push("/dashboard");
         }, 500);
       } else {
-        const errorData = await response.json();
+        let errorMessage =
+          "Failed to submit estimate request. Please try again.";
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorMessage;
+        } catch (jsonError) {
+          // If response is not JSON, use status text
+          errorMessage = `Error ${response.status}: ${response.statusText}`;
+        }
         setSubmitMessage({
           type: "error",
-          text:
-            errorData.error ||
-            "Failed to submit estimate request. Please try again.",
+          text: errorMessage,
         });
       }
     } finally {
