@@ -44,7 +44,6 @@ interface Booking {
 }
 
 export async function onRequestOptions({
-  request,
   env,
 }: {
   request: Request;
