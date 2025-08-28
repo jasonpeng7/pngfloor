@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { useAuth } from "../contexts/AuthContext";
+// import { useAuth } from "../contexts/AuthContext";
 import { useRouter } from "next/navigation";
 
 interface BookingFormProps {
@@ -10,7 +10,7 @@ interface BookingFormProps {
 
 export default function BookingForm({ className = "" }: BookingFormProps) {
   const router = useRouter();
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const formRef = useRef<HTMLFormElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [lastSubmissionTime, setLastSubmissionTime] = useState<number>(0);
@@ -43,27 +43,26 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
 
     const formData = new FormData(e.currentTarget);
     const houseSizeRaw = (formData.get("houseSize") as string) || "";
+    const firstName = formData.get("firstName") as string;
+    const lastName = formData.get("lastName") as string;
     const bookingData = {
-      customer_id: user?.id,
       date: new Date().toISOString(),
-      name: formData.get("firstName") as string,
+      name: `${firstName} ${lastName}`.trim(),
       email: formData.get("email") as string,
       address: formData.get("address") as string,
       phone_number: formData.get("phone") as string,
       lived_in: formData.get("lived-in") as string,
       service: formData.get("service") as string,
-      house_size: houseSizeRaw ? parseInt(houseSizeRaw, 10) : 0,
+      house_size: houseSizeRaw ? parseInt(houseSizeRaw, 10).toString() : "0",
       rooms: formData.get("rooms") as string,
       message: (formData.get("message") as string) || "",
       status: "pending",
     };
 
     try {
-      const apiBase = (process.env.NEXT_PUBLIC_API_BASE || "").replace(
-        /\/$/,
-        ""
-      );
-      const url = apiBase ? `${apiBase}/api/bookings` : `/api/bookings`;
+      // Use local API route for development, Cloudflare function for production
+      const isDevelopment = process.env.NODE_ENV === "development";
+      const url = isDevelopment ? "/api/booking-email" : "/booking-email";
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -110,9 +109,8 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
               Schedule Your Free Estimate
             </h2>
             <p className="text-lg text-gray-600 inter-tight-medium">
-              Welcome {user?.name}! Fill out the form below and we&apos;ll
-              contact you within 24 hours to schedule your free flooring
-              estimate.
+              Welcome! Fill out the form below and we&apos;ll contact you within
+              24 hours to schedule your free flooring estimate.
             </p>
           </div>
 
@@ -130,7 +128,6 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   id="firstName"
                   name="firstName"
                   required
-                  defaultValue={user?.name?.split(" ")[0] || ""}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Your first name"
                 />
@@ -148,7 +145,6 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   id="lastName"
                   name="lastName"
                   required
-                  defaultValue={user?.name?.split(" ").slice(1).join(" ") || ""}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="Your last name"
                 />
@@ -168,7 +164,6 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   id="email"
                   name="email"
                   required
-                  defaultValue={user?.email || ""}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50"
                   placeholder="your.email@example.com"
                   readOnly
@@ -190,7 +185,6 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   id="phone"
                   name="phone"
                   required
-                  defaultValue={user?.phone || ""}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   placeholder="(555) 123-4567"
                 />

@@ -3,21 +3,21 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useAuth } from "../contexts/AuthContext";
-import SignOutButton from "./SignOutButton";
+// import { useAuth } from "../contexts/AuthContext";
+// import SignOutButton from "./SignOutButton";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isAuthenticated, logout } = useAuth();
+  // const { isAuthenticated, logout } = useAuth();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleLogout = async () => {
-    await logout();
-    setIsMenuOpen(false);
-  };
+  // const handleLogout = async () => {
+  //   await logout();
+  //   setIsMenuOpen(false);
+  // };
 
   return (
     <nav className="bg-white shadow-sm border-b border-gray-200">
@@ -60,7 +60,7 @@ export default function Navbar() {
               >
                 Free Estimate
               </Link>
-              {isAuthenticated ? (
+              {/* {isAuthenticated ? (
                 <div className="flex items-center space-x-4">
                   <Link
                     href="/dashboard"
@@ -81,7 +81,7 @@ export default function Navbar() {
                     Sign In
                   </Link>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
 
@@ -155,7 +155,7 @@ export default function Navbar() {
           >
             Free Estimate
           </Link>
-          {isAuthenticated ? (
+          {/* {isAuthenticated ? (
             <>
               <Link
                 href="/dashboard"
@@ -179,7 +179,7 @@ export default function Navbar() {
             >
               Sign In
             </Link>
-          )}
+          )} */}
         </div>
       </div>
     </nav>
