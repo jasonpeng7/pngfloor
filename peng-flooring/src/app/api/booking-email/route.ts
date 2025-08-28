@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
+export const runtime = "edge";
+
 interface BookingData {
   customer_id?: string;
   date?: string;
