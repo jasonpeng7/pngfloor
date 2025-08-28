@@ -1,0 +1,17 @@
+name = "peng-flooring"
+compatibility_date = "2025-01-27"
+compatibility_flags = ["nodejs_compat"]
+
+[env.production]
+name = "peng-flooring"
+
+[env.preview]
+name = "peng-flooring-preview"
+
+# Environment variables will be set in the Cloudflare Pages dashboard
+# GMAIL_SENDER
+# GMAIL_TO
+# GMAIL_CLIENT_ID
+# GMAIL_CLIENT_SECRET
+# GMAIL_REFRESH_TOKEN
+# ALLOWED_ORIGIN 
