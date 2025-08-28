@@ -41,65 +41,56 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
     setSubmitMessage(null);
     setLastSubmissionTime(now);
 
-    const formData = new FormData(e.currentTarget);
-    const houseSizeRaw = (formData.get("houseSize") as string) || "";
-    const firstName = formData.get("firstName") as string;
-    const lastName = formData.get("lastName") as string;
-    const bookingData = {
-      date: new Date().toISOString(),
-      name: `${firstName} ${lastName}`.trim(),
-      email: formData.get("email") as string,
-      address: formData.get("address") as string,
-      phone_number: formData.get("phone") as string,
-      lived_in: formData.get("lived-in") as string,
-      service: formData.get("service") as string,
-      house_size: houseSizeRaw ? parseInt(houseSizeRaw, 10).toString() : "0",
-      rooms: formData.get("rooms") as string,
-      message: (formData.get("message") as string) || "",
-      status: "pending",
-    };
-
     try {
-      // Use Cloudflare Pages function
-      const url = "/booking-email";
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(bookingData),
+      // Temporary solution: Use mailto link for now
+      const formData = new FormData(e.currentTarget);
+      const firstName = formData.get("firstName") as string;
+      const lastName = formData.get("lastName") as string;
+      const email = formData.get("email") as string;
+      const phone = formData.get("phone") as string;
+      const address = formData.get("address") as string;
+      const service = formData.get("service") as string;
+      const houseSize = formData.get("houseSize") as string;
+      const rooms = formData.get("rooms") as string;
+      const livedIn = formData.get("lived-in") as string;
+      const message = formData.get("message") as string;
+
+      const emailBody = `New Booking Request
+
+Name: ${firstName} ${lastName}
+Email: ${email}
+Phone: ${phone}
+Address: ${address}
+Service: ${service}
+House Size: ${houseSize}
+Rooms: ${rooms}
+Currently Lived In: ${livedIn}
+Message: ${message}
+
+Submitted: ${new Date().toISOString()}`;
+
+      const mailtoLink = `mailto:bookings@pengfloor.com?subject=New Booking Request - ${firstName} ${lastName}&body=${encodeURIComponent(
+        emailBody
+      )}`;
+
+      // Open email client
+      window.open(mailtoLink);
+
+      setSubmitMessage({
+        type: "success",
+        text: "Your estimate request has been prepared! Please send the email that opened in your email client.",
       });
 
-      if (response.ok) {
-        setSubmitMessage({
-          type: "success",
-          text: "Your estimate request has been submitted successfully! We'll contact you within 48 hours.",
-        });
-
-        // Reset the form
-        if (formRef.current) {
-          formRef.current.reset();
-        }
-
-        setTimeout(() => {
-          router.push("/dashboard");
-        }, 500);
-      } else {
-        let errorMessage =
-          "Failed to submit estimate request. Please try again.";
-        try {
-          const errorData = await response.json();
-          errorMessage = errorData.error || errorMessage;
-        } catch (jsonError) {
-          // If response is not JSON, use status text
-          errorMessage = `Error ${response.status}: ${response.statusText}`;
-        }
-        setSubmitMessage({
-          type: "error",
-          text: errorMessage,
-        });
+      // Reset the form
+      if (formRef.current) {
+        formRef.current.reset();
       }
+    } catch (error) {
+      console.error("Error:", error);
+      setSubmitMessage({
+        type: "error",
+        text: "Failed to prepare estimate request. Please try again.",
+      });
     } finally {
       setIsSubmitting(false);
     }
