@@ -60,8 +60,8 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
     };
 
     try {
-      // Use API route for now until Cloudflare function is deployed
-      const url = "/api/booking-email";
+      // Use Cloudflare Pages function
+      const url = "/booking-email";
       const response = await fetch(url, {
         method: "POST",
         headers: {
