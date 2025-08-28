@@ -43,22 +43,25 @@ interface Booking {
   ip: string;
 }
 
-export async function onRequestOptions({
-  env,
-}: {
-  request: Request;
-  env: Env;
-}) {
-  return corsResponse(env, new Response(null, { status: 204 }));
-}
-
-export async function onRequestPost({
+export async function onRequest({
   request,
   env,
 }: {
   request: Request;
   env: Env;
 }) {
+  // Handle OPTIONS requests for CORS
+  if (request.method === "OPTIONS") {
+    return corsResponse(env, new Response(null, { status: 204 }));
+  }
+
+  // Only handle POST requests
+  if (request.method !== "POST") {
+    return corsResponse(
+      env,
+      json({ success: false, error: "Method not allowed" }, 405)
+    );
+  }
   try {
     // --- CORS & basic checks ---
     const origin = request.headers.get("Origin") || "";
