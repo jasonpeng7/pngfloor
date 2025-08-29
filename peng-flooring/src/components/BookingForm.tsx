@@ -77,13 +77,16 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
           text: "Your estimate request has been submitted successfully! We'll contact you within 48 hours.",
         });
 
+        // Store booking data for confirmation page
+        localStorage.setItem("bookingData", JSON.stringify(bookingData));
+
         // Reset the form
         if (formRef.current) {
           formRef.current.reset();
         }
 
         setTimeout(() => {
-          router.push("/dashboard");
+          router.push("/confirmation");
         }, 500);
       } else {
         let errorMessage =
