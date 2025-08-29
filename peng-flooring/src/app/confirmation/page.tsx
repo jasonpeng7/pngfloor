@@ -28,7 +28,7 @@ export default function ConfirmationPage() {
       try {
         const parsedData = JSON.parse(storedData);
         setBookingData(parsedData);
-        // Clear the data from localStorage after retrieving it
+        // clear the data  after retrieving it
         localStorage.removeItem("bookingData");
       } catch (error) {
         console.error("Error parsing booking data:", error);
@@ -251,7 +251,7 @@ export default function ConfirmationPage() {
               </div>
               <div>
                 <p className="text-blue-800 font-medium inter-tight-medium">
-                  We'll review your request
+                  We&apos;ll review your request
                 </p>
                 <p className="text-blue-700 text-sm inter-tight-regular">
                   Our team will review your project details and contact you
@@ -268,8 +268,8 @@ export default function ConfirmationPage() {
                   Schedule your consultation
                 </p>
                 <p className="text-blue-700 text-sm inter-tight-regular">
-                  We'll schedule a convenient time to visit your property and
-                  provide a detailed estimate.
+                  We&apos;ll schedule a convenient time to visit your property
+                  and provide a detailed estimate.
                 </p>
               </div>
             </div>
@@ -320,7 +320,7 @@ export default function ConfirmationPage() {
                 pengflooring@gmail.com
               </a>
               <p className="text-sm text-gray-600 inter-tight-regular">
-                We'll respond within 24 hours
+                We&apos;ll respond within 24 hours
               </p>
             </div>
           </div>
