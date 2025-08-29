@@ -94,7 +94,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
         try {
           const errorData = await response.json();
           errorMessage = errorData.error || errorMessage;
-        } catch (jsonError) {
+        } catch {
           // If response is not JSON, use status text
           errorMessage = `Error ${response.status}: ${response.statusText}`;
         }
