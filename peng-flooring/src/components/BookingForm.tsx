@@ -180,10 +180,9 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50"
                   placeholder="your.email@example.com"
-                  readOnly
                 />
                 <p className="text-xs text-gray-500 mt-1 inter-tight-regular">
-                  Email from your Google account
+                  A valid email address is required to receive a response.
                 </p>
               </div>
 
@@ -371,8 +370,23 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                 className="text-sm text-gray-600 inter-tight-regular leading-relaxed"
               >
                 I agree to be contacted by Peng Flooring regarding my free
-                estimate request. I understand that Peng Flooring is a
-                professional flooring company serving the greater 626 area.
+                estimate request. I understand that Peng Flooring is a licensed,
+                insured professional flooring company serving Orange County and
+                Los Angeles County. By submitting this form, I agree to the{" "}
+                <a
+                  href="/terms"
+                  className="text-blue-600 hover:text-blue-700 underline"
+                >
+                  terms of service
+                </a>{" "}
+                and{" "}
+                <a
+                  href="/privacy"
+                  className="text-blue-600 hover:text-blue-700 underline"
+                >
+                  privacy policy
+                </a>
+                .
               </label>
             </div>
 
