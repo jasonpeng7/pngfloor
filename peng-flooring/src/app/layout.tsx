@@ -7,13 +7,14 @@ import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
   title:
-    "Peng Flooring - Family-Owned Flooring Company in the greater 626 area",
+    "Peng Flooring - Professional Flooring Company in the greater 626 area specializing in luxury vinyl flooring installation and stair remodeling",
   description:
-    "Family-owned flooring company serving Orange County, LA County, and 626 area. Professional flooring installation and stair remodeling. Free estimates, honest pricing, 4.9/5 stars from 800+ reviews.",
+    "Professional flooring company serving Orange County, LA County, and 626 area. Professional flooring installation and stair remodeling. Free estimates, honest pricing, 4.9/5 stars from 800+ reviews.",
   icons: {
     icon: "/landing-page/penglogo.svg",
   },
   keywords: [
+    "luxury vinyl flooring installation",
     "free flooring estimate",
     "free flooring estimate near me",
     "free flooring estimate Orange County",
