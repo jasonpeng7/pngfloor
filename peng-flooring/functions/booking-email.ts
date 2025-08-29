@@ -313,8 +313,19 @@ async function getAccessToken(env: Env): Promise<string | null> {
 }
 
 function isAllowedOrigin(origin: string, env: Env): boolean {
+  // For development, be more permissive
+  if (!origin || origin === "null") {
+    return true; // Allow requests without origin (like from curl)
+  }
+
   // Single origin via env var, or allow localhost for dev
-  const allowed = [env.ALLOWED_ORIGIN, "http://localhost:3000"].filter(Boolean);
+  const allowed = [
+    env.ALLOWED_ORIGIN,
+    "https://www.pengfloor.com",
+    "https://pengfloor.com",
+  ].filter(Boolean);
+
+  console.log("Checking origin:", origin, "against allowed:", allowed);
   return !!allowed.find((o) => o === origin);
 }
 
@@ -322,8 +333,8 @@ function corsResponse(env: Env, res: Response): Response {
   const headers = new Headers(res.headers);
   const origin = headers.get("Access-Control-Allow-Origin") || "";
   if (!origin) {
-    // Reflect allowed origin if request came from it
-    headers.set("Access-Control-Allow-Origin", env.ALLOWED_ORIGIN || "*");
+    // For development, be more permissive
+    headers.set("Access-Control-Allow-Origin", "*");
   }
   headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
   headers.set("Access-Control-Allow-Headers", "Content-Type");
