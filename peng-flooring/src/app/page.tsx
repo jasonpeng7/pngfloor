@@ -7,6 +7,7 @@ import {
   VinylIcon,
   RefinishIcon,
   CustomIcon,
+  FreeQuoteIcon,
 } from "../components/icons";
 import CallDropdown from "../components/CallDropdown";
 import AnimatedCounter from "../components/AnimatedCounter";
@@ -72,6 +73,7 @@ export default function Home() {
                     </span>
                   </div>
                   <div className="flex items-center space-x-2 bg-white px-3 py-2 rounded-lg shadow-sm">
+                    <FreeQuoteIcon className="w-4 h-4 text-blue-600" />
                     <span className="text-sm font-semibold text-gray-700 inter-tight-semibold">
                       Free Quote
                     </span>
