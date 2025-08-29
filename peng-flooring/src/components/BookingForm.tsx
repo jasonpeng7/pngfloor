@@ -364,15 +364,15 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                 id="agreement"
                 name="agreement"
                 required
-                className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                className="mt-1 h-6 w-6 sm:h-5 sm:w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded flex-shrink-0"
               />
               <label
                 htmlFor="agreement"
-                className="text-sm text-gray-600 inter-tight-regular"
+                className="text-sm text-gray-600 inter-tight-regular leading-relaxed"
               >
-                I agree to receive communications from Peng Flooring regarding
-                my free estimate request. I understand this is a family-owned
-                flooring company serving Orange County and LA County.
+                I agree to be contacted by Peng Flooring regarding my free
+                estimate request. I understand that Peng Flooring is a
+                professional flooring company serving the greater 626 area.
               </label>
             </div>
 
