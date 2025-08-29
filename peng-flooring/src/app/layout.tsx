@@ -11,22 +11,25 @@ export const metadata: Metadata = {
   description:
     "Family-owned flooring company serving Orange County, LA County, and 626 area. Professional flooring installation and stair remodeling. Free estimates, honest pricing, 4.9/5 stars from 800+ reviews.",
   icons: {
-    icon: "landing-page/penglogo.svg",
+    icon: "/landing-page/penglogo.svg",
   },
   keywords: [
+    "free flooring estimate",
+    "free flooring estimate near me",
+    "free flooring estimate Orange County",
+    "free flooring estimate LA County",
+    "free flooring estimate 626 area",
     "Peng flooring installation",
     "Top flooring installers near me",
     "Peng flooring vinyl flooring installation",
     "flooring installation Orange County",
-    "family-owned flooring company Orange County",
     "flooring installation LA County",
-    "flooring refinishing Fullerton",
     "vinyl flooring installation Orange County",
-    "laminate flooring LA County",
-    "flooring contractor Orange County",
-    "flooring installation Costa Mesa",
-    "flooring company Huntington Beach",
-    "flooring services Irvine",
+    "vinyl flooring installation Chino Hills",
+    "flooring contractor Chino Hills",
+    "flooring installation Walnut",
+    "flooring company 626 area",
+    "flooring services near me",
     "flooring contractor LA County",
     "vinyl flooring installation",
   ],
@@ -44,9 +47,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title:
-      "Peng Flooring - Family-Owned Flooring Company in the greater 626 area",
+      "Peng Flooring - Professional Flooring Company in the greater 626 area",
     description:
-      "Professional flooring services with free estimates. Luxury vinyl & laminate flooring installation and stair remodeling. Serving Orange County, LA County, and 626 area since 2009.",
+      "Professional flooring services with free estimates. Luxury vinyl flooring installation and stair remodeling. Serving Orange County, LA County, and 626 area since 2009.",
     url: "https://pengflooring.com",
     siteName: "Peng Flooring",
     images: [
@@ -62,7 +65,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Peng Flooring - Family-Owned Flooring Company in 626 area",
+    title: "Peng Flooring - Professional Flooring Company in 626 area",
     description:
       "Professional flooring services with free estimates. Luxury vinyl installation, stair remodeling, floor refinishing, and more.",
     images: ["/full-service2.JPG"],
