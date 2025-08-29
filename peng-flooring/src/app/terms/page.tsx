@@ -162,10 +162,10 @@ export default function TermsOfService() {
               <p className="text-gray-700 mb-4">
                 If you have any questions about these Terms, contact us at:{" "}
                 <a
-                  href="mailto:info@pengflooring.com"
+                  href="mailto:pengflooring@gmail.com"
                   className="text-blue-600 hover:text-blue-800 underline"
                 >
-                  info@pengflooring.com
+                  pengflooring@gmail.com
                 </a>
               </p>
             </section>

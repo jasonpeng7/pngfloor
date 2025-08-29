@@ -117,7 +117,7 @@ export default function PrivacyPolicy() {
                   href="mailto:privacy@pengflooring.com"
                   className="text-blue-600 hover:text-blue-800 underline"
                 >
-                  privacy@pengflooring.com
+                  pengflooring@gmail.com
                 </a>
               </p>
             </section>
