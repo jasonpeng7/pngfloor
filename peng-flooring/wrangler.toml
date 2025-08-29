@@ -1,4 +1,4 @@
-name = "peng-flooring"
+name = "pngfloor"
 compatibility_date = "2025-01-27"
 compatibility_flags = ["nodejs_compat"]
 
@@ -6,10 +6,10 @@ compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "out"
 
 [env.production]
-name = "peng-flooring"
+name = "pngfloor"
 
 [env.preview]
-name = "peng-flooring-preview"
+name = "pngfloor-preview"
 
 # Environment variables will be set in the Cloudflare Pages dashboard
 # GMAIL_SENDER
