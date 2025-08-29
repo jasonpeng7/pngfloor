@@ -460,7 +460,7 @@ export default function BookingsPage() {
   return (
     <div className="max-w-[2000px] min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-700 py-20">
+      <section className=" bg-blue-600 py-20">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 inter-tight-bold">
             Get Your Free Flooring Estimate
