@@ -26,7 +26,7 @@ export default function Navbar() {
           {/* Logo/Brand */}
           <div className="flex flex-shrink-0 flex-row items-end gap-x-[3px]">
             <Image
-              src="landing-page/penglogo.svg"
+              src="/landing-page/penglogo.svg"
               alt="logo"
               width={45}
               height={45}
