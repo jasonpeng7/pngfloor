@@ -11,19 +11,7 @@ export const metadata: Metadata = {
   description:
     "Professional flooring company serving Orange County, LA County, and 626 area. Professional flooring installation and stair remodeling. Free estimates, honest pricing, 4.9/5 stars from 800+ reviews.",
   icons: {
-    icon: [
-      { url: "/landing-page/penglogo.svg?v=2", type: "image/svg+xml" },
-      {
-        url: "/landing-page/penglogo.svg?v=2",
-        sizes: "32x32",
-        type: "image/svg+xml",
-      },
-      {
-        url: "/landing-page/penglogo.svg?v=2",
-        sizes: "16x16",
-        type: "image/svg+xml",
-      },
-    ],
+    icon: "/landing-page/penglogo.png?v=2",
   },
   keywords: [
     "luxury vinyl flooring installation",
