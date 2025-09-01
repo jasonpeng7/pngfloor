@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Metadata } from "next";
 import {
   CheckIcon,
   UserIcon,
@@ -18,6 +19,15 @@ import Testimonials from "../../components/Testimonials";
 import AnimatedSection, {
   AnimatedDelay,
 } from "../../components/AnimatedSection";
+
+export const metadata: Metadata = {
+  title: "About Peng Flooring",
+  description:
+    "Meet Leo Peng, Founder of Peng Flooring, your trusted flooring expert with 15+ years of experience.",
+  alternates: {
+    canonical: "/about",
+  },
+};
 
 export default function AboutPage() {
   return (
