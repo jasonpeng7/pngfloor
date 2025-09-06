@@ -1,5 +1,15 @@
 "use client";
 
+import { useState } from "react";
+import {
+  BookingFormIcon,
+  ReviewEstimateIcon,
+  SiteVisitIcon,
+  StartProjectIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "./icons";
+
 interface Step {
   number: number;
   title: string;
@@ -13,90 +23,28 @@ const steps: Step[] = [
     title: "Submit Your Booking",
     description:
       "Fill out our simple form with your project details and contact information.",
-    icon: (
-      <svg
-        className="w-8 h-8"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-        />
-      </svg>
-    ),
+    icon: <BookingFormIcon />,
   },
   {
     number: 2,
     title: "Review & Estimate",
     description:
       "We review your project and get back to you within 48 hours with a detailed estimate.",
-    icon: (
-      <svg
-        className="w-8 h-8"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-        />
-      </svg>
-    ),
+    icon: <ReviewEstimateIcon />,
   },
   {
     number: 3,
     title: "Site Visit",
     description:
       "If you like our estimate, we schedule a visit to your home to finalize the details.",
-    icon: (
-      <svg
-        className="w-8 h-8"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-        />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-        />
-      </svg>
-    ),
+    icon: <SiteVisitIcon />,
   },
   {
     number: 4,
     title: "Start Project",
     description:
       "We get started on your flooring project as soon as possible with our expert team.",
-    icon: (
-      <svg
-        className="w-8 h-8"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M13 10V3L4 14h7v7l9-11h-7z"
-        />
-      </svg>
-    ),
+    icon: <StartProjectIcon />,
   },
 ];
 
@@ -105,6 +53,20 @@ interface BookingStepsProps {
 }
 
 export default function BookingSteps({ className = "" }: BookingStepsProps) {
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const nextStep = () => {
+    setCurrentStep((prev) => (prev + 1) % steps.length);
+  };
+
+  const prevStep = () => {
+    setCurrentStep((prev) => (prev - 1 + steps.length) % steps.length);
+  };
+
+  const goToStep = (index: number) => {
+    setCurrentStep(index);
+  };
+
   return (
     <section className={`py-16 bg-[#222222] ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -118,7 +80,8 @@ export default function BookingSteps({ className = "" }: BookingStepsProps) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        {/* Desktop Grid - Hidden on mobile */}
+        <div className="hidden lg:grid grid-cols-4 gap-6 lg:gap-8">
           {steps.map((step) => (
             <div
               key={step.number}
@@ -145,6 +108,80 @@ export default function BookingSteps({ className = "" }: BookingStepsProps) {
               </p>
             </div>
           ))}
+        </div>
+
+        {/* Mobile Carousel - Hidden on desktop */}
+        <div className="lg:hidden">
+          {/* Carousel Container */}
+          <div className="relative">
+            {/* Navigation Buttons */}
+            <button
+              onClick={prevStep}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-blue-600 hover:bg-blue-700 text-white w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 -ml-2"
+              aria-label="Previous step"
+            >
+              <ChevronLeftIcon />
+            </button>
+
+            <button
+              onClick={nextStep}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-blue-600 hover:bg-blue-700 text-white w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-200 -mr-2"
+              aria-label="Next step"
+            >
+              <ChevronRightIcon />
+            </button>
+
+            {/* Carousel Content */}
+            <div className="overflow-hidden mx-8">
+              <div
+                className="flex transition-transform duration-300 ease-in-out"
+                style={{ transform: `translateX(-${currentStep * 100}%)` }}
+              >
+                {steps.map((step) => (
+                  <div
+                    key={step.number}
+                    className="w-full flex-shrink-0 bg-black p-6 text-center"
+                  >
+                    {/* Icon */}
+                    <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <div className="text-blue-600">{step.icon}</div>
+                    </div>
+
+                    {/* Step Number */}
+                    <div className="text-sm font-semibold text-blue-600 inter-tight-semibold mb-2">
+                      Step {step.number.toString().padStart(2, "0")}
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-lg font-semibold text-white inter-tight-semibold mb-3">
+                      {step.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-white inter-tight-regular text-sm leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Dots Indicator */}
+            <div className="flex justify-center space-x-2 mt-6">
+              {steps.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToStep(index)}
+                  className={`w-3 h-3 rounded-full transition-colors duration-200 ${
+                    index === currentStep
+                      ? "bg-blue-600"
+                      : "bg-gray-600 hover:bg-gray-500"
+                  }`}
+                  aria-label={`Go to step ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
