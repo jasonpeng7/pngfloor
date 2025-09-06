@@ -492,9 +492,9 @@ export default function BookingsPage() {
       </section>
 
       {/* Service Areas */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+      <section className="py-4 md:py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+          <div className="text-center md:mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 inter-tight-bold">
               Top Services We Offer
             </h2>
@@ -503,7 +503,8 @@ export default function BookingsPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Desktop Grid - Hidden on mobile */}
+          <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Luxury Vinyl - Popular Choice */}
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200 relative">
               <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
@@ -581,6 +582,97 @@ export default function BookingsPage() {
               <p className="text-gray-700 inter-tight-regular">
                 Tailored flooring solutions for unique spaces and requirements.
               </p>
+            </div>
+          </div>
+
+          {/* Mobile Animated Carousel - Hidden on desktop */}
+          <div className="md:hidden services-carousel relative h-64 flex items-center justify-center">
+            {/* Luxury Vinyl - Popular Choice */}
+            <div className="service-card absolute inset-0 flex flex-col items-center justify-center text-center px-4 opacity-0">
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200 relative max-w-sm w-full">
+                <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+                  POPULAR
+                </div>
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
+                    <VinylIcon
+                      className="w-6 h-6 text-white"
+                      fill="currentColor"
+                    />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                    Luxury Vinyl
+                  </h3>
+                </div>
+                <p className="text-gray-700 inter-tight-regular">
+                  Professional installation of durable, waterproof luxury vinyl
+                  flooring.
+                </p>
+              </div>
+            </div>
+
+            {/* Stairs */}
+            <div className="service-card absolute inset-0 flex flex-col items-center justify-center text-center px-4 opacity-0">
+              <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 max-w-sm w-full">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mr-4">
+                    <StairsIcon
+                      className="w-6 h-6 text-white"
+                      fill="currentColor"
+                    />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                    Stair Renovation
+                  </h3>
+                </div>
+                <p className="text-gray-700 inter-tight-regular">
+                  Complete stair renovation and installation services.
+                </p>
+              </div>
+            </div>
+
+            {/* Baseboard */}
+            <div className="service-card absolute inset-0 flex flex-col items-center justify-center text-center px-4 opacity-0">
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200 relative max-w-sm w-full">
+                <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+                  POPULAR
+                </div>
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
+                    <BaseboardIcon
+                      className="w-6 h-6 text-white"
+                      fill="currentColor"
+                    />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                    Baseboard Work
+                  </h3>
+                </div>
+                <p className="text-gray-700 inter-tight-regular">
+                  Professional baseboard repairs and installation.
+                </p>
+              </div>
+            </div>
+
+            {/* Custom Solutions */}
+            <div className="service-card absolute inset-0 flex flex-col items-center justify-center text-center px-4 opacity-0">
+              <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 max-w-sm w-full">
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mr-4">
+                    <CustomIcon
+                      className="w-6 h-6 text-white"
+                      fill="currentColor"
+                    />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                    Custom Solutions
+                  </h3>
+                </div>
+                <p className="text-gray-700 inter-tight-regular">
+                  Tailored flooring solutions for unique spaces and
+                  requirements.
+                </p>
+              </div>
             </div>
           </div>
         </div>
