@@ -184,7 +184,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Desktop Grid - Hidden on mobile */}
+            <div className="hidden lg:grid grid-cols-4 gap-8">
               {/* Vinyl Installation */}
               <AnimatedDelay className="text-center group">
                 <div className="relative overflow-hidden rounded-lg mb-4">
@@ -273,6 +274,98 @@ export default function Home() {
                   Specialized flooring solutions for unique projects.
                 </p>
               </AnimatedDelay>
+            </div>
+
+            {/* Mobile Animated Carousel - Hidden on desktop */}
+            <div className="lg:hidden services-carousel relative h-80 flex items-center justify-center">
+              {/* Vinyl Installation */}
+              <div className="service-card absolute inset-0 flex flex-col items-center justify-center text-center px-4 opacity-0">
+                <div className="relative overflow-hidden rounded-lg mb-4 max-w-md">
+                  <Image
+                    src="/landing-page/vinyl-service.png"
+                    alt="Luxury Vinyl Installation"
+                    width={400}
+                    height={400}
+                    className="w-full h-60 object-cover rounded-lg"
+                  />
+                </div>
+                <div className="flex items-center justify-center mb-2">
+                  <VinylIcon className="w-6 h-6 text-blue-600 mr-2" />
+                  <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                    Luxury Vinyl
+                  </h3>
+                </div>
+                <p className="text-gray-600 inter-tight-regular">
+                  Waterproof, durable, and beautiful vinyl flooring
+                  installation.
+                </p>
+              </div>
+
+              {/* Hardwood Installation */}
+              <div className="service-card absolute inset-0 flex flex-col items-center justify-center text-center px-4 opacity-0">
+                <div className="relative overflow-hidden rounded-lg mb-4 max-w-md">
+                  <Image
+                    src="/landing-page/stair-service.png"
+                    alt="Hardwood Installation"
+                    width={400}
+                    height={400}
+                    className="w-full h-60 object-cover rounded-lg"
+                  />
+                </div>
+                <div className="flex items-center justify-center mb-2">
+                  <HardwoodIcon className="w-6 h-6 text-blue-600 mr-2" />
+                  <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                    Hardwood & Stairs
+                  </h3>
+                </div>
+                <p className="text-gray-600 inter-tight-regular">
+                  Premium hardwood installation and stair remodeling services.
+                </p>
+              </div>
+
+              {/* Refinishing */}
+              <div className="service-card absolute inset-0 flex flex-col items-center justify-center text-center px-4 opacity-0">
+                <div className="relative overflow-hidden rounded-lg mb-4 max-w-md">
+                  <Image
+                    src="/landing-page/refinish-service.png"
+                    alt="Floor Refinishing"
+                    width={400}
+                    height={400}
+                    className="w-full h-60 object-cover rounded-lg"
+                  />
+                </div>
+                <div className="flex items-center justify-center mb-2">
+                  <RefinishIcon className="w-6 h-6 text-blue-600 mr-2" />
+                  <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                    Refinishing
+                  </h3>
+                </div>
+                <p className="text-gray-600 inter-tight-regular">
+                  Restore your existing floors to their original beauty.
+                </p>
+              </div>
+
+              {/* Custom Services */}
+              <div className="service-card absolute inset-0 flex flex-col items-center justify-center text-center px-4 opacity-0">
+                <div className="relative overflow-hidden rounded-lg mb-4 max-w-md">
+                  <Image
+                    src="/landing-page/custom-service.png"
+                    alt="Custom Flooring Services"
+                    width={400}
+                    height={400}
+                    className="w-full h-60 object-cover rounded-lg"
+                  />
+                </div>
+                <div className="flex items-center justify-center mb-2">
+                  <CustomIcon className="w-6 h-6 text-blue-600 mr-2" />
+                  <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
+                    Custom Services
+                  </h3>
+                </div>
+                <p className="text-gray-600 inter-tight-regular">
+                  Specialized flooring solutions for unique projects.
+                </p>
+              </div>
             </div>
           </AnimatedSection>
         </div>
