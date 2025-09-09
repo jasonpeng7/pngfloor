@@ -1,12 +1,11 @@
 // Cloudflare Pages Function: POST /booking-email
-// Sends your booking form as an email via Gmail API using a long-lived refresh token.
+// Sends your booking form as an email via the Mailgun API.
 
 interface Env {
-  GMAIL_SENDER?: string;
-  GMAIL_TO?: string;
-  GMAIL_CLIENT_ID?: string;
-  GMAIL_CLIENT_SECRET?: string;
-  GMAIL_REFRESH_TOKEN?: string;
+  MAILGUN_API_KEY?: string;
+  MAILGUN_DOMAIN?: string;
+  MAILGUN_SENDER_EMAIL?: string;
+  MAILGUN_RECIPIENT_EMAIL?: string;
   ALLOWED_ORIGIN?: string;
 }
 
@@ -111,26 +110,18 @@ export async function onRequest({
       ip: request.headers.get("CF-Connecting-IP") || "",
     };
 
-    // For testing without Gmail API credentials, just log and return success
-    console.log("Booking request received:", {
-      name: booking.name,
-      email: booking.email,
-      phone: booking.phone,
-      address: booking.address,
-      service: booking.service,
-      house_size: booking.house_size,
-      rooms: booking.rooms,
-      lived_in: booking.lived_in,
-      message: booking.message,
-      date: booking.date,
-    });
-
-    // Check if Gmail credentials are available
+    // Check if Mailgun credentials are available
     if (
-      !env.GMAIL_CLIENT_ID ||
-      !env.GMAIL_CLIENT_SECRET ||
-      !env.GMAIL_REFRESH_TOKEN
+      !env.MAILGUN_API_KEY ||
+      !env.MAILGUN_DOMAIN ||
+      !env.MAILGUN_SENDER_EMAIL ||
+      !env.MAILGUN_RECIPIENT_EMAIL
     ) {
+      console.error(
+        "Mailgun environment variables are not set. Email will not be sent."
+      );
+      // Log the booking data for debugging, but return success to the user so the form works.
+      console.log("Booking request received (email not sent):", booking);
       return corsResponse(
         env,
         json(
@@ -138,7 +129,7 @@ export async function onRequest({
             success: true,
             message:
               "Your estimate request has been submitted successfully! We'll contact you within 48 hours.",
-            note: "Gmail API not configured - booking logged only",
+            note: "Mailgun not configured - booking logged only",
           },
           200
         )
@@ -189,70 +180,53 @@ export async function onRequest({
         <p><small>UA: ${escapeHtml(booking.user_agent)}</small></p>
       `;
 
-    // Create RFC 2822 MIME message (multipart/alternative)
-    const boundary = "mime_boundary_" + Math.random().toString(36).slice(2);
-    const mime = [
-      `From: ${env.GMAIL_SENDER}`,
-      `To: ${env.GMAIL_TO}`,
-      `Subject: ${subject}`,
-      "MIME-Version: 1.0",
-      `Content-Type: multipart/alternative; boundary="${boundary}"`,
-      "",
-      `--${boundary}`,
-      `Content-Type: text/plain; charset="UTF-8"`,
-      "",
-      textBody,
-      `--${boundary}`,
-      `Content-Type: text/html; charset="UTF-8"`,
-      "",
-      htmlBody,
-      `--${boundary}--`,
-      "",
-    ].join("\r\n");
+    // --- Send via Mailgun API using fetch ---
+    // The mailgun.js library has compatibility issues in the Workers environment.
+    // Using a direct fetch call is more robust.
+    const formData = new FormData();
+    formData.append("from", env.MAILGUN_SENDER_EMAIL);
+    formData.append("to", env.MAILGUN_RECIPIENT_EMAIL);
+    formData.append("subject", subject);
+    formData.append("text", textBody);
+    formData.append("html", htmlBody);
 
-    // Base64url encode for Gmail API
-    const raw = base64UrlEncode(mime);
-
-    // --- Get access token via refresh token ---
-    const token = await getAccessToken(env);
-    if (!token) {
-      return corsResponse(
-        env,
-        json({ success: false, error: "OAuth token error" }, 500)
-      );
-    }
-
-    // --- Send via Gmail API ---
-    const sendResp = await fetch(
-      "https://gmail.googleapis.com/gmail/v1/users/me/messages/send",
+    const response = await fetch(
+      `https://api.mailgun.net/v3/${env.MAILGUN_DOMAIN}/messages`,
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
+          Authorization: `Basic ${btoa(`api:${env.MAILGUN_API_KEY}`)}`,
         },
-        body: JSON.stringify({ raw }),
+        body: formData,
       }
     );
 
-    if (!sendResp.ok) {
-      const errText = await sendResp.text();
-      console.error("Gmail send error:", errText);
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Mailgun API Error:", errorText);
       return corsResponse(
         env,
-        json({ success: false, error: "Failed to send email" }, 502)
+        json({ success: false, error: "Failed to send email via Mailgun" }, 502)
       );
     }
+
+    const mailgunResponse = await response.json();
+
+    console.log("Mailgun response:", mailgunResponse);
 
     return corsResponse(
       env,
       json(
-        { success: true, message: "Your estimate request has been emailed!" },
+        {
+          success: true,
+          message: "Your estimate request has been emailed!",
+          mailgunId: mailgunResponse.id,
+        },
         200
       )
     );
   } catch (err) {
-    console.error(err);
+    console.error("An error occurred:", err);
     return corsResponse(
       env,
       json({ success: false, error: "Server error" }, 500)
@@ -270,59 +244,16 @@ function escapeHtml(s: unknown): string {
     .replace(/"/g, "&quot;");
 }
 
-function base64UrlEncode(str: string): string {
-  // TextEncoder → binary → base64 → base64url
-  const bytes = new TextEncoder().encode(str);
-  let binary = "";
-  for (let i = 0; i < bytes.length; i++)
-    binary += String.fromCharCode(bytes[i]);
-  return btoa(binary)
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_")
-    .replace(/=+$/g, "");
-}
-
-async function getAccessToken(env: Env): Promise<string | null> {
-  if (
-    !env.GMAIL_CLIENT_ID ||
-    !env.GMAIL_CLIENT_SECRET ||
-    !env.GMAIL_REFRESH_TOKEN
-  ) {
-    return null;
-  }
-
-  const body = new URLSearchParams({
-    client_id: env.GMAIL_CLIENT_ID,
-    client_secret: env.GMAIL_CLIENT_SECRET,
-    refresh_token: env.GMAIL_REFRESH_TOKEN,
-    grant_type: "refresh_token",
-  });
-
-  const resp = await fetch("https://oauth2.googleapis.com/token", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body,
-  });
-
-  if (!resp.ok) {
-    console.error("Token fetch failed:", await resp.text());
-    return null;
-  }
-  const json = await resp.json();
-  return json.access_token;
-}
-
 function isAllowedOrigin(origin: string, env: Env): boolean {
-  // For development, be more permissive
   if (!origin || origin === "null") {
-    return true; // Allow requests without origin (like from curl)
+    return true; // Allow server-to-server or tools like curl
   }
 
-  // Single origin via env var, or allow localhost for dev
   const allowed = [
     env.ALLOWED_ORIGIN,
     "https://www.pengfloor.com",
     "https://pengfloor.com",
+    "http://localhost:8788", // For Wrangler
   ].filter(Boolean);
 
   console.log("Checking origin:", origin, "against allowed:", allowed);
@@ -331,11 +262,7 @@ function isAllowedOrigin(origin: string, env: Env): boolean {
 
 function corsResponse(env: Env, res: Response): Response {
   const headers = new Headers(res.headers);
-  const origin = headers.get("Access-Control-Allow-Origin") || "";
-  if (!origin) {
-    // For development, be more permissive
-    headers.set("Access-Control-Allow-Origin", "*");
-  }
+  headers.set("Access-Control-Allow-Origin", "*"); // More permissive for now
   headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
   headers.set("Access-Control-Allow-Headers", "Content-Type");
   headers.set("Access-Control-Max-Age", "86400");
