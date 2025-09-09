@@ -192,25 +192,6 @@ export const HeartIcon = ({
   </svg>
 );
 
-export const FreeQuoteIcon = ({
-  className = "w-4 h-4",
-  fill = "currentColor",
-}: {
-  className?: string;
-  fill?: string;
-}) => (
-  <svg className={className} fill={fill} viewBox="0 0 20 20">
-    <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12v10H4V5z" />
-    <path d="M6 7h8v2H6V7zm0 4h6v2H6v-2z" />
-    <path
-      d="M3 3l14 14"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-    />
-  </svg>
-);
-
 export const TrashIcon = ({
   className = "w-6 h-6",
   fill = "currentColor",
@@ -467,6 +448,25 @@ export const ChevronRightIcon = ({
       strokeLinejoin="round"
       strokeWidth={2}
       d="M9 5l7 7-7 7"
+    />
+  </svg>
+);
+
+export const FreeQuoteIcon = ({
+  className = "w-4 h-4",
+  fill = "currentColor",
+}: {
+  className?: string;
+  fill?: string;
+}) => (
+  <svg className={className} fill={fill} viewBox="0 0 20 20">
+    <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12v10H4V5z" />
+    <path d="M6 7h8v2H6V7zm0 4h6v2H6v-2z" />
+    <path
+      d="M3 3l14 14"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
     />
   </svg>
 );
