@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 // import { useAuth } from "../contexts/AuthContext";
 import { useRouter } from "next/navigation";
+import { useLanguage } from "../contexts/LanguageContext";
 
 interface BookingFormProps {
   className?: string;
@@ -18,6 +19,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
     type: "success" | "error";
     text: string;
   } | null>(null);
+  const { t } = useLanguage();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,7 +34,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
     if (now - lastSubmissionTime < 5000) {
       setSubmitMessage({
         type: "error",
-        text: "Please wait a few seconds before submitting another request.",
+        text: t.submissionRateLimit,
       });
       return;
     }
@@ -74,7 +76,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
       if (response.ok) {
         setSubmitMessage({
           type: "success",
-          text: "Your estimate request has been submitted successfully! We'll contact you within 48 hours.",
+          text: t.submissionSuccess,
         });
 
         // Store booking data for confirmation page
@@ -89,8 +91,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
           router.push("/confirmation");
         }, 500);
       } else {
-        let errorMessage =
-          "Failed to submit estimate request. Please try again.";
+        let errorMessage = t.submissionError;
         try {
           const errorData = await response.json();
           errorMessage = errorData.error || errorMessage;
@@ -107,7 +108,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
       console.error("Error:", error);
       setSubmitMessage({
         type: "error",
-        text: "Failed to submit estimate request. Please try again.",
+        text: t.submissionError,
       });
     } finally {
       setIsSubmitting(false);
@@ -120,11 +121,10 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
         <div className="bg-white rounded-lg shadow-xl p-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-4 inter-tight-bold">
-              Schedule Your Free Estimate
+              {t.scheduleFreeEstimate}
             </h2>
             <p className="text-lg text-gray-600 inter-tight-medium">
-              Welcome! Fill out the form below and we&apos;ll contact you within
-              24 hours to schedule your free flooring estimate.
+              {t.scheduleFreeEstimateSubtitle}
             </p>
           </div>
 
@@ -135,7 +135,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   htmlFor="firstName"
                   className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
                 >
-                  First Name *
+                  {t.firstName} *
                 </label>
                 <input
                   type="text"
@@ -143,7 +143,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   name="firstName"
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Your first name"
+                  placeholder={t.yourFirstName}
                 />
               </div>
 
@@ -152,7 +152,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   htmlFor="lastName"
                   className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
                 >
-                  Last Name *
+                  {t.lastName} *
                 </label>
                 <input
                   type="text"
@@ -160,7 +160,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   name="lastName"
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="Your last name"
+                  placeholder={t.yourLastName}
                 />
               </div>
             </div>
@@ -171,7 +171,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   htmlFor="email"
                   className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
                 >
-                  Email Address *
+                  {t.emailAddress} *
                 </label>
                 <input
                   type="email"
@@ -179,10 +179,10 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   name="email"
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50"
-                  placeholder="your.email@example.com"
+                  placeholder={t.yourEmail}
                 />
                 <p className="text-xs text-gray-500 mt-1 inter-tight-regular">
-                  A valid email address is required to receive a response.
+                  {t.emailRequired}
                 </p>
               </div>
 
@@ -191,7 +191,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   htmlFor="phone"
                   className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
                 >
-                  Phone Number *
+                  {t.phoneNumber} *
                 </label>
                 <input
                   type="tel"
@@ -199,7 +199,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   name="phone"
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="(555) 123-4567"
+                  placeholder={t.yourPhone}
                 />
               </div>
             </div>
@@ -209,7 +209,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                 htmlFor="address"
                 className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
               >
-                Property Address/City *
+                {t.propertyAddress} *
               </label>
               <input
                 type="text"
@@ -217,12 +217,10 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                 name="address"
                 required
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="123 Main St, Anaheim, CA 92801"
+                placeholder={t.yourAddress}
               />
               <p className="text-xs text-gray-500 mt-1 inter-tight-regular">
-                Don&apos;t worry about providing your exact address right now.
-                We&apos;ll ask for the specific address later if you decide to
-                proceed with the estimate.
+                {t.addressInfo}
               </p>
             </div>
 
@@ -231,7 +229,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                 htmlFor="lived_in"
                 className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
               >
-                Is Anyone Currently Living in the Property? *
+                {t.isLiving} *
               </label>
               <select
                 id="lived-in-boolean"
@@ -239,17 +237,13 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                 required
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
-                <option value="">Select an option</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-                <option value="no-but-furniture">
-                  No, but there is furniture
-                </option>
+                <option value="">{t.selectOption}</option>
+                <option value="yes">{t.yes}</option>
+                <option value="no">{t.no}</option>
+                <option value="no-but-furniture">{t.noButFurniture}</option>
               </select>
               <p className="text-xs text-gray-500 mt-1 inter-tight-regular">
-                Please let us know if the property is occupied. Projects in
-                furnished or occupied homes may require additional preparation
-                and labor, which can affect the overall cost
+                {t.livingInfo}
               </p>
             </div>
 
@@ -258,7 +252,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                 htmlFor="service"
                 className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
               >
-                Service Needed *
+                {t.serviceNeeded} *
               </label>
               <select
                 id="service"
@@ -266,21 +260,17 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                 required
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
-                <option value="">Select a service</option>
-                <option value="estimate">Free Estimate</option>
+                <option value="">{t.selectService}</option>
+                <option value="estimate">{t.freeQuote}</option>
                 <option value="general-installation">
-                  General Flooring Installation
+                  {t.generalInstallation}
                 </option>
-                <option value="vinyl-laminate">
-                  Vinyl & Laminate Flooring Installation
-                </option>
-                <option value="flooring-repairs">
-                  Flooring Repairs & Maintenance
-                </option>
+                <option value="vinyl-laminate">{t.vinylLaminate}</option>
+                <option value="flooring-repairs">{t.repairsMaintenance}</option>
                 <option value="stair-installation">
-                  Stair Remodel/Installation
+                  {t.stairInstallation}
                 </option>
-                <option value="other">Other</option>
+                <option value="other">{t.other}</option>
               </select>
             </div>
 
@@ -290,7 +280,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   htmlFor="houseSize"
                   className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
                 >
-                  House Size (Rough Estimate) *
+                  {t.houseSize} *
                 </label>
                 <input
                   type="text"
@@ -300,10 +290,10 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   name="houseSize"
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  placeholder="e.g., 1500"
+                  placeholder={t.houseSizePlaceholder}
                 />
                 <p className="text-xs text-gray-500 mt-1 inter-tight-regular">
-                  Enter approximate square footage
+                  {t.houseSizeInfo}
                 </p>
               </div>
 
@@ -312,7 +302,7 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   htmlFor="rooms"
                   className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
                 >
-                  Number of Rooms/Bathrooms *
+                  {t.roomCount} *
                 </label>
                 <select
                   id="rooms"
@@ -320,23 +310,23 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
-                  <option value="">Select room count</option>
+                  <option value="">{t.selectRoomCount}</option>
                   <option value="1-2 bedrooms, 1 bathroom">
-                    1-2 bedrooms, 1 bathroom
+                    {t.rooms1_2_1}
                   </option>
                   <option value="2-3 bedrooms, 1-2 bathrooms">
-                    2-3 bedrooms, 1-2 bathrooms
+                    {t.rooms2_3_1_2}
                   </option>
                   <option value="3-4 bedrooms, 2-3 bathrooms">
-                    3-4 bedrooms, 2-3 bathrooms
+                    {t.rooms3_4_2_3}
                   </option>
                   <option value="4-5 bedrooms, 3+ bathrooms">
-                    4-5 bedrooms, 3+ bathrooms
+                    {t.rooms4_5_3}
                   </option>
                   <option value="5+ bedrooms, 3+ bathrooms">
-                    5+ bedrooms, 3+ bathrooms
+                    {t.rooms5_3}
                   </option>
-                  <option value="Studio/1 bedroom">Studio/1 bedroom</option>
+                  <option value="Studio/1 bedroom">{t.studio_1}</option>
                 </select>
               </div>
             </div>
@@ -346,14 +336,14 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                 htmlFor="message"
                 className="block text-sm font-medium text-gray-700 mb-2 inter-tight-medium"
               >
-                Project Details
+                {t.projectDetails}
               </label>
               <textarea
                 id="message"
                 name="message"
                 rows={4}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Is there anything else you would like to add?"
+                placeholder={t.projectDetailsPlaceholder}
               ></textarea>
             </div>
 
@@ -369,22 +359,23 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
                 htmlFor="agreement"
                 className="text-sm text-gray-600 inter-tight-regular leading-relaxed"
               >
-                I agree to be contacted by Peng Flooring regarding my free
-                estimate request. I understand that Peng Flooring is a licensed,
-                insured professional flooring company serving Orange County and
-                Los Angeles County. By submitting this form, I agree to the{" "}
+                {t.agreement?.split("terms of service")[0]}
                 <a
                   href="/terms"
                   className="text-blue-600 hover:text-blue-700 underline"
                 >
-                  terms of service
-                </a>{" "}
-                and{" "}
+                  {t.termsOfService}
+                </a>
+                {
+                  t.agreement
+                    ?.split("terms of service")[1]
+                    ?.split("privacy policy")[0]
+                }
                 <a
                   href="/privacy"
                   className="text-blue-600 hover:text-blue-700 underline"
                 >
-                  privacy policy
+                  {t.privacyPolicy}
                 </a>
                 .
               </label>
@@ -410,30 +401,29 @@ export default function BookingForm({ className = "" }: BookingFormProps) {
               {isSubmitting ? (
                 <div className="flex items-center justify-center">
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                  Submitting...
+                  {t.submitting}
                 </div>
               ) : (
-                "Request Free Estimate"
+                t.requestEstimate
               )}
             </button>
 
             {isSubmitting && (
               <p className="text-sm text-gray-500 text-center inter-tight-regular">
-                Please wait while we process your request...
+                {t.waitMessage}
               </p>
             )}
           </form>
 
           <div className="mt-8 text-center">
             <p className="text-sm text-gray-600 inter-tight-regular">
-              Or call us directly:{" "}
+              {t.callDirectly}{" "}
               <span className="font-semibold text-blue-600 inter-tight-semibold">
                 (626) 540-7720
               </span>
             </p>
             <p className="text-sm text-gray-500 mt-2 inter-tight-regular">
-              We&apos;ll respond within 48 hours to schedule your free flooring
-              estimate
+              {t.responseWithin48}
             </p>
           </div>
         </div>
