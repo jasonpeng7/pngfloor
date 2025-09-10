@@ -6,6 +6,7 @@ import {
   SparklesIcon,
   BroomIcon,
   CheckIcon,
+  ChevronRightIcon,
 } from "./icons";
 
 const steps = [
@@ -74,7 +75,8 @@ export default function StepsShowcase() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Desktop Grid */}
+          <div className="hidden lg:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {steps.map((step, index) => {
               const IconComponent = step.icon;
               return (
@@ -107,6 +109,60 @@ export default function StepsShowcase() {
                 </div>
               );
             })}
+          </div>
+
+          {/* Mobile CSS Scroll Snap Carousel */}
+          <div className="lg:hidden">
+            <div
+              className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            >
+              {steps.map((step, index) => {
+                const IconComponent = step.icon;
+                return (
+                  <div
+                    key={index}
+                    className="w-full flex-shrink-0 snap-center px-4 "
+                  >
+                    <div className="bg-white p-8 min-h-[375px]">
+                      <div className="flex items-center justify-between mb-6">
+                        <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                          <IconComponent
+                            className="w-8 h-8 text-blue-600"
+                            fill="currentColor"
+                          />
+                        </div>
+                        <div className="text-4xl font-bold text-gray-300 inter-tight-bold">
+                          {step.number}
+                        </div>
+                      </div>
+                      <div className="w-full h-px bg-gray-200 mb-6"></div>
+
+                      <h3 className="text-xl font-bold text-gray-900 inter-tight-bold mb-3">
+                        {step.title}
+                      </h3>
+                      <p className="text-gray-600 inter-tight-regular sm: mb-[5px] md:mb-[10px]">
+                        {step.description}
+                      </p>
+                      <p className="text-gray-600 inter-tight-regular text-sm">
+                        Timeframe: {step.timeFrame}
+                      </p>
+                      <p className="text-gray-600 inter-tight-regular text-xs">
+                        *Exact time frame depends on the size of the project
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Scroll/Swipe Hint */}
+            <div className="mt-4 flex justify-center items-center text-gray-400">
+              <span className="text-sm font-semibold inter-tight-medium">
+                Swipe to see next step
+              </span>
+              <ChevronRightIcon className="w-5 h-5 ml-1 animate-pulse" />
+            </div>
           </div>
         </div>
       </div>
