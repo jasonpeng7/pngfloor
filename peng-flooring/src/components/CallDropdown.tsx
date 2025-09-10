@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { PhoneIcon } from "./icons";
+import { useLanguage } from "../contexts/LanguageContext";
 
 interface CallDropdownProps {
   className?: string;
@@ -14,6 +15,7 @@ export default function CallDropdown({
 }: CallDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -45,7 +47,7 @@ export default function CallDropdown({
     <div className={`relative ${className}`} ref={dropdownRef}>
       <button onClick={toggleDropdown} className={buttonClasses}>
         <PhoneIcon className="w-5 h-5 mr-2 " />
-        Call Now
+        {t.callNow}
       </button>
 
       {isOpen && (
@@ -66,7 +68,7 @@ export default function CallDropdown({
               </div>
               <div className="flex flex-col items-start ml-3">
                 <p className="text-sm font-medium text-gray-900 inter-tight-medium">
-                  English
+                  {t.english}
                 </p>
                 <p className="text-xs text-gray-500 inter-tight-regular">
                   (626) 540-7720
@@ -89,7 +91,7 @@ export default function CallDropdown({
               </div>
               <div className="flex flex-col items-start ml-3">
                 <p className="text-sm font-medium text-gray-900 inter-tight-medium">
-                  中文
+                  {t.chinese}
                 </p>
                 <p className="text-xs text-gray-500 inter-tight-regular">
                   (626) 825-7815
