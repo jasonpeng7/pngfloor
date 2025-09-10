@@ -1,3 +1,5 @@
+"use client";
+
 import {
   TrashIcon,
   PaintBrushIcon,
@@ -8,61 +10,62 @@ import {
   CheckIcon,
   ChevronRightIcon,
 } from "./icons";
-
-const steps = [
-  {
-    number: "01",
-    title: "Carpet/Baseboard Removal",
-    description:
-      "Carefully remove existing carpet or flooring and baseboards to prepare the surface for underlayment",
-    icon: TrashIcon,
-    timeFrame: "1-2 days",
-  },
-  {
-    number: "02",
-    title: "Prime Floor",
-    description:
-      "Clean/smoothe floor + apply underlayment to protect from water/heat damage",
-    icon: PaintBrushIcon,
-    timeFrame: "1-2 days",
-  },
-  {
-    number: "03",
-    title: "Install Flooring",
-    description: "Professional installation of your chosen flooring material",
-    icon: HammerIcon,
-    timeFrame: "3-5 days",
-  },
-  {
-    number: "04",
-    title: "Install Baseboard",
-    description: "Install and touch up baseboards for the complete look",
-    icon: RulerIcon,
-    timeFrame: "2-3 days",
-  },
-  {
-    number: "05",
-    title: "Finishing Touches",
-    description: "Add final details and ensure everything is perfect",
-    icon: SparklesIcon,
-    timeFrame: "Same day",
-  },
-  {
-    number: "06",
-    title: "Clean",
-    description: "Thorough cleanup leaving your space spotless!",
-    icon: BroomIcon,
-    timeFrame: "Same day",
-  },
-];
+import { useLanguage } from "../contexts/LanguageContext";
 
 export default function StepsShowcase() {
+  const { t } = useLanguage();
+
+  const steps = [
+    {
+      number: "01",
+      title: t.step1Title,
+      description: t.step1Description,
+      icon: TrashIcon,
+      timeFrame: t.step1Time,
+    },
+    {
+      number: "02",
+      title: t.step2Title,
+      description: t.step2Description,
+      icon: PaintBrushIcon,
+      timeFrame: t.step2Time,
+    },
+    {
+      number: "03",
+      title: t.step3Title,
+      description: t.step3Description,
+      icon: HammerIcon,
+      timeFrame: t.step3Time,
+    },
+    {
+      number: "04",
+      title: t.step4Title,
+      description: t.step4Description,
+      icon: RulerIcon,
+      timeFrame: t.step4Time,
+    },
+    {
+      number: "05",
+      title: t.step5Title,
+      description: t.step5Description,
+      icon: SparklesIcon,
+      timeFrame: t.step5Time,
+    },
+    {
+      number: "06",
+      title: t.step6Title,
+      description: t.step6Description,
+      icon: BroomIcon,
+      timeFrame: t.step6Time,
+    },
+  ];
+
   return (
     <section className="py-16 lg:py-24 bg-[#222222]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-12">
           <h2 className="text-3xl lg:text-5xl font-bold text-white inter-tight-bold">
-            Our Process
+            {t.ourProcess}
           </h2>
           <div className="flex items-start space-x-2 max-w-3xl mx-auto">
             <CheckIcon
@@ -70,8 +73,7 @@ export default function StepsShowcase() {
               fill="currentColor"
             />
             <p className="text-xl text-white inter-tight-medium">
-              We follow a 6-step process to ensure your flooring installation is
-              done right, on time, and with the highest quality standards.
+              {t.ourProcessText}
             </p>
           </div>
 
@@ -101,10 +103,10 @@ export default function StepsShowcase() {
                     {step.description}
                   </p>
                   <p className="text-gray-600 inter-tight-regular text-sm">
-                    Timeframe: {step.timeFrame}
+                    {t.timeframe}: {step.timeFrame}
                   </p>
                   <p className="text-gray-600 inter-tight-regular text-xs">
-                    *Exact time frame depends on the size of the project
+                    {t.timeframeNote}
                   </p>
                 </div>
               );
@@ -145,10 +147,10 @@ export default function StepsShowcase() {
                         {step.description}
                       </p>
                       <p className="text-gray-600 inter-tight-regular text-sm">
-                        Timeframe: {step.timeFrame}
+                        {t.timeframe}: {step.timeFrame}
                       </p>
                       <p className="text-gray-600 inter-tight-regular text-xs">
-                        *Exact time frame depends on the size of the project
+                        {t.timeframeNote}
                       </p>
                     </div>
                   </div>
@@ -159,7 +161,7 @@ export default function StepsShowcase() {
             {/* Scroll/Swipe Hint */}
             <div className="mt-4 flex justify-center items-center text-gray-400">
               <span className="text-sm font-semibold inter-tight-medium">
-                Swipe to see next step
+                {t.swipeNext}
               </span>
               <ChevronRightIcon className="w-5 h-5 ml-1 animate-pulse" />
             </div>
