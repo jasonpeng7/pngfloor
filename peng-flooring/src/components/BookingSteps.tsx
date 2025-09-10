@@ -9,6 +9,7 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
 } from "./icons";
+import { useLanguage } from "../contexts/LanguageContext";
 
 interface Step {
   number: number;
@@ -17,43 +18,40 @@ interface Step {
   icon: React.ReactNode;
 }
 
-const steps: Step[] = [
-  {
-    number: 1,
-    title: "Submit Your Booking",
-    description:
-      "Fill out our simple form with your project details and contact information.",
-    icon: <BookingFormIcon />,
-  },
-  {
-    number: 2,
-    title: "Review & Estimate",
-    description:
-      "We review your project and get back to you within 48 hours with a detailed estimate.",
-    icon: <ReviewEstimateIcon />,
-  },
-  {
-    number: 3,
-    title: "Site Visit",
-    description:
-      "If you like our estimate, we schedule a visit to your home to finalize the details.",
-    icon: <SiteVisitIcon />,
-  },
-  {
-    number: 4,
-    title: "Start Project",
-    description:
-      "We get started on your flooring project as soon as possible with our expert team.",
-    icon: <StartProjectIcon />,
-  },
-];
-
 interface BookingStepsProps {
   className?: string;
 }
 
 export default function BookingSteps({ className = "" }: BookingStepsProps) {
   const [currentStep, setCurrentStep] = useState(0);
+  const { t } = useLanguage();
+
+  const steps: Step[] = [
+    {
+      number: 1,
+      title: t.bookingStep1Title,
+      description: t.bookingStep1Description,
+      icon: <BookingFormIcon />,
+    },
+    {
+      number: 2,
+      title: t.bookingStep2Title,
+      description: t.bookingStep2Description,
+      icon: <ReviewEstimateIcon />,
+    },
+    {
+      number: 3,
+      title: t.bookingStep3Title,
+      description: t.bookingStep3Description,
+      icon: <SiteVisitIcon />,
+    },
+    {
+      number: 4,
+      title: t.bookingStep4Title,
+      description: t.bookingStep4Description,
+      icon: <StartProjectIcon />,
+    },
+  ];
 
   const nextStep = () => {
     setCurrentStep((prev) => (prev + 1) % steps.length);
@@ -72,11 +70,10 @@ export default function BookingSteps({ className = "" }: BookingStepsProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl lg:text-4xl font-bold text-white inter-tight-bold mb-4">
-            How Our Process Works
+            {t.howItWorks}
           </h2>
           <p className="text-lg text-white inter-tight-medium max-w-3xl mx-auto">
-            From your initial request to project completion, we make the process
-            simple and transparent.
+            {t.howItWorksSubtitle}
           </p>
         </div>
 
@@ -94,7 +91,7 @@ export default function BookingSteps({ className = "" }: BookingStepsProps) {
 
               {/* Step Number */}
               <div className="text-sm font-semibold text-blue-600 inter-tight-semibold mb-2">
-                Step {step.number.toString().padStart(2, "0")}
+                {t.step} {step.number.toString().padStart(2, "0")}
               </div>
 
               {/* Title */}
@@ -149,7 +146,7 @@ export default function BookingSteps({ className = "" }: BookingStepsProps) {
 
                     {/* Step Number */}
                     <div className="text-sm font-semibold text-blue-600 inter-tight-semibold mb-2">
-                      Step {step.number.toString().padStart(2, "0")}
+                      {t.step} {step.number.toString().padStart(2, "0")}
                     </div>
 
                     {/* Title */}
