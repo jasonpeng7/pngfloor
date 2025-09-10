@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useLanguage } from "../contexts/LanguageContext";
 
 interface AnimatedCounterProps {
   endValue: number;
@@ -16,6 +17,7 @@ export default function AnimatedCounter({
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const counterRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -75,19 +77,19 @@ export default function AnimatedCounter({
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-black rounded-2xl shadow-xl p-8 md:p-12 ">
           <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white inter-tight-medium mb-4">
-            We have helped over
+            {t.weHaveHelpedOver}
           </h3>
           <div className="text-4xl md:text-6xl lg:text-7xl font-bold text-blue-600 inter-tight-bold mb-4">
             {count.toLocaleString()}
           </div>
           <p className="text-xl md:text-2xl text-white inter-tight-medium">
-            satisfied customers
+            {t.satisfiedCustomers}
           </p>
           <div className="mt-6 flex justify-center">
             <div className="flex items-center space-x-2 text-sm text-gray-500 inter-tight-regular">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
               <span className="text-white inter-tight-light">
-                Trusted by families across Southern California
+                {t.trustedByFamilies}
               </span>
             </div>
           </div>
