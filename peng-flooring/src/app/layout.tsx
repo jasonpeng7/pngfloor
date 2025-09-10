@@ -3,6 +3,7 @@ import "./globals.css";
 import "./animations.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { LanguageProvider } from "../contexts/LanguageContext";
 // import { AuthProvider } from "../contexts/AuthContext";
 
 export const metadata: Metadata = {
@@ -230,9 +231,11 @@ export default function RootLayout({
       </head>
       <body>
         {/* <AuthProvider> */}
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <LanguageProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </LanguageProvider>
         {/* </AuthProvider> */}
       </body>
     </html>
