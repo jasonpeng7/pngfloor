@@ -1,6 +1,7 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { Metadata } from "next";
 import {
   CheckIcon,
   UserIcon,
@@ -19,17 +20,11 @@ import Testimonials from "../../components/Testimonials";
 import AnimatedSection, {
   AnimatedDelay,
 } from "../../components/AnimatedSection";
-
-export const metadata: Metadata = {
-  title: "About Peng Flooring",
-  description:
-    "Meet Leo Peng, Founder of Peng Flooring, your trusted flooring expert with 15+ years of experience.",
-  alternates: {
-    canonical: "/about",
-  },
-};
+import { useLanguage } from "../../contexts/LanguageContext";
 
 export default function AboutPage() {
+  const { t } = useLanguage();
+
   return (
     <div className="max-w-[2000px] min-h-screen">
       {/* Hero Section */}
@@ -37,11 +32,13 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center space-y-6">
             <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 inter-tight-bold leading-tight">
-              Meet Your <span className="text-blue-600">Flooring Experts</span>
+              {t.aboutPageTitle?.split(" ").slice(0, 2).join(" ")}{" "}
+              <span className="text-blue-600">
+                {t.aboutPageTitle?.split(" ").slice(2).join(" ")}
+              </span>
             </h1>
             <p className="text-xl lg:text-2xl text-gray-600 inter-tight-medium max-w-4xl mx-auto">
-              Committed to transforming your home with quality flooring that
-              lasts.
+              {t.aboutPageSubtitle}
             </p>
           </AnimatedSection>
         </div>
@@ -71,7 +68,7 @@ export default function AboutPage() {
                     fill="currentColor"
                   />
                   <span className="text-sm font-semibold text-gray-900 inter-tight-semibold">
-                    Insured
+                    {t.insured}
                   </span>
                 </div>
                 <div className="flex items-center space-x-2 mb-2">
@@ -80,7 +77,7 @@ export default function AboutPage() {
                     fill="currentColor"
                   />
                   <span className="text-sm font-semibold text-gray-900 inter-tight-semibold">
-                    15+ Years Experience
+                    {t.yearsExperience}
                   </span>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -89,7 +86,7 @@ export default function AboutPage() {
                     fill="currentColor"
                   />
                   <span className="text-sm font-semibold text-gray-900 inter-tight-semibold">
-                    Speaks Chinese
+                    {t.speaksChinese}
                   </span>
                 </div>
               </AnimatedDelay>
@@ -103,30 +100,17 @@ export default function AboutPage() {
                   fill="currentColor"
                 />
                 <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 inter-tight-bold">
-                  Hi, My name is Leo!
+                  {t.leoPengIntro}
                 </h2>
               </div>
 
               <div className="space-y-4 text-lg text-gray-600 inter-tight-regular leading-relaxed">
+                <p>{t.leoPengP1}</p>
+                <p>{t.leoPengP2}</p>
                 <p>
-                  I&apos;m the owner of Peng Flooring. I&apos;ve been working
-                  with home remodeling for over 15 years, specializing in
-                  flooring and stairs. What started as a passion for quality
-                  craftsmanship has grown into a family business dedicated to
-                  helping homeowners like you transform your beautiful spaces.
-                </p>
-                <p>
-                  I started this business because I believe every home deserves
-                  beautiful, lasting floors—and every customer deserves honest
-                  pricing and personal service. When you hire us, you&apos;re
-                  not just getting a contractor; you&apos;re getting someone who
-                  cares about your home as much as you do.
-                </p>
-                <p>
-                  My approach is simple: treat every job like it&apos;s my own
-                  home— we use only the best materials, and never cut corners.
-                  That&apos;s the{" "}
-                  <span className="font-bold">Peng Flooring</span> way.
+                  {t.leoPengP3?.split("Peng Flooring")[0]}
+                  <span className="font-bold">Peng Flooring</span>
+                  {t.leoPengP3?.split("Peng Flooring")[1]}
                 </p>
               </div>
 
@@ -137,7 +121,7 @@ export default function AboutPage() {
                     15+
                   </div>
                   <div className="text-sm text-gray-600 inter-tight-medium">
-                    Years Experience
+                    {t.yearsExperience}
                   </div>
                 </div>
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
@@ -145,7 +129,7 @@ export default function AboutPage() {
                     800+
                   </div>
                   <div className="text-sm text-gray-600 inter-tight-medium">
-                    Happy Customers
+                    {t.happyCustomers}
                   </div>
                 </div>
               </div>
@@ -227,14 +211,11 @@ export default function AboutPage() {
               />
             </div>
             <h2 className="text-3xl lg:text-5xl font-bold text-white inter-tight-bold">
-              Our Mission
+              {t.ourMission}
             </h2>
             <div className="max-w-4xl mx-auto">
               <p className="text-xl lg:text-2xl text-white inter-tight-medium leading-relaxed">
-                Our mission is simple—deliver beautiful, lasting floors with
-                honest pricing and a personal touch you can trust. We believe
-                quality flooring shouldn&apos;t break the bank, and every
-                customer deserves to be treated like family.
+                {t.ourMissionText}
               </p>
             </div>
           </AnimatedSection>
@@ -246,7 +227,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center space-y-12">
             <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 inter-tight-bold">
-              Experience & Expertise
+              {t.experienceExpertise}
             </h2>
 
             <div className="grid md:grid-cols-3 gap-8">
@@ -256,11 +237,10 @@ export default function AboutPage() {
                   fill="currentColor"
                 />
                 <h3 className="text-xl font-bold text-gray-900 inter-tight-bold">
-                  15+ Years in Business
+                  {t.yearsInBusiness}
                 </h3>
                 <p className="text-gray-600 inter-tight-regular">
-                  Serving Orange County, LA County, and 626 area since 2009 with
-                  consistent quality and reliability.
+                  {t.yearsInBusinessText}
                 </p>
               </AnimatedDelay>
 
@@ -270,11 +250,10 @@ export default function AboutPage() {
                   fill="currentColor"
                 />
                 <h3 className="text-xl font-bold text-gray-900 inter-tight-bold">
-                  Specialized
+                  {t.specialized}
                 </h3>
                 <p className="text-gray-600 inter-tight-regular">
-                  Industry professional combining best practices and top quality
-                  materials
+                  {t.specializedText}
                 </p>
               </AnimatedDelay>
 
@@ -284,11 +263,10 @@ export default function AboutPage() {
                   fill="currentColor"
                 />
                 <h3 className="text-xl font-bold text-gray-900 inter-tight-bold">
-                  Premium Quality
+                  {t.premiumQuality}
                 </h3>
                 <p className="text-gray-600 inter-tight-regular">
-                  We use top quality products, tools, and materials for long
-                  lasting floors.
+                  {t.premiumQualityText}
                 </p>
               </AnimatedDelay>
             </div>
@@ -296,10 +274,10 @@ export default function AboutPage() {
             {/* Specializations */}
             <div className="mt-12">
               <h3 className="text-2xl font-bold text-gray-900 inter-tight-bold mb-2">
-                Our Core Services
+                {t.ourCoreServices}
               </h3>
               <p className="text-gray-600 text-xs inter-tight-light mb-8">
-                *These photos are for reference only.
+                {t.photosReference}
               </p>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {/* Vinyl Installation */}
@@ -316,7 +294,7 @@ export default function AboutPage() {
                   <div className="flex items-center justify-center mb-2">
                     <HardwoodIcon className="w-6 h-6 text-blue-600 mr-2" />
                     <h4 className="font-medium text-gray-900 inter-tight-medium">
-                      Luxury Vinyl Installation
+                      {t.luxuryVinylInstallation}
                     </h4>
                   </div>
                 </AnimatedDelay>
@@ -335,7 +313,7 @@ export default function AboutPage() {
                   <div className="flex items-center justify-center mb-2">
                     <RefinishIcon className="w-6 h-6 text-blue-600 mr-2" />
                     <h4 className="font-medium text-gray-900 inter-tight-medium">
-                      Baseboard Refinishing
+                      {t.baseboardRefinishing}
                     </h4>
                   </div>
                 </AnimatedDelay>
@@ -354,7 +332,7 @@ export default function AboutPage() {
                   <div className="flex items-center justify-center mb-2">
                     <RefinishIcon className="w-6 h-6 text-blue-600 mr-2" />
                     <h4 className="font-medium text-gray-900 inter-tight-medium">
-                      Floor Refinishing
+                      {t.floorRefinishing}
                     </h4>
                   </div>
                 </AnimatedDelay>
@@ -373,7 +351,7 @@ export default function AboutPage() {
                   <div className="flex items-center justify-center mb-2">
                     <RefinishIcon className="w-6 h-6 text-blue-600 mr-2" />
                     <h4 className="font-medium text-gray-900 inter-tight-medium">
-                      Stair Remodeling
+                      {t.stairRemodeling}
                     </h4>
                   </div>
                 </AnimatedDelay>
@@ -392,7 +370,7 @@ export default function AboutPage() {
                   <div className="flex items-center justify-center mb-2">
                     <CustomIcon className="w-6 h-6 text-blue-600 mr-2" />
                     <h4 className="font-medium text-gray-900 inter-tight-medium">
-                      Carpet Removal
+                      {t.carpetRemoval}
                     </h4>
                   </div>
                 </AnimatedDelay>
@@ -410,7 +388,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center space-y-12">
             <h2 className="text-3xl lg:text-5xl font-bold text-white inter-tight-bold">
-              Our Work Speaks for Itself
+              {t.ourWorkSpeaks}
             </h2>
 
             <div className="grid md:grid-cols-2 gap-8">
@@ -426,7 +404,7 @@ export default function AboutPage() {
                       className="w-full h-64 object-cover"
                     />
                     <div className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                      CURVED
+                      {t.curved}
                     </div>
                   </div>
                   <div className="relative">
@@ -438,21 +416,27 @@ export default function AboutPage() {
                       className="w-full h-64 object-cover"
                     />
                     <div className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                      TWO BLOCK
+                      {t.twoBlock}
                     </div>
                   </div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-bold text-gray-900 inter-tight-bold mb-2">
-                    Stair Replacement Projects in Chino Hills, CA
+                    {t.stairProjectsChino}
                   </h3>
                   <p className="text-gray-600 inter-tight-regular">
-                    Complete stair projects for beautiful 2,500 sq. ft. houses.
-                    Full remodel of stairs including new rails, baseboards, and
-                    baseshoes. Replaced previously aged and warped stairs into a
-                    grand staircase with modern designs and colors.{" "}
+                    {
+                      t.stairProjectsChinoText?.split(
+                        "Total project timeline:"
+                      )[0]
+                    }
                     <span className="inter-tight-medium">
-                      Total project timeline: 1 week
+                      Total project timeline:
+                      {
+                        t.stairProjectsChinoText?.split(
+                          "Total project timeline:"
+                        )[1]
+                      }
                     </span>
                   </p>
                 </div>
@@ -470,7 +454,7 @@ export default function AboutPage() {
                       className="w-full h-64 object-cover"
                     />
                     <div className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                      LUX. VINYL
+                      {t.luxVinyl}
                     </div>
                   </div>
                   <div className="relative">
@@ -482,22 +466,27 @@ export default function AboutPage() {
                       className="w-full h-64 object-cover"
                     />
                     <div className="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                      LUX. VINYL
+                      {t.luxVinyl}
                     </div>
                   </div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-lg font-bold text-gray-900 inter-tight-bold mb-2">
-                    Full Service Projects- Flooring + Stairs in Walnut, CA
+                    {t.fullServiceWalnut}
                   </h3>
                   <p className="text-gray-600 inter-tight-regular">
-                    Full service projects for beautiful 3,000 sq. ft. houses.
-                    Replaced old carpet with luxury vinyl wood for and remodeled
-                    stairs for both homes. Professional trim work and seamless
-                    transitions throughout both houses.{" "}
+                    {
+                      t.fullServiceWalnutText?.split(
+                        "Total project timeline:"
+                      )[0]
+                    }
                     <span className="inter-tight-medium">
-                      Total project timeline: 1½ weeks (Flooring: 6 days,
-                      Stairs: 5 days)
+                      Total project timeline:
+                      {
+                        t.fullServiceWalnutText?.split(
+                          "Total project timeline:"
+                        )[1]
+                      }
                     </span>
                   </p>
                 </div>
@@ -518,22 +507,18 @@ export default function AboutPage() {
                   fill="currentColor"
                 />
                 <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 inter-tight-bold">
-                  Committed to Our Community
+                  {t.committedCommunity}
                 </h2>
               </div>
 
               <div className="space-y-4 text-lg text-gray-600 inter-tight-regular">
-                <p>
-                  As a local business owner, I&apos;m proud to serve the
-                  communities that raised me. We work throughout Orange County
-                  and LA County, with deep roots in the 626 area.
-                </p>
+                <p>{t.committedCommunityText}</p>
               </div>
 
               {/* Areas served */}
               <div className="space-y-4">
                 <h3 className="text-xl font-bold text-gray-900 inter-tight-bold">
-                  Top Areas We Serve:
+                  {t.topAreas}
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="flex items-center space-x-2">
@@ -542,7 +527,7 @@ export default function AboutPage() {
                       fill="currentColor"
                     />
                     <span className="text-gray-700 inter-tight-medium">
-                      Chino Hills
+                      {t.chinoHillsAbout}
                     </span>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -551,7 +536,7 @@ export default function AboutPage() {
                       fill="currentColor"
                     />
                     <span className="text-gray-700 inter-tight-medium">
-                      Rowland Heights
+                      {t.rowlandHeightsAbout}
                     </span>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -560,7 +545,7 @@ export default function AboutPage() {
                       fill="currentColor"
                     />
                     <span className="text-gray-700 inter-tight-medium">
-                      Walnut
+                      {t.walnutAbout}
                     </span>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -569,7 +554,7 @@ export default function AboutPage() {
                       fill="currentColor"
                     />
                     <span className="text-gray-700 inter-tight-medium">
-                      Chino
+                      {t.chinoAbout}
                     </span>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -578,7 +563,7 @@ export default function AboutPage() {
                       fill="currentColor"
                     />
                     <span className="text-gray-700 inter-tight-medium">
-                      Arcadia
+                      {t.arcadiaAbout}
                     </span>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -587,7 +572,17 @@ export default function AboutPage() {
                       fill="currentColor"
                     />
                     <span className="text-gray-700 inter-tight-medium">
-                      Irvine
+                      {t.irvineAbout}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <CheckIcon
+                      className="w-4 h-4 text-green-500"
+                      fill="currentColor"
+                    />
+                    <span className="text-gray-700 inter-tight-medium">
+                      {t.elMonteAbout}
                     </span>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -596,16 +591,7 @@ export default function AboutPage() {
                       fill="currentColor"
                     />
                     <span className="text-gray-700 inter-tight-medium">
-                      El Monte
-                    </span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <CheckIcon
-                      className="w-4 h-4 text-green-500"
-                      fill="currentColor"
-                    />
-                    <span className="text-gray-700 inter-tight-medium">
-                      Alhambra
+                      {t.alhambraAbout}
                     </span>
                   </div>
                 </div>
@@ -624,10 +610,10 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
                 <div className="absolute bottom-6 left-6 text-white">
                   <h3 className="text-xl font-bold inter-tight-bold mb-2">
-                    Community.
+                    {t.community}
                   </h3>
                   <p className="text-sm inter-tight-regular">
-                    Every project is done with quality and care.
+                    {t.communityText}
                   </p>
                 </div>
               </div>
@@ -644,12 +630,10 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection className="space-y-8">
             <h2 className="text-3xl lg:text-5xl font-bold text-white inter-tight-bold">
-              Ready to Transform Your Floors?
+              {t.readyToTransform}
             </h2>
             <p className="text-xl text-blue-100 inter-tight-medium max-w-3xl mx-auto">
-              Get your free estimate today and see how we can bring your
-              flooring vision to life. No pressure, just honest advice and fair
-              pricing.
+              {t.readyToTransformSubtitle}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -657,19 +641,19 @@ export default function AboutPage() {
                 href="/bookings"
                 className="bg-white text-blue-600 px-8 py-4 rounded-lg font-bold text-lg inter-tight-bold hover:bg-gray-100 transition-colors duration-200 shadow-lg"
               >
-                Book Your Free Estimate
+                {t.bookYourFreeEstimate}
               </Link>
               <a
                 href="tel:+1234567890"
                 className="flex items-center space-x-2 bg-blue-500 text-white px-8 py-4 rounded-lg font-bold text-lg inter-tight-bold hover:bg-blue-400 transition-colors duration-200 shadow-lg"
               >
                 <PhoneIcon className="w-5 h-5" fill="currentColor" />
-                <span>Call Now</span>
+                <span>{t.callNow}</span>
               </a>
             </div>
 
             <p className="text-blue-100 inter-tight-regular">
-              Serving Orange County and LA County • Insured • Free Estimates
+              {t.footerServing}
             </p>
           </AnimatedSection>
         </div>
