@@ -14,9 +14,11 @@ import {
 // import GoogleSignIn from "../../components/GoogleSignIn";
 import BookingForm from "../../components/BookingForm";
 import BookingSteps from "../../components/BookingSteps";
+import { useLanguage } from "../../contexts/LanguageContext";
 // import { useAuth } from "../../contexts/AuthContext";
 
 export default function BookingsPage() {
+  const { t } = useLanguage();
   // const { isAuthenticated, user, checkAuth, isLoading } = useAuth();
 
   // useEffect(() => {
@@ -463,10 +465,10 @@ export default function BookingsPage() {
       <section className=" bg-blue-600 py-20">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 inter-tight-bold">
-            Get Your Free Flooring Estimate
+            {t.bookingsPageTitle}
           </h1>
           <p className="text-xl text-blue-100 mb-8 inter-tight-medium">
-            Welcome! Let&apos;s schedule your free flooring estimate.
+            {t.bookingsPageSubtitle}
           </p>
 
           {/* Trust Indicators */}
@@ -478,13 +480,13 @@ export default function BookingsPage() {
                 ))}
               </div>
               <span className="text-white font-medium inter-tight-medium">
-                4.9/5 (800+ reviews)
+                {t.rating} (800+ {t.reviews})
               </span>
             </div>
             <div className="flex items-center space-x-2">
               <ClockIcon className="w-5 h-5 text-blue-200" />
               <span className="text-white font-medium inter-tight-medium">
-                15+ Years Experience
+                {t.yearsExperience}
               </span>
             </div>
           </div>
@@ -496,10 +498,10 @@ export default function BookingsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
           <div className="text-center md:mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 inter-tight-bold">
-              Top Services We Offer
+              {t.topServices}
             </h2>
             <p className="text-lg text-gray-600 inter-tight-medium">
-              Professional flooring solutions tailored to your needs
+              {t.topServicesSubtitle}
             </p>
           </div>
 
@@ -508,7 +510,7 @@ export default function BookingsPage() {
             {/* Luxury Vinyl - Popular Choice */}
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200 relative">
               <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
-                POPULAR
+                {t.popular}
               </div>
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
@@ -518,12 +520,11 @@ export default function BookingsPage() {
                   />
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
-                  Luxury Vinyl
+                  {t.luxuryVinyl}
                 </h3>
               </div>
               <p className="text-gray-700 inter-tight-regular">
-                Professional installation of durable, waterproof luxury vinyl
-                flooring.
+                {t.luxuryVinylDescription}
               </p>
             </div>
 
@@ -537,18 +538,18 @@ export default function BookingsPage() {
                   />
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
-                  Stair Renovation
+                  {t.stairRenovation}
                 </h3>
               </div>
               <p className="text-gray-700 inter-tight-regular">
-                Complete stair renovation and installation services.
+                {t.stairRenovationText}
               </p>
             </div>
 
             {/* Baseboard */}
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200 relative">
               <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
-                POPULAR
+                {t.popular}
               </div>
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
@@ -558,11 +559,11 @@ export default function BookingsPage() {
                   />
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
-                  Baseboard Work
+                  {t.baseboardWork}
                 </h3>
               </div>
               <p className="text-gray-700 inter-tight-regular">
-                Professional baseboard repairs and installation.
+                {t.baseboardWorkText}
               </p>
             </div>
 
@@ -576,11 +577,11 @@ export default function BookingsPage() {
                   />
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
-                  Custom Solutions
+                  {t.customSolutions}
                 </h3>
               </div>
               <p className="text-gray-700 inter-tight-regular">
-                Tailored flooring solutions for unique spaces and requirements.
+                {t.customSolutionsText}
               </p>
             </div>
           </div>
@@ -591,7 +592,7 @@ export default function BookingsPage() {
             <div className="service-card absolute inset-0 flex flex-col items-center justify-center text-center px-4 opacity-0">
               <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200 relative max-w-sm w-full">
                 <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
-                  POPULAR
+                  {t.popular}
                 </div>
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
@@ -601,12 +602,11 @@ export default function BookingsPage() {
                     />
                   </div>
                   <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
-                    Luxury Vinyl
+                    {t.luxuryVinyl}
                   </h3>
                 </div>
                 <p className="text-gray-700 inter-tight-regular">
-                  Professional installation of durable, waterproof luxury vinyl
-                  flooring.
+                  {t.luxuryVinylDescription}
                 </p>
               </div>
             </div>
@@ -622,11 +622,11 @@ export default function BookingsPage() {
                     />
                   </div>
                   <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
-                    Stair Renovation
+                    {t.stairRenovation}
                   </h3>
                 </div>
                 <p className="text-gray-700 inter-tight-regular">
-                  Complete stair renovation and installation services.
+                  {t.stairRenovationText}
                 </p>
               </div>
             </div>
@@ -635,7 +635,7 @@ export default function BookingsPage() {
             <div className="service-card absolute inset-0 flex flex-col items-center justify-center text-center px-4 opacity-0">
               <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-200 relative max-w-sm w-full">
                 <div className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
-                  POPULAR
+                  {t.popular}
                 </div>
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mr-4">
@@ -645,11 +645,11 @@ export default function BookingsPage() {
                     />
                   </div>
                   <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
-                    Baseboard Work
+                    {t.baseboardWork}
                   </h3>
                 </div>
                 <p className="text-gray-700 inter-tight-regular">
-                  Professional baseboard repairs and installation.
+                  {t.baseboardWorkText}
                 </p>
               </div>
             </div>
@@ -665,12 +665,11 @@ export default function BookingsPage() {
                     />
                   </div>
                   <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
-                    Custom Solutions
+                    {t.customSolutions}
                   </h3>
                 </div>
                 <p className="text-gray-700 inter-tight-regular">
-                  Tailored flooring solutions for unique spaces and
-                  requirements.
+                  {t.customSolutionsText}
                 </p>
               </div>
             </div>
@@ -689,7 +688,7 @@ export default function BookingsPage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="p-8 ">
             <h3 className="text-2xl font-bold text-white mb-6 text-center inter-tight-bold">
-              Why Choose Us?
+              {t.whyChooseUsBooking}
             </h3>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="text-center">
@@ -703,7 +702,7 @@ export default function BookingsPage() {
                   15+
                 </div>
                 <div className="text-sm text-white inter-tight-medium">
-                  Years Experience
+                  {t.yearsExperience}
                 </div>
               </div>
 
@@ -715,10 +714,10 @@ export default function BookingsPage() {
                   />
                 </div>
                 <div className="text-2xl font-bold text-yellow-600 inter-tight-bold mb-1">
-                  4.9/5
+                  {t.rating}
                 </div>
                 <div className="text-sm text-white inter-tight-medium">
-                  Customer Rating
+                  {t.customerRating}
                 </div>
               </div>
 
@@ -733,7 +732,7 @@ export default function BookingsPage() {
                   800+
                 </div>
                 <div className="text-sm text-white inter-tight-medium">
-                  Happy Customers
+                  {t.happyCustomers}
                 </div>
               </div>
             </div>
@@ -746,11 +745,10 @@ export default function BookingsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4 inter-tight-bold">
-              Why Choose Our Family-Owned Flooring Company?
+              {t.whyChooseFamily}
             </h2>
             <p className="text-lg text-gray-600 inter-tight-medium">
-              Professional flooring services with honest pricing and quality
-              workmanship.
+              {t.whyChooseFamilySubtitle}
             </p>
           </div>
 
@@ -760,10 +758,10 @@ export default function BookingsPage() {
                 <CheckIcon className="w-8 h-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2 inter-tight-semibold">
-                Free Estimates
+                {t.freeEstimates}
               </h3>
               <p className="text-gray-600 inter-tight-regular">
-                No obligation, honest pricing for all flooring services
+                {t.freeEstimatesText}
               </p>
             </div>
 
@@ -775,10 +773,11 @@ export default function BookingsPage() {
                 />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2 inter-tight-semibold">
-                4.9/5 Rating
+                {t.rating}{" "}
+                {t.navFreeEstimate.includes("Rating") ? "" : "Rating"}
               </h3>
               <p className="text-gray-600 inter-tight-regular">
-                800+ satisfied customers in OC, LAC, and the greater 626 area
+                {t.ratingText}
               </p>
             </div>
 
@@ -787,10 +786,10 @@ export default function BookingsPage() {
                 <ClockIcon className="w-8 h-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2 inter-tight-semibold">
-                15+ Years Experience
+                {t.yearsExperience}
               </h3>
               <p className="text-gray-600 inter-tight-regular">
-                Family-owned business since 2009 serving the community
+                {t.yearsInBusinessText}
               </p>
             </div>
 
@@ -799,10 +798,10 @@ export default function BookingsPage() {
                 <CheckIcon className="w-8 h-8 text-blue-600" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2 inter-tight-semibold">
-                Specialized & Insured
+                {t.specializedInsured}
               </h3>
               <p className="text-gray-600 inter-tight-regular">
-                A professional you can trust
+                {t.specializedInsuredText}
               </p>
             </div>
           </div>
@@ -813,18 +812,16 @@ export default function BookingsPage() {
       <section className="py-16 bg-blue-600">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-white mb-4 inter-tight-bold">
-            Ready to Transform Your Floors?
+            {t.readyToTransform}
           </h2>
           <p className="text-xl text-blue-100 mb-8 inter-tight-medium">
-            Get your free estimate today from us. No Obligations. Professional
-            floor installation, stair renovation, and flooring services in OC,
-            LAC, and the greater 626 area.
+            {t.readyToTransformSubtitle}
           </p>
           <Link
             href="/"
             className="bg-white text-blue-600 hover:bg-gray-100 font-bold py-4 px-8 rounded-lg text-lg transition-colors duration-200 text-center"
           >
-            Back to Home
+            {t.backToHome}
           </Link>
         </div>
       </section>
