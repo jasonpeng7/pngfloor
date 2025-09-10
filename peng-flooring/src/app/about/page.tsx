@@ -640,7 +640,7 @@ export default function AboutPage() {
       <Testimonials />
 
       {/* Call-to-Action Section */}
-      <section className="py-16 lg:py-24 bg-gradient-to-br from-blue-600 to-blue-700">
+      <section className="py-16 lg:py-24 bg-blue-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection className="space-y-8">
             <h2 className="text-3xl lg:text-5xl font-bold text-white inter-tight-bold">
