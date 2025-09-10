@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -12,8 +14,11 @@ import {
 import CallDropdown from "../components/CallDropdown";
 import AnimatedCounter from "../components/AnimatedCounter";
 import AnimatedSection, { AnimatedDelay } from "../components/AnimatedSection";
+import { useLanguage } from "../contexts/LanguageContext";
 
 export default function Home() {
+  const { t } = useLanguage();
+
   return (
     <div className="max-w-[2000px] min-h-screen">
       {/* hero section */}
@@ -26,7 +31,7 @@ export default function Home() {
                 href="/bookings"
                 className="w-full bg-blue-600 text-white px-8 py-5 rounded-lg font-bold text-xl inter-tight-bold hover:bg-blue-700 transition-colors duration-200 shadow-lg text-center block"
               >
-                Book Free Estimate
+                {t.bookFreeEstimate}
               </Link>
             </div>
 
@@ -37,13 +42,14 @@ export default function Home() {
                 {/* Simplified Headline */}
                 <div className="space-y-4">
                   <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 inter-tight-bold leading-tight">
-                    Beautiful, Lasting Floors—
-                    <span className="text-blue-600"> Installed by Experts</span>
+                    {t.beautifulLastingFloors}
+                    <span className="text-blue-600">
+                      {" "}
+                      {t.installedByExperts}
+                    </span>
                   </h1>
                   <p className="text-xl lg:text-2xl text-gray-600 inter-tight-medium">
-                    Professional flooring company serving the greater 626 area
-                    since 2009. Quality installation and other flooring services
-                    with honest estimates.
+                    {t.heroSubtitle}
                   </p>
                 </div>
 
@@ -60,7 +66,7 @@ export default function Home() {
                       ))}
                     </div>
                     <span className="text-sm font-semibold text-gray-700 inter-tight-semibold">
-                      4.9/5
+                      {t.rating}
                     </span>
                   </div>
                   <div className="flex items-center space-x-2 bg-white px-3 py-2 rounded-lg shadow-sm">
@@ -69,13 +75,13 @@ export default function Home() {
                       fill="currentColor"
                     />
                     <span className="text-sm font-semibold text-gray-700 inter-tight-semibold">
-                      15+ Years
+                      {t.yearsExperience}
                     </span>
                   </div>
                   <div className="flex items-center space-x-2 bg-white px-3 py-2 rounded-lg shadow-sm">
                     <FreeQuoteIcon className="w-4 h-4 text-blue-600" />
                     <span className="text-sm font-semibold text-gray-700 inter-tight-semibold">
-                      Free Quote
+                      {t.freeQuote}
                     </span>
                   </div>
                 </div>
@@ -86,7 +92,7 @@ export default function Home() {
                     href="/bookings"
                     className="bg-blue-600 text-white px-8 py-4 rounded-lg font-bold text-lg inter-tight-bold hover:bg-blue-700 transition-colors duration-200 shadow-lg text-center"
                   >
-                    Book Free Estimate
+                    {t.bookFreeEstimate}
                   </Link>
                   <CallDropdown />
                 </div>
@@ -120,7 +126,7 @@ export default function Home() {
                     </div>
                     <div>
                       <p className="font-semibold text-gray-900 inter-tight-semibold">
-                        Dewi H.
+                        {t.testimonialName}
                       </p>
                       <div className="flex text-yellow-400">
                         {[...Array(5)].map((_, i) => (
@@ -134,10 +140,7 @@ export default function Home() {
                     </div>
                   </div>
                   <p className="text-sm text-gray-600 inter-tight-regular">
-                    &ldquo;Best work in the 626 area! He transformed our old
-                    floors into a very modern and sleek finish that completely
-                    elevated our home. Professional, timely, and honest
-                    pricing.&rdquo;
+                    {t.testimonialText}
                   </p>
                 </AnimatedDelay>
               </div>
@@ -147,7 +150,7 @@ export default function Home() {
             <div className="mt-12 text-center">
               <div className="inline-flex flex-col items-center space-y-2 text-gray-600">
                 <span className="text-sm font-medium inter-tight-medium">
-                  Scroll to see our work
+                  {t.scrollText}
                 </span>
                 <div className="animate-bounce">
                   <svg
@@ -176,11 +179,10 @@ export default function Home() {
           <AnimatedSection className="text-center space-y-12">
             <div className="space-y-4">
               <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 inter-tight-bold">
-                Our Services
+                {t.ourServices}
               </h2>
               <p className="text-xl text-gray-600 inter-tight-medium max-w-3xl mx-auto">
-                Professional flooring services with quality materials and honest
-                pricing. We handle everything from installation to refinishing.
+                {t.servicesSubtitle}
               </p>
             </div>
 
@@ -200,12 +202,11 @@ export default function Home() {
                 <div className="flex items-center justify-center mb-2">
                   <VinylIcon className="w-6 h-6 text-blue-600 mr-2" />
                   <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
-                    Luxury Vinyl
+                    {t.luxuryVinyl}
                   </h3>
                 </div>
                 <p className="text-gray-600 inter-tight-regular">
-                  Waterproof, durable, and beautiful vinyl flooring
-                  installation.
+                  {t.luxuryVinylDescription}
                 </p>
               </AnimatedDelay>
 
@@ -223,11 +224,11 @@ export default function Home() {
                 <div className="flex items-center justify-center mb-2">
                   <HardwoodIcon className="w-6 h-6 text-blue-600 mr-2" />
                   <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
-                    Hardwood & Stairs
+                    {t.hardwoodStairs}
                   </h3>
                 </div>
                 <p className="text-gray-600 inter-tight-regular">
-                  Premium hardwood installation and stair remodeling services.
+                  {t.hardwoodStairsDescription}
                 </p>
               </AnimatedDelay>
 
@@ -245,11 +246,11 @@ export default function Home() {
                 <div className="flex items-center justify-center mb-2">
                   <RefinishIcon className="w-6 h-6 text-blue-600 mr-2" />
                   <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
-                    Refinishing
+                    {t.refinishing}
                   </h3>
                 </div>
                 <p className="text-gray-600 inter-tight-regular">
-                  Restore your existing floors to their original beauty.
+                  {t.refinishingDescription}
                 </p>
               </AnimatedDelay>
 
@@ -267,11 +268,11 @@ export default function Home() {
                 <div className="flex items-center justify-center mb-2">
                   <CustomIcon className="w-6 h-6 text-blue-600 mr-2" />
                   <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
-                    Custom Services
+                    {t.customServices}
                   </h3>
                 </div>
                 <p className="text-gray-600 inter-tight-regular">
-                  Specialized flooring solutions for unique projects.
+                  {t.customServicesDescription}
                 </p>
               </AnimatedDelay>
             </div>
@@ -292,12 +293,11 @@ export default function Home() {
                 <div className="flex items-center justify-center mb-2">
                   <VinylIcon className="w-6 h-6 text-blue-600 mr-2" />
                   <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
-                    Luxury Vinyl
+                    {t.luxuryVinyl}
                   </h3>
                 </div>
                 <p className="text-gray-600 inter-tight-regular">
-                  Waterproof, durable, and beautiful vinyl flooring
-                  installation.
+                  {t.luxuryVinylDescription}
                 </p>
               </div>
 
@@ -315,11 +315,11 @@ export default function Home() {
                 <div className="flex items-center justify-center mb-2">
                   <HardwoodIcon className="w-6 h-6 text-blue-600 mr-2" />
                   <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
-                    Hardwood & Stairs
+                    {t.hardwoodStairs}
                   </h3>
                 </div>
                 <p className="text-gray-600 inter-tight-regular">
-                  Premium hardwood installation and stair remodeling services.
+                  {t.hardwoodStairsDescription}
                 </p>
               </div>
 
@@ -337,11 +337,11 @@ export default function Home() {
                 <div className="flex items-center justify-center mb-2">
                   <RefinishIcon className="w-6 h-6 text-blue-600 mr-2" />
                   <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
-                    Refinishing
+                    {t.refinishing}
                   </h3>
                 </div>
                 <p className="text-gray-600 inter-tight-regular">
-                  Restore your existing floors to their original beauty.
+                  {t.refinishingDescription}
                 </p>
               </div>
 
@@ -359,11 +359,11 @@ export default function Home() {
                 <div className="flex items-center justify-center mb-2">
                   <CustomIcon className="w-6 h-6 text-blue-600 mr-2" />
                   <h3 className="text-lg font-bold text-gray-900 inter-tight-bold">
-                    Custom Services
+                    {t.customServices}
                   </h3>
                 </div>
                 <p className="text-gray-600 inter-tight-regular">
-                  Specialized flooring solutions for unique projects.
+                  {t.customServicesDescription}
                 </p>
               </div>
             </div>
@@ -384,12 +384,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-white inter-tight-medium mb-4">
-              Serving OC/LAC & San Gabriel Valley Areas
+              {t.servingAreas}
             </h2>
             <p className="text-xl text-white inter-tight-light max-w-3xl mx-auto">
-              Our family-owned flooring company proudly serves the following
-              cities and surrounding areas with professional flooring
-              installation services.
+              {t.servingAreasSubtitle}
             </p>
           </div>
 
@@ -397,32 +395,32 @@ export default function Home() {
             {/* Why Choose Us */}
             <div className="bg-green-600 bg-gradient-to-br from-green-500 to-green-600 rounded-lg p-6 shadow-lg h-full">
               <h3 className="text-xl font-bold text-white inter-tight-medium mb-4">
-                Why Choose Us?
+                {t.whyChooseUs}
               </h3>
               <ul className="space-y-2 text-green-100 inter-tight-light">
                 <li className="flex items-start">
                   <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 mt-2 flex-shrink-0"></span>
-                  <span>15+ years of professional experience</span>
+                  <span>{t.whyChooseUsItem1}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 mt-2 flex-shrink-0"></span>
-                  <span>Only premium materials used in all projects</span>
+                  <span>{t.whyChooseUsItem2}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 mt-2 flex-shrink-0"></span>
-                  <span>All work is done efficiently, clean, and on time</span>
+                  <span>{t.whyChooseUsItem3}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 mt-2 flex-shrink-0"></span>
-                  <span>Free estimates with honest, transparent pricing</span>
+                  <span>{t.whyChooseUsItem4}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 mt-2 flex-shrink-0"></span>
-                  <span>Quality workmanship guaranteed on every job</span>
+                  <span>{t.whyChooseUsItem5}</span>
                 </li>
                 <li className="flex items-start">
                   <span className="w-1.5 h-1.5 bg-white rounded-full mr-2 mt-2 flex-shrink-0"></span>
-                  <span>Family-owned business you can trust</span>
+                  <span>{t.whyChooseUsItem6}</span>
                 </li>
               </ul>
             </div>
@@ -430,36 +428,36 @@ export default function Home() {
             {/* Orange County */}
             <div className="bg-black rounded-lg p-6 shadow-lg h-full">
               <h3 className="text-xl font-bold text-white inter-tight-medium mb-4">
-                Orange County
+                {t.orangeCounty}
               </h3>
               <ul className="space-y-2 text-gray-300 inter-tight-light">
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
-                  Anaheim
+                  {t.anaheim}
                 </li>
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
-                  Fullerton
+                  {t.fullerton}
                 </li>
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
-                  Costa Mesa
+                  {t.costaMesa}
                 </li>
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
-                  Huntington Beach
+                  {t.huntingtonBeach}
                 </li>
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
-                  Irvine
+                  {t.irvine}
                 </li>
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
-                  Newport Beach
+                  {t.newportBeach}
                 </li>
                 <li className="flex items-center text-yellow-300 font-semibold">
                   <span className="w-1.5 h-1.5 bg-yellow-300 rounded-full mr-2"></span>
-                  And many more!
+                  {t.andManyMore}
                 </li>
               </ul>
             </div>
@@ -467,40 +465,40 @@ export default function Home() {
             {/* San Gabriel Valley */}
             <div className="bg-black rounded-lg p-6 shadow-lg h-full">
               <h3 className="text-xl font-bold text-white inter-tight-medium mb-4">
-                San Gabriel Valley
+                {t.sanGabrielValley}
               </h3>
               <ul className="space-y-2 text-gray-300 inter-tight-light">
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
-                  Alhambra
+                  {t.alhambra}
                 </li>
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
-                  Arcadia
+                  {t.arcadia}
                 </li>
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
-                  El Monte
+                  {t.elMonte}
                 </li>
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
-                  Chino/Chino Hills
+                  {t.chinoHills}
                 </li>
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
-                  Monterey Park
+                  {t.montereyPark}
                 </li>
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
-                  Diamond Bar
+                  {t.diamondBar}
                 </li>
                 <li className="flex items-center">
                   <span className="w-1.5 h-1.5 bg-gray-400 rounded-full mr-2"></span>
-                  Walnut
+                  {t.walnut}
                 </li>
                 <li className="flex items-center text-yellow-300 font-semibold">
                   <span className="w-1.5 h-1.5 bg-yellow-300 rounded-full mr-2"></span>
-                  And many more!
+                  {t.andManyMore}
                 </li>
               </ul>
             </div>
@@ -515,12 +513,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimatedSection className="space-y-8">
             <h2 className="text-3xl lg:text-5xl font-bold text-white inter-tight-bold">
-              Ready to Transform Your Floors?
+              {t.readyToTransform}
             </h2>
             <p className="text-xl text-blue-100 inter-tight-medium max-w-3xl mx-auto">
-              Get your free estimate today and see how we can bring your
-              flooring vision to life. No pressure, just honest advice and fair
-              pricing.
+              {t.readyToTransformSubtitle}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -528,13 +524,13 @@ export default function Home() {
                 href="/bookings"
                 className="bg-white text-blue-600 px-8 py-4 rounded-lg font-bold text-lg inter-tight-bold hover:bg-gray-100 transition-colors duration-200 shadow-lg"
               >
-                Book Your Free Estimate
+                {t.bookYourFreeEstimate}
               </Link>
               <CallDropdown />
             </div>
 
             <p className="text-blue-100 inter-tight-regular">
-              Serving Orange County and LA County • Insured • Free Estimates
+              {t.footerServing}
             </p>
           </AnimatedSection>
         </div>
