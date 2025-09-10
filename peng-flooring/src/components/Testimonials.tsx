@@ -1,34 +1,39 @@
+"use client";
+
 import { StarIcon } from "./icons";
 import Image from "next/image";
-
-const testimonials = [
-  {
-    id: 1,
-    name: "Dewi H.",
-    location: "Rowland Heights, CA",
-    rating: 5,
-    text: "Best work in the 626 area! He transformed our old floors into a very modern and sleek finish that completely elevated our home. Professional, timely, and honest pricing.",
-    avatar: "D",
-    avatarColor: "blue",
-  },
-  {
-    id: 2,
-    name: "Shuting L.",
-    location: "Chino Hills, CA",
-    rating: 5,
-    text: "Speaks Chinese! We remodeled our hown with luxury vinyl, and it is absolutely beautiful. Our house was around 2000 sqft., single story, and it took him around 1½ week. Fair pricing, and extremely clean. Highly recommend!",
-    avatar: "S",
-    avatarColor: "green",
-  },
-];
+import { useLanguage } from "../contexts/LanguageContext";
 
 export default function Testimonials() {
+  const { t } = useLanguage();
+
+  const testimonials = [
+    {
+      id: 1,
+      name: t.testimonial1Name,
+      location: t.testimonial1Location,
+      rating: 5,
+      text: t.testimonial1Text,
+      avatar: "D",
+      avatarColor: "blue",
+    },
+    {
+      id: 2,
+      name: t.testimonial2Name,
+      location: t.testimonial2Location,
+      rating: 5,
+      text: t.testimonial2Text,
+      avatar: "S",
+      avatarColor: "green",
+    },
+  ];
+
   return (
     <section className="py-16 lg:py-24 bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-12">
           <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 inter-tight-bold">
-            What Our Customers Say
+            {t.whatCustomersSay}
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8">
@@ -89,13 +94,13 @@ export default function Testimonials() {
                 ))}
               </div>
               <div className="text-2xl font-bold text-gray-900 inter-tight-bold">
-                4.9/5
+                {t.rating}
               </div>
             </div>
             <p className="text-lg text-gray-700 inter-tight-medium">
-              Average rating from{" "}
-              <span className="font-bold text-blue-600">800+</span> satisfied
-              customers
+              {t.averageRating}{" "}
+              <span className="font-bold text-blue-600">800+</span>{" "}
+              {t.satisfiedCustomersSuffix}
             </p>
           </div>
         </div>
