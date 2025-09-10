@@ -198,13 +198,13 @@ export default function Footer() {
                 Terms of Service
               </Link>
               <a
-                href="https://jasonpe.com"
+                href="https://vbedesign.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors inter-tight-regular"
               >
                 Website made by{" "}
-                <span className="text-yellow-200">Jason Peng</span>
+                <span className="text-yellow-200">Vibe Design</span>
               </a>
             </div>
           </div>
