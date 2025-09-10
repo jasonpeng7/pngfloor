@@ -3,11 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { useLanguage } from "../contexts/LanguageContext";
 // import { useAuth } from "../contexts/AuthContext";
 // import SignOutButton from "./SignOutButton";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useLanguage();
   // const { isAuthenticated, logout } = useAuth();
 
   const toggleMenu = () => {
@@ -45,21 +48,22 @@ export default function Navbar() {
                 href="/"
                 className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium inter-tight-regular transition-colors"
               >
-                Home
+                {t.navHome}
               </Link>
 
               <Link
                 href="/about"
                 className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium inter-tight-regular transition-colors"
               >
-                About
+                {t.navAbout}
               </Link>
               <Link
                 href="/bookings"
                 className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium inter-tight-regular transition-colors"
               >
-                Free Estimate
+                {t.navFreeEstimate}
               </Link>
+              <LanguageSwitcher />
               {/* {isAuthenticated ? (
                 <div className="flex items-center space-x-4">
                   <Link
@@ -86,7 +90,8 @@ export default function Navbar() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="flex items-center md:hidden">
+            <LanguageSwitcher />
             <button
               onClick={toggleMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors"
@@ -138,14 +143,14 @@ export default function Navbar() {
             className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium inter-tight-regular transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >
-            Home
+            {t.navHome}
           </Link>
           <Link
             href="/about"
             className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium inter-tight-regular transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >
-            About
+            {t.navAbout}
           </Link>
 
           <Link
@@ -153,7 +158,7 @@ export default function Navbar() {
             className="text-gray-700 hover:text-gray-900 block px-3 py-2 rounded-md text-base font-medium inter-tight-regular transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >
-            Free Estimate
+            {t.navFreeEstimate}
           </Link>
           {/* {isAuthenticated ? (
             <>
