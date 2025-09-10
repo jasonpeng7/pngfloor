@@ -155,7 +155,7 @@ export default function AboutPage() {
       </section>
 
       {/* jason peng section */}
-      <section className="py-16 lg:py-24 bg-white">
+      {/* <section className="py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="relative">
@@ -169,10 +169,10 @@ export default function AboutPage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
               </div>
-            </div>
+            </div> */}
 
-            {/* Personal story */}
-            <div className="space-y-6">
+      {/* Personal story */}
+      {/* <div className="space-y-6">
               <div className="flex items-center space-x-3">
                 <UserIcon
                   className="w-8 h-8 text-blue-600"
@@ -181,9 +181,9 @@ export default function AboutPage() {
                 <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 inter-tight-bold">
                   Hi, My name is Jason!
                 </h2>
-              </div>
+              </div> */}
 
-              <div className="space-y-4 text-lg text-gray-600 inter-tight-regular leading-relaxed">
+      {/* <div className="space-y-4 text-lg text-gray-600 inter-tight-regular leading-relaxed">
                 <p>
                   I&apos;m Jason — the creator of this website and proud son of
                   the owner of Peng Flooring. My dad has been working in home
@@ -198,10 +198,10 @@ export default function AboutPage() {
                   with the business on-site from time to time, talking to
                   clients or simply helping out with projects.
                 </p>
-              </div>
+              </div> */}
 
-              {/* Quick stats */}
-              <div className="pt-6">
+      {/* Quick stats */}
+      {/* <div className="pt-6">
                 <div className="text-center p-4 bg-gray-50 rounded-lg">
                   <div className="text-3xl font-bold text-blue-600 inter-tight-bold">
                     2+
@@ -214,7 +214,7 @@ export default function AboutPage() {
             </div>
           </AnimatedSection>
         </div>
-      </section>
+      </section> */}
 
       {/* Mission Statement Section */}
       <section className="py-16 lg:py-24 bg-[#222222]">
